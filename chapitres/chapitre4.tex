@@ -371,27 +371,31 @@ le traitement séquentiel des couches de sécurité dans Istio.
 
 \subsection{T7 --- Audit Trail et Non-Répudiation (Repudiation)}
 
-\begin{itemize}
-  \item \textbf{Catégorie STRIDE :} Repudiation
-  \item \textbf{Question :} Toutes les requêtes --- légitimes et attaques --- sont-elles
-    tracées dans l'audit trail Envoy\,?
-  \item \textbf{Résultat attendu :} Les logs Envoy enregistrent chaque requête avec
-    méthode, chemin, code HTTP et raison de rejet.
-\end{itemize}
+Ce test valide que toutes les requêtes --- légitimes et tentatives d'attaque ---
+sont enregistrées dans les logs d'accès Envoy, garantissant la non-répudiation
+au niveau du mesh.
 
-\paragraph{Procédure.}
-Un port-forward est ouvert sur l'ingress gateway, puis quatre requêtes sont émises :
-un \texttt{GET /health} légitime suivi de trois \texttt{POST /charge} sans JWT.
-Les logs du sidecar \texttt{istio-proxy} sont ensuite extraits :
-
+\paragraph{Commandes exécutées.}
 \begin{verbatim}
 POD=$(kubectl get pods -n payment-system -l app=payment-api \
       -o jsonpath='{.items[0].metadata.name}')
+
+# Requête légitime
+curl -s http://localhost:8080/health
+
+# Tentatives sans JWT (x3)
+for i in {1..3}; do
+  curl -s -X POST http://localhost:8080/charge \
+    -H "Content-Type: application/json" \
+    -d '{"amount": 100}'
+  sleep 0.5
+done
+
+# Extraction des logs Envoy
 kubectl logs -n payment-system $POD -c istio-proxy --tail=30
 \end{verbatim}
 
-\paragraph{Logs Envoy capturés.}
-
+\paragraph{Résultat obtenu.}
 \begin{verbatim}
 [2026-05-03T21:52:55.828Z] "GET /health HTTP/1.1" 200 - via_upstream
   "10.244.0.109" "curl/7.81.0" "2cc2d049-fda3-91aa-ae79-7974eedac9d1"
@@ -409,7 +413,8 @@ kubectl logs -n payment-system $POD -c istio-proxy --tail=30
   "10.244.0.109" "curl/7.81.0" "3e84b97d-ba67-907b-99ed-b94534759f5d"
 \end{verbatim}
 
-Des logs additionnels issus de tests JWT montrent deux sous-types de rejet 401 :
+Les logs issus des tests JWT (T5--T6) complètent l'audit trail avec deux
+sous-types de rejet 401 :
 
 \begin{verbatim}
 [2026-05-01T10:45:07.227Z] "POST /charge HTTP/1.1" 401 -
@@ -419,42 +424,13 @@ Des logs additionnels issus de tests JWT montrent deux sous-types de rejet 401 :
   jwt_authn_access_denied{Jwt_signature_is_an_invalid_Base64url_encoded}
 \end{verbatim}
 
-\paragraph{Résultat.}
-
-\begin{table}[H]
-  \centering
-  \caption{Audit trail T7 --- requêtes enregistrées par Envoy}
-  \label{tab:t7-audit}
-  \renewcommand{\arraystretch}{1.3}
-  \begin{tabularx}{\textwidth}{l l l X}
-    \toprule
-    \rowcolor{gray!15}
-    Requête & Code & Raison Envoy & Interprétation \\
-    \midrule
-    \texttt{GET /health}   & 200 & \texttt{via\_upstream}
-      & Accès légitime, transmis au service \\
-    \rowcolor{gray!10}
-    \texttt{POST /charge} (×3) & 403 & \texttt{rbac\_access\_denied\_matched\_policy[none]}
-      & Rejet RBAC --- aucun JWT présenté \\
-    \texttt{POST /charge}  & 401 & \texttt{jwt\_authn\_access\_denied\{Jwt\_issuer\_is\_not\_configured\}}
-      & Rejet JWT --- issuer inconnu \\
-    \rowcolor{gray!10}
-    \texttt{POST /charge}  & 401 & \texttt{jwt\_authn\_access\_denied\{Jwt\_signature\_invalid\}}
-      & Rejet JWT --- signature Base64url invalide \\
-    \bottomrule
-  \end{tabularx}
-\end{table}
-
-\paragraph{Ce que ce test prouve.}
-Chaque entrée Envoy fournit les cinq dimensions de la non-répudiation :
-\textbf{qui} (IP source \texttt{10.244.0.109}, user-agent \texttt{curl/7.81.0}),
-\textbf{quoi} (méthode + chemin),
-\textbf{quand} (horodatage UTC à la milliseconde),
-\textbf{résultat} (200 autorisé / 401--403 rejeté) et
-\textbf{pourquoi} (raison machine : \texttt{rbac\_access\_denied} ou
-\texttt{jwt\_authn\_access\_denied} avec sous-type).
-Aucune requête ne peut traverser le mesh sans être enregistrée par le proxy Envoy :
-l'audit trail est exhaustif et ne repose pas sur la coopération de l'application.
+Le proxy Envoy enregistre chaque requête avec horodatage UTC à la milliseconde,
+méthode, chemin, code de réponse, raison de rejet, IP source, user-agent et
+identifiant de trace unique. Ces cinq dimensions --- \textbf{qui}, \textbf{quoi},
+\textbf{quand}, \textbf{résultat} et \textbf{pourquoi} --- constituent un audit
+trail complet qui ne repose pas sur la coopération de l'application : toute
+requête traversant le mesh est nécessairement journalisée par le sidecar,
+que la réponse soit un 200, un 401 ou un 403.
 
 \subsection{T8 --- Vérification du Chiffrement mTLS (Information Disclosure)}
 
