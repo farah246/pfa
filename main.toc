@@ -1,8 +1,8 @@
 \babel@toc {french}{}\relax 
 \contentsline {chapter}{Remerciements}{}{chapter*.1}%
 \contentsline {chapter}{Résumé}{i}{chapter*.2}%
-\contentsline {chapter}{Acronymes et Termes Techniques}{vii}{chapter*.6}%
-\contentsline {chapter}{Outils et Technologies}{viii}{chapter*.7}%
+\contentsline {chapter}{Acronymes et Termes Techniques}{vi}{chapter*.6}%
+\contentsline {chapter}{Outils et Technologies}{vii}{chapter*.7}%
 \contentsline {chapter}{Introduction Générale}{1}{chapter*.8}%
 \contentsline {chapter}{\numberline {1}DevSecOps et Pratiques de Sécurité}{3}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Objectifs du projet}{3}{section.1.1}%
@@ -77,14 +77,11 @@
 \contentsline {section}{\numberline {4.5}Observabilité avec Kiali et Grafana}{37}{section.4.5}%
 \contentsline {subsection}{\numberline {4.5.1}Tableau des Vues d'Observabilité}{38}{subsection.4.5.1}%
 \contentsline {subsection}{\numberline {4.5.2}Captures Kiali}{38}{subsection.4.5.2}%
-\contentsline {paragraph}{Vue 1 --- Topologie complète du mesh (phase baseline).}{38}{paragraph*.49}%
-\contentsline {paragraph}{Vue 2 --- Phase d'attaque intensifiée (24\,\% d'erreurs).}{39}{paragraph*.51}%
-\contentsline {paragraph}{Vue 3 --- Rejet 100\,\% sur \texttt {payment-api} (pic d'erreur).}{39}{paragraph*.53}%
-\contentsline {paragraph}{Vue 4 --- Isolation mTLS STRICT : attaquant sans sidecar.}{40}{paragraph*.54}%
-\contentsline {paragraph}{Vue 5 --- Détail d'arête mTLS avec identités SPIFFE.}{40}{paragraph*.55}%
-\contentsline {subsection}{\numberline {4.5.3}Captures Grafana}{40}{subsection.4.5.3}%
-\contentsline {paragraph}{Dashboard 1 --- Istio Mesh Dashboard : vue infrastructure et KPI globaux.}{40}{paragraph*.56}%
-\contentsline {paragraph}{Dashboard 2 --- Istio Service Dashboard (\texttt {payment-api}).}{40}{paragraph*.57}%
-\contentsline {paragraph}{Dashboard 3 --- Overhead mTLS.}{40}{paragraph*.58}%
-\contentsline {section}{\numberline {4.6}Synthèse des Apports DevSecOps}{40}{section.4.6}%
-\contentsline {chapter}{Bibliographie}{42}{table.caption.59}%
+\contentsline {paragraph}{Topologie complète du mesh en phase baseline.}{38}{paragraph*.49}%
+\contentsline {paragraph}{Isolation mTLS STRICT : appelant sans sidecar bloqué.}{39}{paragraph*.51}%
+\contentsline {paragraph}{Détail d'arête mTLS avec identités SPIFFE.}{40}{paragraph*.53}%
+\contentsline {subsection}{\numberline {4.5.3}Captures Grafana}{42}{subsection.4.5.3}%
+\contentsline {paragraph}{Istio Service Dashboard --- impact du flood sur \texttt {payment-api}.}{42}{paragraph*.55}%
+\contentsline {paragraph}{Istio Mesh Dashboard --- KPI globaux et inventaire des ressources.}{42}{paragraph*.57}%
+\contentsline {section}{\numberline {4.6}Synthèse des Apports DevSecOps}{43}{section.4.6}%
+\contentsline {chapter}{Bibliographie}{45}{table.caption.59}%

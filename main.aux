@@ -13,8 +13,8 @@
 \babel@aux{french}{}
 \@writefile{toc}{\contentsline {chapter}{Remerciements}{}{chapter*.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{Résumé}{i}{chapter*.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{Acronymes et Termes Techniques}{vii}{chapter*.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{Outils et Technologies}{viii}{chapter*.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Acronymes et Termes Techniques}{vi}{chapter*.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Outils et Technologies}{vii}{chapter*.7}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{Introduction Générale}{1}{chapter*.8}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{\numberline {1}DevSecOps et Pratiques de Sécurité}{3}{chapter.1}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
@@ -150,23 +150,26 @@
 \@writefile{lot}{\contentsline {table}{\numberline {4.4}{\ignorespaces Vues d'observabilité Kiali et Grafana}}{38}{table.caption.48}\protected@file@percent }
 \newlabel{tab:observabilite}{{4.4}{38}{Vues d'observabilité Kiali et Grafana}{table.caption.48}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.5.2}Captures Kiali}{38}{subsection.4.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Vue 1 --- Topologie complète du mesh (phase baseline).}{38}{paragraph*.49}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.12}{\ignorespaces Kiali --- Topologie du mesh pendant la phase baseline. Le namespace \texttt  {payment-system} (encadré gris) contient \texttt  {payment-api} et \texttt  {fraud-detection}. Les arêtes vertes indiquent un trafic sain (88,38\,\% de succès) ; la fine arête rouge depuis \texttt  {istio-ingressgateway} matérialise les premières requêtes sans JWT rejetées par les AuthorizationPolicies. Les pods de test (\texttt  {attacker-in-mesh}, \texttt  {flooder-in-mesh}, \texttt  {sa-untrusted}, \texttt  {sa-privileged}) sont visibles dans le mesh, ce qui confirme leur appartenance au namespace surveillé. }}{39}{figure.caption.50}\protected@file@percent }
-\newlabel{fig:kiali-graph-baseline}{{4.12}{39}{Kiali --- Topologie du mesh pendant la phase baseline. Le namespace \texttt {payment-system} (encadré gris) contient \texttt {payment-api} et \texttt {fraud-detection}. Les arêtes vertes indiquent un trafic sain (88,38\,\% de succès) ; la fine arête rouge depuis \texttt {istio-ingressgateway} matérialise les premières requêtes sans JWT rejetées par les AuthorizationPolicies. Les pods de test (\texttt {attacker-in-mesh}, \texttt {flooder-in-mesh}, \texttt {sa-untrusted}, \texttt {sa-privileged}) sont visibles dans le mesh, ce qui confirme leur appartenance au namespace surveillé}{figure.caption.50}{}}
-\@writefile{toc}{\contentsline {paragraph}{Vue 2 --- Phase d'attaque intensifiée (24\,\% d'erreurs).}{39}{paragraph*.51}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.13}{\ignorespaces Kiali --- Même topologie pendant une phase d'attaque plus intense. Le taux d'erreur global monte à 24,04\,\% : les arêtes passent de vert à orange puis rouge selon l'intensité des rejets. Le lien \texttt  {istio-ingressgateway} $\rightarrow $ \texttt  {payment-api} est entièrement rouge, confirmant que les requêtes du \texttt  {flooder-outside} (sans JWT valide ou dépassant le rate limit) sont massivement rejetées. }}{39}{figure.caption.52}\protected@file@percent }
-\newlabel{fig:kiali-graph-attack}{{4.13}{39}{Kiali --- Même topologie pendant une phase d'attaque plus intense. Le taux d'erreur global monte à 24,04\,\% : les arêtes passent de vert à orange puis rouge selon l'intensité des rejets. Le lien \texttt {istio-ingressgateway} $\rightarrow $ \texttt {payment-api} est entièrement rouge, confirmant que les requêtes du \texttt {flooder-outside} (sans JWT valide ou dépassant le rate limit) sont massivement rejetées}{figure.caption.52}{}}
-\@writefile{toc}{\contentsline {paragraph}{Vue 3 --- Rejet 100\,\% sur \texttt  {payment-api} (pic d'erreur).}{39}{paragraph*.53}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Vue 4 --- Isolation mTLS STRICT : attaquant sans sidecar.}{40}{paragraph*.54}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Vue 5 --- Détail d'arête mTLS avec identités SPIFFE.}{40}{paragraph*.55}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.3}Captures Grafana}{40}{subsection.4.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Dashboard 1 --- Istio Mesh Dashboard : vue infrastructure et KPI globaux.}{40}{paragraph*.56}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Dashboard 2 --- Istio Service Dashboard (\texttt  {payment-api}).}{40}{paragraph*.57}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Dashboard 3 --- Overhead mTLS.}{40}{paragraph*.58}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.6}Synthèse des Apports DevSecOps}{40}{section.4.6}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.5}{\ignorespaces Apports DevSecOps mesurés sur le prototype}}{41}{table.caption.59}\protected@file@percent }
-\newlabel{tab:apports_devsecops}{{4.5}{41}{Apports DevSecOps mesurés sur le prototype}{table.caption.59}{}}
-\@writefile{toc}{\contentsline {chapter}{Bibliographie}{42}{table.caption.59}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Topologie complète du mesh en phase baseline.}{38}{paragraph*.49}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.12}{\ignorespaces \textbf  {Vue topologique du mesh --- phase baseline (88,38\,\% de succès).}}}{39}{figure.caption.50}\protected@file@percent }
+\newlabel{fig:kiali-graph-baseline}{{4.12}{39}{\textbf {Vue topologique du mesh --- phase baseline (88,38\,\% de succès).}}{figure.caption.50}{}}
+\@writefile{toc}{\contentsline {paragraph}{Isolation mTLS STRICT : appelant sans sidecar bloqué.}{39}{paragraph*.51}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.13}{\ignorespaces \textbf  {Workload \texttt  {attacker-cross-ns} --- sidecar manquant, trafic nul.}}}{40}{figure.caption.52}\protected@file@percent }
+\newlabel{fig:kiali-nosidecar}{{4.13}{40}{\textbf {Workload \texttt {attacker-cross-ns} --- sidecar manquant, trafic nul.}}{figure.caption.52}{}}
+\@writefile{toc}{\contentsline {paragraph}{Détail d'arête mTLS avec identités SPIFFE.}{40}{paragraph*.53}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.14}{\ignorespaces \textbf  {Arête HTTP gateway $\rightarrow $ \texttt  {payment-api} --- mTLS activé, principals SPIFFE visibles.}}}{41}{figure.caption.54}\protected@file@percent }
+\newlabel{fig:kiali-edge-mtls}{{4.14}{41}{\textbf {Arête HTTP gateway $\rightarrow $ \texttt {payment-api} --- mTLS activé, principals SPIFFE visibles.}}{figure.caption.54}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.3}Captures Grafana}{42}{subsection.4.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Istio Service Dashboard --- impact du flood sur \texttt  {payment-api}.}{42}{paragraph*.55}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.15}{\ignorespaces \textbf  {Grafana Istio Service Dashboard --- pic de latence et sources de trafic distinctes à 11:40.}}}{42}{figure.caption.56}\protected@file@percent }
+\newlabel{fig:grafana-service-dashboard}{{4.15}{42}{\textbf {Grafana Istio Service Dashboard --- pic de latence et sources de trafic distinctes à 11:40.}}{figure.caption.56}{}}
+\@writefile{toc}{\contentsline {paragraph}{Istio Mesh Dashboard --- KPI globaux et inventaire des ressources.}{42}{paragraph*.57}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.16}{\ignorespaces \textbf  {Grafana Istio Mesh Dashboard --- 8\,ops/s, 1,67\,ops/s en 4xx, inventaire Istio confirmé.}}}{43}{figure.caption.58}\protected@file@percent }
+\newlabel{fig:grafana-mesh-dashboard}{{4.16}{43}{\textbf {Grafana Istio Mesh Dashboard --- 8\,ops/s, 1,67\,ops/s en 4xx, inventaire Istio confirmé.}}{figure.caption.58}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.6}Synthèse des Apports DevSecOps}{43}{section.4.6}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.5}{\ignorespaces Apports DevSecOps mesurés sur le prototype}}{44}{table.caption.59}\protected@file@percent }
+\newlabel{tab:apports_devsecops}{{4.5}{44}{Apports DevSecOps mesurés sur le prototype}{table.caption.59}{}}
+\@writefile{toc}{\contentsline {chapter}{Bibliographie}{45}{table.caption.59}\protected@file@percent }
 \bibcite{istio-security}{1}
 \bibcite{owasp-top10}{2}
 \bibcite{owasp-zap}{3}
@@ -186,4 +189,4 @@
 \bibcite{zero-trust-rose}{17}
 \abx@aux@read@bbl@mdfivesum{D41D8CD98F00B204E9800998ECF8427E}
 \abx@aux@read@bblrerun
-\gdef \@abspage@last{53}
+\gdef \@abspage@last{55}
