@@ -354,7 +354,7 @@ curl -H "Authorization: Bearer $BAD_JWT" http://$GATEWAY:$PORT/charge
 \begin{figure}[H]
 \centering
  \includegraphics[width=\textwidth]{chapitres/Flus_JWT_vers_Api_payment.png}
-\caption{Figure 4.X — Flux JWT : validation par RequestAuthentication et contrôle d'accès par AuthorizationPolicy au niveau de l'Istio Ingress Gateway.}
+\caption{ Flux JWT : validation par RequestAuthentication et contrôle d'accès par AuthorizationPolicy au niveau de l'Istio Ingress Gateway.}
 \label{fig:cycle-vie-certificats}
 \end{figure}
 
@@ -371,25 +371,90 @@ le traitement séquentiel des couches de sécurité dans Istio.
 
 \subsection{T7 --- Audit Trail et Non-Répudiation (Repudiation)}
 
-Ce test documente la capacité d'Istio à tracer toutes les tentatives d'accès,
-légitimes ou malveillantes, dans les logs Envoy.
+\begin{itemize}
+  \item \textbf{Catégorie STRIDE :} Repudiation
+  \item \textbf{Question :} Toutes les requêtes --- légitimes et attaques --- sont-elles
+    tracées dans l'audit trail Envoy\,?
+  \item \textbf{Résultat attendu :} Les logs Envoy enregistrent chaque requête avec
+    méthode, chemin, code HTTP et raison de rejet.
+\end{itemize}
 
-\paragraph{Extraction des logs d'attaque.}
+\paragraph{Procédure.}
+Un port-forward est ouvert sur l'ingress gateway, puis quatre requêtes sont émises :
+un \texttt{GET /health} légitime suivi de trois \texttt{POST /charge} sans JWT.
+Les logs du sidecar \texttt{istio-proxy} sont ensuite extraits :
+
 \begin{verbatim}
-kubectl logs -n payment-system deployment/payment-api -c istio-proxy \
-  | grep -E '"403"|"401"|RBAC' | tail -10
+POD=$(kubectl get pods -n payment-system -l app=payment-api \
+      -o jsonpath='{.items[0].metadata.name}')
+kubectl logs -n payment-system $POD -c istio-proxy --tail=30
 \end{verbatim}
 
-\paragraph{Format d'un log Envoy (extrait).}
+\paragraph{Logs Envoy capturés.}
+
 \begin{verbatim}
-[2024-01-15T14:23:41.123Z] "POST /charge HTTP/1.1" 403 - rbac_access_denied_match
-  via_upstream: -, 0, 0, 1, "-", "-", "-", "-", "-"
+[2026-05-03T21:52:55.828Z] "GET /health HTTP/1.1" 200 - via_upstream
+  "10.244.0.109" "curl/7.81.0" "2cc2d049-fda3-91aa-ae79-7974eedac9d1"
+
+[2026-05-03T21:54:33.433Z] "POST /charge HTTP/1.1" 403 -
+  rbac_access_denied_matched_policy[none]
+  "10.244.0.109" "curl/7.81.0" "68186ae7-20f4-9b33-80bd-14ed4829bbb6"
+
+[2026-05-03T21:54:34.031Z] "POST /charge HTTP/1.1" 403 -
+  rbac_access_denied_matched_policy[none]
+  "10.244.0.109" "curl/7.81.0" "1fc92df8-e0fa-95f3-acc6-31259828ad9e"
+
+[2026-05-03T21:54:34.555Z] "POST /charge HTTP/1.1" 403 -
+  rbac_access_denied_matched_policy[none]
+  "10.244.0.109" "curl/7.81.0" "3e84b97d-ba67-907b-99ed-b94534759f5d"
 \end{verbatim}
 
-Chaque entrée contient : horodatage ISO 8601, méthode HTTP, URI, code de réponse,
-raison du rejet et durée. Ces logs constituent l'audit trail garantissant la
-non-répudiation : aucune action dans le mesh ne peut être effectuée sans être
-enregistrée par Envoy~[8] et visualisée dans Kiali~[10].
+Des logs additionnels issus de tests JWT montrent deux sous-types de rejet 401 :
+
+\begin{verbatim}
+[2026-05-01T10:45:07.227Z] "POST /charge HTTP/1.1" 401 -
+  jwt_authn_access_denied{Jwt_issuer_is_not_configured}
+
+[2026-05-01T10:45:09.501Z] "POST /charge HTTP/1.1" 401 -
+  jwt_authn_access_denied{Jwt_signature_is_an_invalid_Base64url_encoded}
+\end{verbatim}
+
+\paragraph{Résultat.}
+
+\begin{table}[H]
+  \centering
+  \caption{Audit trail T7 --- requêtes enregistrées par Envoy}
+  \label{tab:t7-audit}
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabularx}{\textwidth}{l l l X}
+    \toprule
+    \rowcolor{gray!15}
+    Requête & Code & Raison Envoy & Interprétation \\
+    \midrule
+    \texttt{GET /health}   & 200 & \texttt{via\_upstream}
+      & Accès légitime, transmis au service \\
+    \rowcolor{gray!10}
+    \texttt{POST /charge} (×3) & 403 & \texttt{rbac\_access\_denied\_matched\_policy[none]}
+      & Rejet RBAC --- aucun JWT présenté \\
+    \texttt{POST /charge}  & 401 & \texttt{jwt\_authn\_access\_denied\{Jwt\_issuer\_is\_not\_configured\}}
+      & Rejet JWT --- issuer inconnu \\
+    \rowcolor{gray!10}
+    \texttt{POST /charge}  & 401 & \texttt{jwt\_authn\_access\_denied\{Jwt\_signature\_invalid\}}
+      & Rejet JWT --- signature Base64url invalide \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\paragraph{Ce que ce test prouve.}
+Chaque entrée Envoy fournit les cinq dimensions de la non-répudiation :
+\textbf{qui} (IP source \texttt{10.244.0.109}, user-agent \texttt{curl/7.81.0}),
+\textbf{quoi} (méthode + chemin),
+\textbf{quand} (horodatage UTC à la milliseconde),
+\textbf{résultat} (200 autorisé / 401--403 rejeté) et
+\textbf{pourquoi} (raison machine : \texttt{rbac\_access\_denied} ou
+\texttt{jwt\_authn\_access\_denied} avec sous-type).
+Aucune requête ne peut traverser le mesh sans être enregistrée par le proxy Envoy :
+l'audit trail est exhaustif et ne repose pas sur la coopération de l'application.
 
 \subsection{T8 --- Vérification du Chiffrement mTLS (Information Disclosure)}
 
