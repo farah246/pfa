@@ -13,6 +13,8 @@
 % ------------------------------------------------------------
 %  CHAPEAU INTRODUCTIF
 % ------------------------------------------------------------
+\section*{Introduction}
+\label{sec:introduction-ch1}
 L'introduction générale a mis en évidence deux constats fondamentaux~:
 d'une part, les architectures microservices démultiplient la surface d'attaque
 et rendent les communications interservices difficiles à sécuriser~; d'autre
@@ -42,21 +44,21 @@ communications interservices internes.
 
 Les objectifs poursuivis s'articulent autour de trois axes~:
 
-\paragraph{Axe~1  Cadre méthodologique DevSecOps.}
+\paragraph{Cadre méthodologique DevSecOps.}
 Maîtriser le paradigme DevSecOps et les quatre
 familles de tests de sécurité SAST, DAST, IAST, RASP afin
 d'identifier les outils les mieux adaptés à chaque phase du cycle de
 développement, et de caractériser précisément les limites du DAST
 conventionnel face à la dynamicité des architectures microservices.
 
-\paragraph{Axe~2  Architecture de sécurité proposée.}
+\paragraph{Architecture de sécurité proposée.}
 Concevoir une architecture hybride combinant Istio Service Mesh et un pipeline
 DAST automatisé (OWASP ZAP), couvrant à la fois les flux \emph{north-south}
 (trafic externe) et \emph{east-west} (communications interservices internes),
 et intégrée dans une pipeline CI/CD reproductible déclenchée à chaque
 déploiement en environnement de staging.
 
-\paragraph{Axe~3  Validation expérimentale.}
+\paragraph{Validation expérimentale.}
 Déployer un prototype représentatif un système de paiement
 microservices sur un cluster Kubernetes réel (Minikube avec Istio),
 évaluer l'apport concret du Service Mesh face à douze scénarios d'attaque
@@ -306,6 +308,16 @@ Microservices   & Partiel           & Complexe        & Adapté          & Adapt
 \bottomrule
 \end{tabularx}
 \end{table}
+Ce panorama des quatre approches met en évidence la complémentarité de leurs
+angles d'observation respectifs. Dans le cadre de ce projet, dont la
+problématique centrale porte sur la sécurisation des communications
+interservices dans les architectures microservices, c'est le \textbf{DAST}
+qui présente les enjeux les plus critiques et les limites les plus structurantes.
+En tant qu'approche \textit{black-box} simulant des attaques réelles depuis
+l'extérieur, il est en première ligne face à la complexité des environnements
+microservices~--- mais c'est précisément là que ses lacunes sont les plus
+prononcées. La section suivante en dresse une analyse approfondie.
+
 
 % ------------------------------------------------------------
 %  1.4  FOCUS DAST : ENJEUX MICROSERVICES
@@ -385,7 +397,6 @@ observabilité totale du trafic interservices, il crée les conditions d'un
 DAST interne couvrant les vulnérabilités invisibles depuis l'extérieur du
 cluster.
 
-
 \subsection{Limites actuelles et pistes d'amélioration}
 
 Malgré les évolutions récentes, plusieurs limites persistent dans
@@ -410,7 +421,7 @@ chapitres suivants.
 % ------------------------------------------------------------
 %  1.5  CONCLUSION
 % ------------------------------------------------------------
-\section{Conclusion}
+\section*{Conclusion}
 \label{sec:conclusion-ch1}
 
 Ce chapitre a posé les fondements conceptuels et méthodologiques sur lesquels

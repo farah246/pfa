@@ -2,12 +2,12 @@
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {1.1}{\ignorespaces Comparaison des approches de tests de sécurité}}{8}{table.caption.12}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces Comparaison des principales solutions Service Mesh}}{12}{table.caption.17}%
+\contentsline {table}{\numberline {2.1}{\ignorespaces Comparaison des principales solutions Service Mesh}}{13}{table.caption.17}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Scénarios d'attaque STRIDE et contre-mesures Istio}}{23}{table.caption.21}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces Scénarios d'attaque STRIDE et contre-mesures Istio}}{24}{table.caption.21}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Services déployés dans le prototype}}{26}{table.caption.22}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces Les six couches de sécurité du prototype}}{27}{table.caption.23}%
-\contentsline {table}{\numberline {4.3}{\ignorespaces Comparaison avant/après application des politiques Istio}}{28}{table.caption.24}%
-\contentsline {table}{\numberline {4.4}{\ignorespaces Vues d'observabilité Kiali et Grafana}}{37}{table.caption.48}%
-\contentsline {table}{\numberline {4.5}{\ignorespaces Apports DevSecOps mesurés sur le prototype}}{40}{table.caption.59}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Services déployés dans le prototype}}{27}{table.caption.22}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Les six couches de sécurité du prototype}}{28}{table.caption.23}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Comparaison avant/après application des politiques Istio}}{29}{table.caption.24}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Vues d'observabilité Kiali et Grafana}}{38}{table.caption.48}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces Apports DevSecOps mesurés sur le prototype}}{41}{table.caption.59}%

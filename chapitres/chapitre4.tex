@@ -2,7 +2,8 @@
 %  chapitres/chapitre4.tex — Prototype et Validation Expérimentale
 % ═════════════════════════════════════════════════════════════════════════════
 \chapter{Prototype et Validation Expérimentale}
-
+\section*{Introduction}
+\label{sec:introduction-ch4}
 Ce chapitre présente la mise en œuvre concrète du prototype de système de
 paiement déployé sur Kubernetes avec Istio, et documente la validation
 expérimentale des analyses théoriques développées aux chapitres précédents.
@@ -122,7 +123,7 @@ dans le répertoire \texttt{mesh-config/} :
 
 
 % ─────────────────────────────────────────────────────────────────────────────
-\section{Comparaison Avant / Après Application des Politiques}
+\section{Analyse Comparative }
 % ─────────────────────────────────────────────────────────────────────────────
 
 L'expérience principale consiste à comparer le comportement du système face aux
@@ -734,9 +735,7 @@ apports concrets du Service Mesh dans une démarche DevSecOps :
     \bottomrule
   \end{tabularx}
 \end{table}
-
-% ─────────────────────────────────────────────────────────────────────────────
-\section{Conclusion}
+\section*{Conclusion}
 % ─────────────────────────────────────────────────────────────────────────────
 
 La validation expérimentale confirme l'ensemble des analyses théoriques développées
