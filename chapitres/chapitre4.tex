@@ -286,9 +286,7 @@ Envoy et un certificat SPIFFE de la forme~:
 \begin{verbatim}
 spiffe://cluster.local/ns/payment-system/sa/default
 \end{verbatim}
-
 alors que la politique n'autorise que~:
-
 \begin{verbatim}
 spiffe://cluster.local/ns/payment-system/sa/payment-api
 \end{verbatim}
@@ -309,22 +307,6 @@ spiffe://cluster.local/ns/payment-system/sa/payment-api
   \label{fig:t34_kiali2}
 \end{figure}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.85\textwidth]{pages/T34-3.png}
-  \caption{Réponse \texttt{HTTP 403 Forbidden} retournée par Envoy
-    (\texttt{RBAC: access denied}).}
-  \label{fig:t34_curl}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.85\textwidth]{pages/T34-4.png}
-  \caption{Log Envoy~: requête bloquée avec code 403 par le sidecar de
-    \texttt{fraud-detection}.}
-  \label{fig:t34_log}
-\end{figure}
-
 \subsection{T5 et T6 --- JWT Corrompu et Issuer Non Reconnu (Tampering)}
 
 Ces deux tests illustrent les deux niveaux de validation JWT opérés par Istio :
@@ -333,15 +315,23 @@ la validation sémantique des claims (\texttt{AuthorizationPolicy}).
 
 \paragraph{T5 --- Signature corrompue.}
 
+\paragraph{Commande exécutée.}
+\begin{verbatim}
+GATEWAY_IP=$(kubectl get svc -n istio-system istio-ingressgateway -o jsonpath='{.spec.clusterIP}')
+JWT=$(bash scripts/generate-jwt-rs256.sh user123 customer)
+TAMPERED="${JWT%.*}.badsignature"
+
+kubectl exec test-pod -- curl -s -o /dev/null -w "HTTP:%{http_code}\n" \
+	-X POST "http://$GATEWAY_IP/charge" \
+	-H "Content-Type: application/json" \
+	-H "Authorization: Bearer $TAMPERED" \
+	-d '{"amount": 100, "card_id": "TEST"}'
+\end{verbatim}
+
+
 \begin{figure}[H]
   \centering
-  \begin{subfigure}{\textwidth}
-    \includegraphics[width=\textwidth]{pages/T5-1.png}
-  \end{subfigure}
-  \vspace{0.2cm}
-  \begin{subfigure}{\textwidth}
-    \includegraphics[width=\textwidth]{pages/T5-2.png}
-  \end{subfigure}
+  \includegraphics[width=\textwidth]{pages/T5-2.png}
   \caption{Test T5 --- envoi d'un JWT à signature corrompue, rejet HTTP 401
     et trafic en erreur visible dans Kiali}
   \label{fig:t5_12}
