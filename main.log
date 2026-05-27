@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.5.27)  27 MAY 2026 22:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.5.27)  27 MAY 2026 22:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1532,7 +1532,7 @@ Package biblatex Info: ... file 'main.bbl' found.
 Package biblatex Info: Reference section=0 on input line 8.
 Package biblatex Info: Reference segment=0 on input line 8.
  (pages/titlepage.tex
-<pages/logo_insat.jpg, id=290, 200.75pt x 200.75pt>
+<pages/logo_insat.jpg, id=294, 200.75pt x 200.75pt>
 File: pages/logo_insat.jpg Graphic file (type jpg)
 <use pages/logo_insat.jpg>
 Package pdftex.def Info: pages/logo_insat.jpg  used on input line 7.
@@ -1583,7 +1583,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 (C:\Users\farah\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-<pages/logo_universite.png, id=291, 852.18375pt x 1027.84pt>
+<pages/logo_universite.png, id=295, 852.18375pt x 1027.84pt>
 File: pages/logo_universite.png Graphic file (type png)
 <use pages/logo_universite.png>
 Package pdftex.def Info: pages/logo_universite.png  used on input line 20.
@@ -1679,7 +1679,7 @@ Overfull \hbox (3.09444pt too wide) in alignment at lines 137--137
  []
 
 [13] [14]
-<chapitres/Archi k8s avec Istio.png, id=538, 1541.76pt x 1027.84pt>
+<chapitres/Archi k8s avec Istio.png, id=544, 1541.76pt x 1027.84pt>
 File: chapitres/Archi k8s avec Istio.png Graphic file (type png)
 <use chapitres/Archi k8s avec Istio.png>
 Package pdftex.def Info: chapitres/Archi k8s avec Istio.png  used on input line
@@ -1706,7 +1706,7 @@ T1/lmtt/m/n/12 cluster.local/ns/payment-system/sa/fraud-detection\T1/lmr/m/n/12
  (-20) . 
  []
 
-<chapitres/flux.png, id=549, 1351.0475pt x 1421.31pt>
+<chapitres/flux.png, id=555, 1351.0475pt x 1421.31pt>
 File: chapitres/flux.png Graphic file (type png)
 <use chapitres/flux.png>
 Package pdftex.def Info: chapitres/flux.png  used on input line 322.
@@ -1718,7 +1718,7 @@ Overfull \hbox (144.54387pt too wide) in paragraph at lines 332--339
 /
  []
 
-<chapitres/Cycle de vie mTLS cert.png, id=554, 1541.76pt x 1027.84pt>
+<chapitres/Cycle de vie mTLS cert.png, id=560, 1541.76pt x 1027.84pt>
 File: chapitres/Cycle de vie mTLS cert.png Graphic file (type png)
 <use chapitres/Cycle de vie mTLS cert.png>
 Package pdftex.def Info: chapitres/Cycle de vie mTLS cert.png  used on input li
@@ -1792,29 +1792,29 @@ Overfull \hbox (6.00475pt too wide) in paragraph at lines 199--199
 Y:$PORT/charge \ 
  []
 
-<pages/T1-2.png, id=611, 540.21825pt x 239.09325pt>
+<pages/T1-2.png, id=617, 540.21825pt x 239.09325pt>
 File: pages/T1-2.png Graphic file (type png)
 <use pages/T1-2.png>
 Package pdftex.def Info: pages/T1-2.png  used on input line 217.
 (pdftex.def)             Requested size: 399.05278pt x 176.62341pt.
-<pages/T1-1.png, id=612, 446.8695pt x 290.2845pt>
+<pages/T1-1.png, id=618, 446.8695pt x 290.2845pt>
 File: pages/T1-1.png Graphic file (type png)
 <use pages/T1-1.png>
 Package pdftex.def Info: pages/T1-1.png  used on input line 225.
 (pdftex.def)             Requested size: 399.05278pt x 259.23383pt.
 [30 <./pages/T1-2.png>]
-<pages/T2-1.png, id=620, 561.297pt x 52.39575pt>
+<pages/T2-1.png, id=626, 561.297pt x 52.39575pt>
 File: pages/T2-1.png Graphic file (type png)
 <use pages/T2-1.png>
 Package pdftex.def Info: pages/T2-1.png  used on input line 245.
 (pdftex.def)             Requested size: 399.05278pt x 37.2508pt.
-<pages/t2-resultat.png, id=621, 555.2745pt x 193.9245pt>
+<pages/t2-resultat.png, id=627, 555.2745pt x 193.9245pt>
 File: pages/t2-resultat.png Graphic file (type png)
 <use pages/t2-resultat.png>
 Package pdftex.def Info: pages/t2-resultat.png  used on input line 257.
 (pdftex.def)             Requested size: 399.05278pt x 139.37103pt.
  [31 <./pages/T1-1.png> <./pages/T2-1.png>]
-<pages/T34-1.png, id=631, 514.92375pt x 275.22826pt>
+<pages/T34-1.png, id=637, 514.92375pt x 275.22826pt>
 File: pages/T34-1.png Graphic file (type png)
 <use pages/T34-1.png>
 Package pdftex.def Info: pages/T34-1.png  used on input line 296.
@@ -1822,7 +1822,7 @@ Package pdftex.def Info: pages/T34-1.png  used on input line 296.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 298.
  [32 <./pages/t2-resultat.png>]
-<pages/T34-2.png, id=638, 519.1395pt x 245.11575pt>
+<pages/T34-2.png, id=644, 519.1395pt x 245.11575pt>
 File: pages/T34-2.png Graphic file (type png)
 <use pages/T34-2.png>
 Package pdftex.def Info: pages/T34-2.png  used on input line 304.
@@ -1834,17 +1834,17 @@ eway -o jsonpath='{.spec.clusterIP}')
  []
 
 [33 <./pages/T34-1.png> <./pages/T34-2.png>]
-<pages/T5-2.png, id=647, 465.53925pt x 199.34476pt>
+<pages/T5-2.png, id=653, 465.53925pt x 199.34476pt>
 File: pages/T5-2.png Graphic file (type png)
 <use pages/T5-2.png>
 Package pdftex.def Info: pages/T5-2.png  used on input line 334.
 (pdftex.def)             Requested size: 469.47049pt x 201.02937pt.
-<pages/T5-3.png, id=648, 458.31226pt x 96.96225pt>
+<pages/T5-3.png, id=654, 458.31226pt x 96.96225pt>
 File: pages/T5-3.png Graphic file (type png)
 <use pages/T5-3.png>
 Package pdftex.def Info: pages/T5-3.png  used on input line 342.
 (pdftex.def)             Requested size: 399.05278pt x 84.43044pt.
-<chapitres/Flus_JWT_vers_Api_payment.png, id=649, 1541.76pt x 1027.84pt>
+<chapitres/Flus_JWT_vers_Api_payment.png, id=655, 1541.76pt x 1027.84pt>
 File: chapitres/Flus_JWT_vers_Api_payment.png Graphic file (type png)
 <use chapitres/Flus_JWT_vers_Api_payment.png>
 Package pdftex.def Info: chapitres/Flus_JWT_vers_Api_payment.png  used on input
@@ -1853,76 +1853,81 @@ Package pdftex.def Info: chapitres/Flus_JWT_vers_Api_payment.png  used on input
  [34 <./pages/T5-2.png> <./pages/T5-3.png>] [35 <./chapitres/Flus_JWT_vers_Api_
 payment.png (PNG copy)>] [36]
 [37]
-Underfull \hbox (badness 2285) in paragraph at lines 537--537
+Overfull \hbox (24.51575pt too wide) in paragraph at lines 493--493
+[]\T1/lmtt/m/n/12 eyJhbGciOiJSUzI1NiIsImtpZCI6Il9vd1FTVzM5bmFsOTNMdGlTcFprcmRWR
+WFfSXlFM0h1UXRhQ1d2[] 
+ []
+
+[38] [39]
+Underfull \hbox (badness 2285) in paragraph at lines 605--605
 []|\T1/lmr/m/n/12 (+20) Visualise l'iso-la-tion zero-trust en
  []
 
 
-Underfull \hbox (badness 5260) in paragraph at lines 537--537
+Underfull \hbox (badness 5260) in paragraph at lines 605--605
 []|\T1/lmr/m/n/12 (+20) Audit trail --- preuve de non-
  []
 
-[38]
-<pages/fig4.14.png, id=680, 560.0925pt x 372.64218pt>
+<pages/fig4.14.png, id=692, 560.0925pt x 372.64218pt>
 File: pages/fig4.14.png Graphic file (type png)
 <use pages/fig4.14.png>
-Package pdftex.def Info: pages/fig4.14.png  used on input line 551.
+Package pdftex.def Info: pages/fig4.14.png  used on input line 619.
 (pdftex.def)             Requested size: 469.47049pt x 312.36339pt.
- [39{C:/Users/farah/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.
-enc}]
-Overfull \hbox (40.49788pt too wide) in paragraph at lines 556--565
+[40{C:/Users/farah/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.e
+nc}]
+Overfull \hbox (40.49788pt too wide) in paragraph at lines 624--633
 \T1/lmr/m/n/12 (-20) l'en-semble des pods de test gé-né-rés par \T1/lmtt/m/n/12
  observe-traffic.sh \T1/lmr/m/n/12 (-20) (\T1/lmtt/m/n/12 attacker-in-mesh\T1/l
 mr/m/n/12 (-20) , \T1/lmtt/m/n/12 flooder-in-mesh\T1/lmr/m/n/12 (-20) ,
  []
 
-<pages/no-sidecar.png, id=687, 399.74344pt x 411.78844pt>
+<pages/no-sidecar.png, id=699, 399.74344pt x 411.78844pt>
 File: pages/no-sidecar.png Graphic file (type png)
 <use pages/no-sidecar.png>
-Package pdftex.def Info: pages/no-sidecar.png  used on input line 573.
+Package pdftex.def Info: pages/no-sidecar.png  used on input line 641.
 (pdftex.def)             Requested size: 338.01932pt x 348.22476pt.
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 574.
-[40 <./pages/fig4.14.png>]
-<pages/spiffe.png, id=695, 187.45032pt x 344.78813pt>
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 642.
+[41 <./pages/fig4.14.png>]
+<pages/spiffe.png, id=707, 187.45032pt x 344.78813pt>
 File: pages/spiffe.png Graphic file (type png)
 <use pages/spiffe.png>
-Package pdftex.def Info: pages/spiffe.png  used on input line 594.
+Package pdftex.def Info: pages/spiffe.png  used on input line 662.
 (pdftex.def)             Requested size: 258.21019pt x 474.97162pt.
- [41 <./pages/no-sidecar.png>]
-Overfull \hbox (34.14598pt too wide) in paragraph at lines 599--609
+ [42 <./pages/no-sidecar.png>]
+Overfull \hbox (34.14598pt too wide) in paragraph at lines 667--677
 \T1/lmr/m/n/12 (-20) SPIFFE sont af-fi-chées ex-pli-ci-te-ment : \T1/lmtt/m/n/1
 2 spiffe://cluster.local/ns/istio-system/sa/istio-i...
  []
 
 
-Overfull \hbox (16.68217pt too wide) in paragraph at lines 599--609
+Overfull \hbox (16.68217pt too wide) in paragraph at lines 667--677
 \T1/lmr/m/n/12 (-20) pour le ga-te-way et \T1/lmtt/m/n/12 spiffe://cluster.loca
 l/ns/payment-system/sa/p... \T1/lmr/m/n/12 (-20) pour \T1/lmtt/m/n/12 payment-a
 pi\T1/lmr/m/n/12 (-20) .
  []
 
-<pages/grafana1.png, id=702, 1027.58907pt x 283.81032pt>
+<pages/grafana1.png, id=714, 1027.58907pt x 283.81032pt>
 File: pages/grafana1.png Graphic file (type png)
 <use pages/grafana1.png>
-Package pdftex.def Info: pages/grafana1.png  used on input line 620.
+Package pdftex.def Info: pages/grafana1.png  used on input line 688.
 (pdftex.def)             Requested size: 469.47049pt x 129.66222pt.
-[42 <./pages/spiffe.png>]
-<pages/grafana.png, id=708, 1027.58907pt x 466.74374pt>
+[43 <./pages/spiffe.png>]
+<pages/grafana.png, id=720, 1027.58907pt x 466.74374pt>
 File: pages/grafana.png Graphic file (type png)
 <use pages/grafana.png>
-Package pdftex.def Info: pages/grafana.png  used on input line 644.
+Package pdftex.def Info: pages/grafana.png  used on input line 712.
 (pdftex.def)             Requested size: 469.47049pt x 213.23761pt.
- [43 <./pages/grafana1.png>]
-Underfull \hbox (badness 10000) in alignment at lines 717--717
+ [44 <./pages/grafana1.png>]
+Underfull \hbox (badness 10000) in alignment at lines 785--785
 [][][][] 
  []
 
-[44 <./pages/grafana.png>])
+[45 <./pages/grafana.png>])
 
 LaTeX Warning: Empty bibliography on input line 35.
 
-[45] [46]
+[46] [47]
 Underfull \hbox (badness 1014) in paragraph at lines 95--98
 []\T1/lmr/m/n/12 (+20) The Ku-ber-netes Au-thors. \T1/lmr/m/it/12 (+20) Ku-ber-
 netes Do-cu-men-ta-tion --- Net-work Po-li-cies\T1/lmr/m/n/12 (+20) . Dis-
@@ -1934,7 +1939,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 95--98
  . io / docs / concepts / services-[]networking /
  []
 
-[47
+[48
 
 ] (main.aux)
  ***********
@@ -1952,7 +1957,7 @@ LaTeX Warning: There were undefined references.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: F90E334C32804BF83D77190C8879E56D;15352.
+(rerunfilecheck)             Checksum: 53304661BEEE593D5EFC26B622C834EE;15871.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                main
@@ -1963,10 +1968,10 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 43652 strings out of 467866
- 864189 string characters out of 5418325
+ 43657 strings out of 467866
+ 864256 string characters out of 5418325
  1766538 words of memory out of 5000000
- 71396 multiletter control sequences out of 15000+600000
+ 71397 multiletter control sequences out of 15000+600000
  703792 words of font info for 212 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  103i,13n,111p,1199b,2366s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1983,9 +1988,9 @@ b><C:/Users/farah/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb
 ><C:/Users/farah/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt12.pfb
 ><C:/Users/farah/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symb
 ols/msam10.pfb>
-Output written on main.pdf (56 pages, 5514464 bytes).
+Output written on main.pdf (57 pages, 5526526 bytes).
 PDF statistics:
- 867 PDF objects out of 1000 (max. 8388607)
- 197 named destinations out of 1000 (max. 500000)
- 40172 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 880 PDF objects out of 1000 (max. 8388607)
+ 201 named destinations out of 1000 (max. 500000)
+ 40180 words of extra memory for PDF output out of 42996 (max. 10000000)
 
