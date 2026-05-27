@@ -457,6 +457,74 @@ Le certificat présenté par \texttt{fraud-detection} encode son identité SPIFF
 La rotation automatique garantit qu'aucun certificat compromis ne peut être utilisé
 indéfiniment. La capture \texttt{tcpdump} entre les deux services ne révèle que des
 \textit{TLS Application Data Records} --- aucune donnée métier n'est lisible.
+\subsection{T9 --- Abus de Jeton ServiceAccount (Information Disclosure / Elevation of Privilege)}
+
+Ce test vérifie qu'un pod compromis ne peut pas utiliser le jeton ServiceAccount
+monté dans son système de fichiers pour escalader ses privilèges via l'API
+Kubernetes.
+
+\paragraph{Commandes exécutées.}
+\begin{verbatim}
+# Lancement d'un pod éphémère dans le namespace cible
+kubectl run -n payment-system test-sa --image=alpine:3.19 -it --rm -- sh
+
+# Lecture du jeton SA monté (simule la compromission du pod)
+cat /var/run/secrets/kubernetes.io/serviceaccount/token | head -c 80
+
+# Vérification des permissions RBAC associées au ServiceAccount
+kubectl auth can-i create pods -n payment-system \
+  --as=system:serviceaccount:payment-system:default
+kubectl auth can-i delete pods -n payment-system \
+  --as=system:serviceaccount:payment-system:default
+kubectl auth can-i patch deployments -n payment-system \
+  --as=system:serviceaccount:payment-system:default
+
+# Tentative d'appel direct à l'API Kubernetes avec le jeton volé
+TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+APISERVER="https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_SERVICE_PORT"
+curl -s -D - --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt \
+  -H "Authorization: Bearer $TOKEN" \
+  $APISERVER/api/v1/namespaces/payment-system/pods
+\end{verbatim}
+
+\paragraph{Résultat obtenu.}
+\begin{verbatim}
+# T9a — Jeton SA lisible depuis le pod (compromission simulée)
+eyJhbGciOiJSUzI1NiIsImtpZCI6Il9vd1FTVzM5bmFsOTNMdGlTcFprcmRWRWFfSXlFM0h1UXRhQ1d2
+...(truncated)
+
+# T9b — Permissions RBAC du ServiceAccount default
+can-i create pods  -> no
+can-i delete pods  -> no
+can-i patch deploy -> no
+
+# T9c — Appel API direct avec le jeton volé
+HTTP/2 403
+{
+  "status": "Failure",
+  "message": "pods is forbidden: User
+    \"system:serviceaccount:payment-system:default\"
+    cannot list resource \"pods\" in API group \"\"
+    in the namespace \"payment-system\"",
+  "reason": "Forbidden",
+  "code": 403
+}
+\end{verbatim}
+
+Le jeton ServiceAccount est bien accessible depuis le système de fichiers du pod
+--- la compromission est techniquement possible. Cependant, l'API Kubernetes
+applique les règles RBAC indépendamment de la possession du jeton : les trois
+opérations sensibles (\texttt{create}, \texttt{delete}, \texttt{patch}) sont
+refusées par \texttt{kubectl auth can-i}, et l'appel direct à l'API retourne
+\texttt{HTTP 403 Forbidden} avec le message explicite
+\textit{cannot list resource ``pods''}.
+Le ServiceAccount \texttt{default} du namespace \texttt{payment-system} ne
+dispose d'aucun droit sur les ressources Kubernetes : même en cas d'exfiltration
+du jeton, aucune escalade de privilèges n'est possible.
+Ce résultat confirme la défense en profondeur : Istio contrôle le trafic
+inter-services, et le RBAC Kubernetes contrôle l'accès au plan de contrôle ---
+les deux couches sont indépendantes et complémentaires.
+
 
 \subsection{T10 et T11 --- DoS et Rate Limiting}
 
