@@ -1,0 +1,21 @@
+\babel@toc {french}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Architecture du prototype Service Mesh --- Kubernetes/Minikube avec Istio}}{14}{figure.caption.18}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Diagramme de séquence : flux complet d'une requête /charge en trois phases — (1) validation JWT à l'Ingress Gateway, (2) routage mTLS vers payment-api avec retry automatique (max 3), (3) appel sécurisé à fraud-detection avec vérification de l'identité SPIFFE }}{17}{figure.caption.19}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Cycle de vie des certificats mTLS Istio : de l'injection du sidecar à l'utilisation du certificat, avec rotation automatique toutes les 24h. }}{18}{figure.caption.20}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Tableau de bord Kiali --- visualisation du flux de trafic entre l'Ingress Gateway et le service}}{29}{figure.caption.27}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Journal d'accès Envoy --- log de refus RBAC}}{30}{figure.caption.28}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Pod \texttt {attacker} déployé hors du mesh Istio --- absence de sidecar Envoy}}{30}{figure.caption.30}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Tentative d'accès depuis le pod \texttt {attacker} --- connexion rejetée par mTLS (\texttt {Connection reset by peer})}}{31}{figure.caption.32}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Kiali~: flux \texttt {fake-api} $\to $ \texttt {fraud-detection} bloqué à 100\,\% d'erreurs.}}{32}{figure.caption.33}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Kiali~: détail du trafic entrant sur \texttt {fraud-detection} --- 100\,\% d'erreurs.}}{32}{figure.caption.34}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Réponse \texttt {HTTP 403 Forbidden} retournée par Envoy (\texttt {RBAC: access denied}).}}{32}{figure.caption.35}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Log Envoy~: requête bloquée avec code 403 par le sidecar de \texttt {fraud-detection}.}}{33}{figure.caption.36}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Test T5 --- envoi d'un JWT à signature corrompue, rejet HTTP 401 et trafic en erreur visible dans Kiali}}{33}{figure.caption.38}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Logs Envoy --- refus \texttt {jwt\_authn\_access\_denied\{Jwt\_verification\_fails\}} pour chaque requête avec signature invalide}}{34}{figure.caption.39}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Figure 4.X — Flux JWT : validation par RequestAuthentication et contrôle d'accès par AuthorizationPolicy au niveau de l'Istio Ingress Gateway.}}{34}{figure.caption.40}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Kiali --- Topologie du mesh pendant la phase baseline. Le namespace \texttt {payment-system} (encadré gris) contient \texttt {payment-api} et \texttt {fraud-detection}. Les arêtes vertes indiquent un trafic sain (88,38\,\% de succès) ; la fine arête rouge depuis \texttt {istio-ingressgateway} matérialise les premières requêtes sans JWT rejetées par les AuthorizationPolicies. Les pods de test (\texttt {attacker-in-mesh}, \texttt {flooder-in-mesh}, \texttt {sa-untrusted}, \texttt {sa-privileged}) sont visibles dans le mesh, ce qui confirme leur appartenance au namespace surveillé. }}{38}{figure.caption.50}%
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Kiali --- Même topologie pendant une phase d'attaque plus intense. Le taux d'erreur global monte à 24,04\,\% : les arêtes passent de vert à orange puis rouge selon l'intensité des rejets. Le lien \texttt {istio-ingressgateway} $\rightarrow $ \texttt {payment-api} est entièrement rouge, confirmant que les requêtes du \texttt {flooder-outside} (sans JWT valide ou dépassant le rate limit) sont massivement rejetées. }}{38}{figure.caption.52}%

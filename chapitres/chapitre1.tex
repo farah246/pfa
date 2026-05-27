@@ -1,0 +1,432 @@
+
+
+% ══════════════════════════════════════════════════════════
+
+
+% ── Numérotation à partir du chapitre 1 ───────────────────
+\setcounter{chapter}{0}
+
+% ══════════════════════════════════════════════════════════
+\chapter{DevSecOps et Pratiques de Sécurité}
+% ══════════════════════════════════════════════════════════
+
+% ------------------------------------------------------------
+%  CHAPEAU INTRODUCTIF
+% ------------------------------------------------------------
+L'introduction générale a mis en évidence deux constats fondamentaux~:
+d'une part, les architectures microservices démultiplient la surface d'attaque
+et rendent les communications interservices difficiles à sécuriser~; d'autre
+part, le Service Mesh s'impose comme une infrastructure complémentaire capable
+d'adresser les angles morts des approches de test classiques.
+
+Ce chapitre construit le socle méthodologique qui structure l'ensemble du
+projet. Il présente successivement le paradigme DevSecOps
+(section~\ref{sec:devsecops}), les quatre grandes
+familles de tests de sécurité applicative SAST, DAST, IAST et RASP
+en mettant en évidence leurs complémentarités et leurs limites respectives
+(section~\ref{sec:tests}), puis les enjeux spécifiques du DAST dans les
+architectures microservices, dont les limites motivent directement l'approche
+hybride proposée (section~\ref{sec:dast-micro}).
+
+% ------------------------------------------------------------
+%  1.1  OBJECTIFS DU PROJET
+% ------------------------------------------------------------
+\section{Objectifs du projet}
+\label{sec:objectifs}
+
+Sur la base de ces constats, ce projet vise à concevoir et valider une
+approche de sécurité hybride intégrant le Service Mesh dans une démarche
+DevSecOps, afin de couvrir l'ensemble des dimensions de sécurité d'une
+architecture microservices aussi bien les flux externes que les
+communications interservices internes.
+
+Les objectifs poursuivis s'articulent autour de trois axes~:
+
+\paragraph{Axe~1  Cadre méthodologique DevSecOps.}
+Maîtriser le paradigme DevSecOps et les quatre
+familles de tests de sécurité SAST, DAST, IAST, RASP afin
+d'identifier les outils les mieux adaptés à chaque phase du cycle de
+développement, et de caractériser précisément les limites du DAST
+conventionnel face à la dynamicité des architectures microservices.
+
+\paragraph{Axe~2  Architecture de sécurité proposée.}
+Concevoir une architecture hybride combinant Istio Service Mesh et un pipeline
+DAST automatisé (OWASP ZAP), couvrant à la fois les flux \emph{north-south}
+(trafic externe) et \emph{east-west} (communications interservices internes),
+et intégrée dans une pipeline CI/CD reproductible déclenchée à chaque
+déploiement en environnement de staging.
+
+\paragraph{Axe~3  Validation expérimentale.}
+Déployer un prototype représentatif un système de paiement
+microservices sur un cluster Kubernetes réel (Minikube avec Istio),
+évaluer l'apport concret du Service Mesh face à douze scénarios d'attaque
+couvrant les six catégories STRIDE, et mesurer les limites restantes de
+l'approche.
+
+
+  \textbf{Architecture proposée.}
+  L'approche développée dans ce projet repose sur trois piliers
+  complémentaires~: \textbf{(1)}~le Service Mesh (Istio) comme infrastructure
+  de sécurité transparente assurant mTLS, contrôle d'accès et
+  observabilité~; \textbf{(2)}~le DAST interne (OWASP ZAP) comme mécanisme
+  d'évaluation continue de la posture de sécurité, étendu aux flux
+  interservices~; \textbf{(3)}~la pipeline DevSecOps comme cadre
+  d'intégration et d'automatisation de l'ensemble.
+
+
+% ------------------------------------------------------------
+%  1.2  INTRODUCTION AU DEVSECOPS
+% ------------------------------------------------------------
+\section{Introduction au DevSecOps}
+\label{sec:devsecops}
+
+\subsection{Du DevOps au DevSecOps : genèse et évolution}
+
+Le mouvement DevOps, apparu au tournant des années 2010, visait à supprimer
+le cloisonnement traditionnel entre les équipes de développement
+(\emph{Development}) et d'exploitation (\emph{Operations}). En automatisant
+les pipelines d'intégration et de déploiement continus (CI/CD), il a permis
+d'accélérer considérablement la livraison logicielle tout en améliorant la
+stabilité des systèmes.
+
+Cependant, cette accélération a mis en évidence une faille structurelle~: la
+sécurité restait souvent une préoccupation tardive, traitée en phase finale
+par des équipes spécialisées travaillant en silo. Ce modèle, désigné par
+l'expression \og{}Security as a Gatekeeper\fg{}, se révèle incompatible avec
+des rythmes de déploiement quotidiens, car il crée des goulots d'étranglement
+et laisse des vulnérabilités non détectées atteindre la production.
+
+Le concept de DevSecOps- contraction de \emph{Development}, \emph{Security}
+et \emph{Operations}~ émerge comme réponse à cette inadéquation. Il s'agit
+d'une culture, d'un ensemble de pratiques et d'outils visant à intégrer la
+sécurité à chaque étape du cycle de vie logiciel, en partageant la
+responsabilité de la sécurité entre toutes les équipes.
+
+
+  Le DevSecOps est une approche organisationnelle et technique qui intègre la
+  sécurité comme une composante intrinsèque et continue du cycle de
+  développement et d'exploitation logicielle, par opposition à un contrôle
+  ponctuel en fin de cycle.
+
+
+\subsection{Les principes fondateurs du DevSecOps}
+
+Le DevSecOps repose sur quatre piliers interdépendants~:
+
+\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+
+  \item \textbf{Automatisation de la sécurité.} Les contrôles de sécurité
+    (analyse statique du code, scan de dépendances, tests dynamiques) sont
+    intégrés directement dans les pipelines CI/CD et s'exécutent à chaque
+    commit, sans intervention manuelle systématique.
+
+  \item \textbf{Collaboration et responsabilité partagée.} Les développeurs,
+    les ingénieurs DevOps et les équipes de sécurité (SecOps) travaillent
+    conjointement dès la phase de conception. La sécurité n'est plus la
+    propriété exclusive d'une équipe spécialisée.
+
+  \item \textbf{Observabilité et retour d'information rapide.} Des mécanismes
+    de monitoring, de logging et d'alerting permettent de détecter et de
+    corriger rapidement les incidents de sécurité en production.
+
+  \item \textbf{Infrastructure as Code (IaC) sécurisée.} La configuration
+    des infrastructures est déclarée sous forme de code versionné, soumis aux
+    mêmes revues et analyses de sécurité que le code applicatif.
+
+\end{enumerate}
+
+% ------------------------------------------------------------
+%  1.3  LES TYPES DE TESTS DE SÉCURITÉ
+% ------------------------------------------------------------
+\section{Les types de tests de sécurité (SAST, DAST, IAST, RASP)}
+\label{sec:tests}
+
+La sécurité applicative mobilise plusieurs familles de techniques de test,
+chacune offrant un angle d'observation distinct sur la posture de sécurité
+d'un système. Nous présentons ici les quatre approches majeures.
+
+% ── 1.3.1  SAST ─────────────────────────────────────────────
+\subsection{SAST  Static Application Security Testing}
+
+Le SAST (test de sécurité statique) analyse le code source, le bytecode ou
+le code binaire d'une application \textbf{sans l'exécuter}, afin
+d'identifier des vulnérabilités telles que les injections SQL, les
+dépassements de tampon, ou les mauvaises pratiques cryptographiques.
+
+
+\textbf{Principes de fonctionnement.} Le SAST opère par analyse syntaxique et
+sémantique du code. Il construit généralement un \emph{Abstract Syntax Tree}
+(AST) et effectue une analyse du flux de données (\emph{taint analysis}) pour
+tracer le cheminement des données non fiables depuis leurs sources jusqu'aux
+points d'utilisation potentiellement dangereux (\emph{sinks}).
+
+\textbf{Avantages.}
+\begin{itemize}[leftmargin=*]
+  \item Détection précoce des vulnérabilités, dès la phase de codage.
+  \item Couverture exhaustive du code, y compris les chemins d'exécution
+    rarement empruntés.
+  \item Intégration aisée dans les IDE et les pipelines CI.
+\end{itemize}
+
+\textbf{Limites.}
+\begin{itemize}[leftmargin=*]
+  \item Taux élevé de faux positifs, nécessitant une validation humaine.
+  \item Incapacité à détecter les vulnérabilités de configuration ou les
+    failles logiques dépendant du contexte d'exécution.
+  \item Difficulté à analyser les dépendances tierces compilées.
+\end{itemize}
+
+\textbf{Outils représentatifs.} SonarQube, Semgrep, Checkmarx, Fortify,
+Bandit (Python), SpotBugs (Java).
+
+% ── 1.3.2  DAST ─────────────────────────────────────────────
+\subsection{DAST  Dynamic Application Security Testing}
+
+
+Le DAST (test de sécurité dynamique) évalue la sécurité d'une application
+\textbf{en cours d'exécution}, en simulant des attaques réelles depuis
+l'extérieur, sans accès au code source. Il adopte la perspective d'un
+attaquant (\emph{black-box testing}).
+
+
+\textbf{Principes de fonctionnement.} Le DAST interagit avec l'application
+via ses interfaces exposées (API REST, interfaces web, gRPC, etc.), en
+injectant des charges malveillantes (\emph{payloads}) et en analysant les
+réponses pour détecter des comportements anormaux révélateurs de
+vulnérabilités~: injections, authentification défaillante, exposition de
+données sensibles, etc.
+
+\textbf{Avantages.}
+\begin{itemize}[leftmargin=*]
+  \item Indépendant du langage et du framework applicatif.
+  \item Détecte des vulnérabilités réelles dans l'environnement d'exécution,
+    incluant celles issues de la configuration et des interactions entre
+    composants.
+  \item Faible taux de faux positifs par rapport au SAST.
+\end{itemize}
+
+\textbf{Limites.}
+\begin{itemize}[leftmargin=*]
+  \item Couverture partielle~: ne peut tester que les fonctionnalités
+    accessibles et les surfaces d'attaque exposées.
+  \item Détection tardive dans le cycle de développement.
+  \item Complexité accrue dans les architectures microservices, où la
+    multitude des points d'entrée démultiplie la surface à couvrir.
+\end{itemize}
+
+\textbf{Outils représentatifs.} OWASP ZAP, Burp Suite, Nikto, Nuclei,
+Nessus.
+
+% ── 1.3.3  IAST ─────────────────────────────────────────────
+\subsection{IAST  Interactive Application Security Testing}
+
+
+  L'IAST (test de sécurité interactif) \textbf{combine les approches statique
+  et dynamique} en instrumentant l'application à l'aide d'agents déployés
+  dans son environnement d'exécution. Il analyse le comportement interne du
+  code pendant les tests fonctionnels.
+
+
+\textbf{Principes de fonctionnement.} Des agents IAST sont intégrés
+directement dans le runtime de l'application (JVM, CLR, interpréteur Python,
+etc.). Ils interceptent les flux d'exécution, tracent les données et
+détectent les vulnérabilités en observant les interactions réelles entre les
+composants, sans rejeter les requêtes légitimes.
+
+\textbf{Avantages.}
+\begin{itemize}[leftmargin=*]
+  \item Très faible taux de faux positifs grâce à la corrélation contexte
+    d'exécution\,/\,code source.
+  \item Fonctionnement en temps réel, sans phase de scan dédiée.
+  \item Adapté aux environnements de test d'intégration continue.
+\end{itemize}
+
+\textbf{Limites.}
+\begin{itemize}[leftmargin=*]
+  \item Surcharge de performance liée à l'instrumentation.
+  \item Support limité à certains langages et frameworks.
+  \item Couverture dépendante de l'exhaustivité des tests fonctionnels
+    exécutés.
+\end{itemize}
+
+\textbf{Outils représentatifs.} Contrast Security, Seeker (Synopsys), Hdiv
+Security.
+
+% ── 1.3.4  RASP ─────────────────────────────────────────────
+\subsection{RASP  Runtime Application Self-Protection}
+
+
+  Le RASP (auto-protection applicative à l'exécution) est une technologie de
+  sécurité \textbf{intégrée directement dans une application} ou son
+  environnement d'exécution, capable de détecter et de bloquer des attaques
+  en temps réel, sans intervention externe.
+
+
+\textbf{Principes de fonctionnement.} Contrairement au DAST qui teste de
+l'extérieur, le RASP s'exécute à l'intérieur de l'application. Il intercepte
+les appels système, les requêtes de base de données et autres opérations
+sensibles, et peut les bloquer instantanément si un comportement malveillant
+est détecté, tout en émettant des alertes vers le SIEM.
+
+\textbf{Avantages.}
+\begin{itemize}[leftmargin=*]
+  \item Protection en production, y compris contre des attaques zero-day.
+  \item Réduction de la dépendance aux mises à jour du WAF.
+  \item Contexte d'exécution précis, minimisant les faux positifs.
+\end{itemize}
+
+\textbf{Limites.}
+\begin{itemize}[leftmargin=*]
+  \item Impact sur les performances applicatives.
+  \item Risque de faux positifs entraînant des interruptions de service.
+  \item Complexité de déploiement et de maintenance.
+\end{itemize}
+
+\textbf{Outils représentatifs.} Sqreen (Datadog), Imperva RASP, OpenRASP.
+
+% ── 1.3.5  Tableau comparatif ───────────────────────────────
+\subsection{Tableau comparatif des quatre approches}
+
+\begin{table}[h!]
+\centering
+\caption{Comparaison des approches de tests de sécurité}
+\label{tab:comparaison-tests}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{>{\bfseries}lXXXX}
+\toprule
+\textbf{Critère} & \textbf{SAST} & \textbf{DAST} & \textbf{IAST} & \textbf{RASP} \\
+\midrule
+Phase           & Codage / build    & Test / staging  & Test / intég.   & Production \\
+Accès code      & Requis            & Non requis      & Optionnel       & Non requis \\
+Perspective     & White-box         & Black-box       & Gray-box        & Interne \\
+Faux positifs   & Élevés            & Faibles         & Très faibles    & Faibles \\
+Couverture      & Code complet      & Surface exposée & Code exercé     & Runtime \\
+Impact perf.    & Aucun             & Faible          & Moyen           & Moyen--élevé \\
+Microservices   & Partiel           & Complexe        & Adapté          & Adapté \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% ------------------------------------------------------------
+%  1.4  FOCUS DAST : ENJEUX MICROSERVICES
+% ------------------------------------------------------------
+\section{Focus DAST : enjeux dans les architectures microservices}
+\label{sec:dast-micro}
+
+\subsection{Spécificités des architectures microservices}
+
+Une architecture microservices est un style architectural dans lequel une
+application est décomposée en un ensemble de services petits, autonomes et
+faiblement couplés, chacun responsable d'une capacité métier précise. Ces
+services communiquent entre eux via des API bien définies, généralement sur
+des protocoles HTTP/REST ou gRPC, et peuvent être déployés indépendamment.
+
+Cette architecture présente plusieurs caractéristiques qui complexifient
+significativement l'application du DAST~:
+
+\paragraph{Explosion de la surface d'attaque.}
+Dans une application monolithique, la surface d'attaque exposée est
+concentrée sur un nombre limité de points d'entrée. Dans une architecture
+microservices, chaque service expose potentiellement sa propre API,
+multipliant d'autant les surfaces à tester. Un système composé de
+50~microservices peut exposer plusieurs centaines d'endpoints distincts, avec
+des contrats d'API hétérogènes.
+
+\paragraph{Dynamicité de l'infrastructure.}
+Les microservices s'exécutent dans des environnements hautement dynamiques
+(Kubernetes, par exemple), où les instances de services apparaissent et
+disparaissent selon la charge. Les adresses IP et les ports sont attribués
+dynamiquement, rendant obsolète toute cible DAST définie statiquement. Un
+scanner DAST doit s'adapter en temps réel à cette topologie mouvante.
+
+\paragraph{Communications interservices non exposées.}
+Une partie significative des communications dans une architecture
+microservices est interne~: les échanges entre services du backend ne sont
+pas directement accessibles depuis l'extérieur du cluster. Les outils DAST
+conventionnels, conçus pour tester des interfaces web publiques, ne peuvent
+pas atteindre ces flux de communication internes sans mécanismes spécifiques.
+
+\paragraph{Hétérogénéité des protocoles et des données.}
+Les microservices peuvent utiliser des protocoles variés~: REST/HTTP, gRPC,
+GraphQL, WebSocket, messaging asynchrone (Kafka, RabbitMQ). Les outils DAST
+doivent être capables de générer des payloads adaptés à chaque protocole et
+d'interpréter correctement les réponses correspondantes.
+
+\subsection{Stratégies DAST adaptées aux microservices}
+
+Face à ces défis, plusieurs stratégies permettent d'adapter le DAST aux
+architectures microservices~:
+
+\textbf{Intégration dans la pipeline CI/CD.} Plutôt que d'effectuer des
+scans ponctuels, le DAST est intégré comme une étape automatique de la
+pipeline, déclenchée à chaque déploiement en environnement de staging. Des
+outils comme OWASP ZAP disposent de modes \og{}headless\fg{} permettant cette
+intégration.
+
+\textbf{DAST orienté API.} Des outils spécialisés dans le test de sécurité
+des API (comme 42Crunch, Traceable~AI, ou les extensions REST/gRPC de ZAP)
+permettent d'importer les spécifications OpenAPI/Swagger et de générer
+automatiquement des cas de test de sécurité couvrant l'ensemble des endpoints
+documentés.
+
+\textbf{Service Mesh comme point d'observation.} L'adoption d'un Service Mesh
+ouvre une perspective nouvelle pour le DAST dans les microservices. En
+opérant au niveau du sidecar proxy, le Service Mesh fournit une visibilité
+totale sur les communications interservices, y compris les flux internes au
+cluster, sans modification du code applicatif. Cette caractéristique permet
+d'envisager un DAST interne, capable de tester la sécurité des échanges entre
+services~--- une dimension absente des approches DAST traditionnelles.
+
+
+\textbf{Synergie clé~:} Le Service Mesh ne se substitue pas au DAST, mais
+il en élargit considérablement le périmètre d'action dans les architectures
+microservices. En fournissant un point d'interception centralisé et une
+observabilité totale du trafic interservices, il crée les conditions d'un
+DAST interne couvrant les vulnérabilités invisibles depuis l'extérieur du
+cluster.
+
+
+\subsection{Limites actuelles et pistes d'amélioration}
+
+Malgré les évolutions récentes, plusieurs limites persistent dans
+l'application du DAST aux architectures microservices~:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Couverture incomplète des flux asynchrones~:} les
+    communications via des bus de messages (Kafka, RabbitMQ) restent
+    difficiles à intercepter et à tester dynamiquement.
+  \item \textbf{Manque de standardisation~:} l'absence d'un format universel
+    de description des API interservices limite la capacité des outils DAST à
+    générer automatiquement des cas de test pertinents.
+  \item \textbf{Complexité de l'environnement de test~:} reproduire
+    fidèlement un environnement microservices complet à des fins de test reste
+    coûteux en ressources et en configuration.
+\end{itemize}
+
+Ces limites motivent l'exploration d'une approche hybride intégrant le
+Service Mesh comme infrastructure de sécurité complémentaire, objet des
+chapitres suivants.
+
+% ------------------------------------------------------------
+%  1.5  CONCLUSION
+% ------------------------------------------------------------
+\section{Conclusion}
+\label{sec:conclusion-ch1}
+
+Ce chapitre a posé les fondements conceptuels et méthodologiques sur lesquels
+repose ce projet. Nous avons d'abord formulé les objectifs du projet en trois
+axes~: cadre méthodologique DevSecOps, architecture hybride proposée et
+validation expérimentale. Nous avons ensuite introduit le paradigme DevSecOps,
+en retraçant son émergence depuis le mouvement DevOps et en détaillant ses
+principes fondateurs. Nous avons dressé un panorama structuré des quatre
+grandes familles de tests de sécurité SAST, DAST, IAST et RASP en
+mettant en évidence leurs complémentarités et leurs limites respectives.
+
+La section finale a approfondi les enjeux spécifiques du DAST dans les
+architectures microservices, en identifiant les défis majeurs que soulève
+cette combinaison~: explosion de la surface d'attaque, dynamicité de
+l'infrastructure, inaccessibilité des flux internes et hétérogénéité
+protocolaire.
+
+
+

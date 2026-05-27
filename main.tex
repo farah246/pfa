@@ -1,0 +1,127 @@
+\documentclass[12pt, a4paper, twoside]{report}
+\raggedbottom
+\setlength{\parskip}{0pt}
+% ─── Tous les packages et couleurs ───────────────────────────────────────────
+\input{config/packages}
+
+% ═════════════════════════════════════════════════════════════════════════════
+\begin{document}
+% ═════════════════════════════════════════════════════════════════════════════
+
+% ─── Pages préliminaires (pas de numérotation) ───────────────────────────────
+\pagenumbering{gobble}
+\input{pages/titlepage}
+\input{pages/remerciements}
+\input{pages/resume}
+
+% ─── Listes (numérotation romaine) ───────────────────────────────────────────
+\pagenumbering{roman}
+\tableofcontents
+\listoffigures
+\listoftables
+\input{pages/abbreviations}
+\newpage
+
+% ─── Corps du rapport (numérotation arabe) ───────────────────────────────────
+\pagenumbering{arabic}
+\input{chapitres/introduction}
+\input{chapitres/chapitre1}
+\input{chapitres/chapitre2}   % décommenter quand prêt
+\input{chapitres/chapitre3}
+\input{chapitres/chapitre4}
+% \input{chapitres/conclusion}
+
+% ─── Bibliographie ───────────────────────────────────────────────────────────
+\printbibliography[heading=bibintoc, title={Bibliographie}]
+\addcontentsline{toc}{chapter}{Bibliographie}
+\begin{thebibliography}{99}
+
+\bibitem{istio-security}
+Istio Project.
+\textit{Istio Security Architecture}.
+Disponible sur : \url{https://istio.io/latest/docs/concepts/security/}
+
+\bibitem{owasp-top10}
+OWASP Foundation.
+\textit{OWASP Top 10}.
+Disponible sur : \url{https://owasp.org/Top10/}
+
+\bibitem{owasp-zap}
+OWASP Foundation.
+\textit{OWASP ZAP --- Zed Attack Proxy}.
+Disponible sur : \url{https://www.zaproxy.org/docs/}
+
+\bibitem{stride-microsoft}
+Microsoft Corporation.
+\textit{STRIDE Threat Modeling}.
+Microsoft Security Documentation, 2023.
+
+\bibitem{nist-zerotrust}
+National Institute of Standards and Technology (NIST).
+\textit{Zero Trust Architecture}.
+NIST Special Publication 800-207, 2020.
+
+\bibitem{nist-devsecops}
+National Institute of Standards and Technology (NIST).
+\textit{Recommended Minimum Standard for Vendor or Developer Verification of Code}.
+NIST Special Publication 800-218, 2022.
+
+\bibitem{spiffe}
+SPIFFE Project.
+\textit{SPIFFE --- Secure Production Identity Framework for Everyone}.
+Disponible sur : \url{https://spiffe.io/}
+
+\bibitem{envoy-accesslog}
+Envoy Proxy.
+\textit{Envoy Documentation --- Access Logging}.
+Disponible sur : \url{https://www.envoyproxy.io/docs/envoy/latest/configuration/observability/access_log/}
+
+\bibitem{envoy-mtls}
+Envoy Proxy.
+\textit{Envoy TLS Configuration --- Mutual TLS}.
+Disponible sur : \url{https://www.envoyproxy.io/docs/envoy/latest/configuration/security/}
+
+\bibitem{kiali-security}
+Kiali Project.
+\textit{Kiali Documentation --- Security}.
+Disponible sur : \url{https://kiali.io/docs/features/security/}
+
+\bibitem{kubernetes-patterns}
+Burns, B., et al.
+\textit{Kubernetes Patterns}.
+O'Reilly Media, 2022.
+
+\bibitem{kubernetes-docs}
+The Kubernetes Authors.
+\textit{Kubernetes Documentation --- Network Policies}.
+Disponible sur : \url{https://kubernetes.io/docs/concepts/services-networking/network-policies/}
+
+\bibitem{sre-google}
+Beyer, B., et al.
+\textit{Site Reliability Engineering}.
+Google --- O'Reilly Media, 2016.
+
+\bibitem{devops-handbook}
+Kim, G., et al.
+\textit{The DevOps Handbook}.
+IT Revolution Press, 2021.
+
+\bibitem{devsecops-manifesto}
+Hüttermann, M.
+\textit{DevOps for Developers}.
+Apress, 2012.
+
+\bibitem{microservices-patterns}
+Richardson, C.
+\textit{Microservices Patterns : With Examples in Java}.
+Manning Publications, 2018.
+
+\bibitem{zero-trust-rose}
+Rose, S., et al.
+\textit{Planning for a Zero Trust Architecture : A Planning Guide for Federal Administrators}.
+NIST Special Publication 800-207A, 2023.
+
+
+
+\end{thebibliography}
+\end{document}

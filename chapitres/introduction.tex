@@ -1,0 +1,95 @@
+% ═════════════════════════════════════════════════════════════════════════════
+%  chapitres/introduction.tex
+% ═════════════════════════════════════════════════════════════════════════════
+\chapter*{Introduction Générale}
+\addcontentsline{toc}{chapter}{Introduction Générale}
+\markboth{Introduction Générale}{Introduction Générale}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section*{Contexte et Problématique}
+% ─────────────────────────────────────────────────────────────────────────────
+
+L'industrie du logiciel connaît depuis une décennie une transformation profonde,
+portée par deux évolutions majeures. D'une part, le \textbf{passage aux architectures
+microservices} a fragmenté les applications monolithiques en un ensemble de services
+indépendants, chacun pouvant être développé, déployé et mis à l'échelle
+individuellement. D'autre part, l'adoption généralisée des pratiques
+\textbf{DevOps} a raccourci drastiquement les cycles de livraison, permettant de
+passer de plusieurs déploiements par an à plusieurs déploiements par jour.
+
+Si ces deux tendances ont considérablement amélioré l'agilité et la résilience des
+systèmes, elles ont simultanément introduit une \textbf{surface d'attaque étendue}
+et difficile à maîtriser. Un système composé de dizaines, voire de centaines de
+microservices communicants génère autant de canaux de communication potentiellement
+vulnérables, et la vitesse de déploiement laisse peu de place aux audits de sécurité
+traditionnels, souvent relégués en fin de cycle.
+
+
+  \textbf{Constat fondamental :} Selon le rapport \textit{State of DevOps} 2023,
+  plus de 60\,\% des incidents de sécurité en production dans les environnements
+  cloud-natifs sont liés à des communications interservices non sécurisées ou à
+  des configurations d'accès insuffisamment contrôlées.
+
+
+Face à ce constat, la communauté technique a progressivement convergé vers deux
+approches complémentaires. Le paradigme \textbf{DevSecOps} préconise d'intégrer
+la sécurité dès les premières phases du développement ; le principe du
+\textit{Shift Left Security} en automatisant les contrôles de sécurité au sein
+des pipelines CI/CD. Le \textbf{Service Mesh}, quant à lui, propose une couche
+d'infrastructure dédiée à la gestion des communications interservices, offrant
+nativement des mécanismes de chiffrement, d'authentification et d'observabilité
+sans modifier le code applicatif.
+
+La problématique centrale de ce projet est donc la suivante :
+
+
+  \textit{Dans quelle mesure l'intégration d'un Service Mesh au sein d'une
+  démarche DevSecOps permet-elle de renforcer significativement la sécurité
+  des communications interservices dans les architectures microservices, et
+  quelles sont les conditions d'une telle intégration ?}
+
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section*{Structure du Rapport}
+% ─────────────────────────────────────────────────────────────────────────────
+
+Ce rapport est organisé en quatre chapitres complémentaires, articulés de manière
+progressive depuis les fondements conceptuels jusqu'à la validation expérimentale.
+
+\textbf{Le Chapitre 1} pose les fondements du paradigme DevSecOps en retraçant
+son émergence depuis le mouvement DevOps et en détaillant ses principes fondateurs,
+notamment le \textit{Shift Left Security}. Il dresse ensuite un panorama structuré
+des quatre grandes familles de tests de sécurité :SAST, DAST, IAST et RASP 
+en mettant en évidence leurs complémentarités et leurs limites respectives.
+Une attention particulière est portée au DAST dans les architectures microservices,
+dont les défis spécifiques ; explosion de la surface d'attaque, dynamicité de
+l'infrastructure, inaccessibilité des flux internes  constituent la problématique
+centrale qui motive l'ensemble du projet.
+
+\textbf{Le Chapitre 2} introduit le concept de Service Mesh comme réponse
+architecturale aux limites identifiées au chapitre précédent. Il présente
+l'architecture fondamentale du Service Mesh, structurée autour du Data Plane
+et du Control Plane, ainsi que les composants clés d'Istio : \texttt{istiod},
+les proxies Envoy, \texttt{istio-ingressgateway}, Kiali et la stack d'observabilité
+Prometheus/Grafana. Un panorama comparatif des principales solutions du marché
+(Istio, Linkerd, Consul, Cilium) justifie le choix d'Istio pour ce projet,
+avant d'analyser les apports concrets du Service Mesh dans les pratiques DevSecOps.
+
+\textbf{Le Chapitre 3} applique la méthodologie STRIDE au prototype de système
+de paiement, afin de modéliser les menaces pesant sur une architecture microservices.
+Pour chacune des six catégories ; Spoofing, Tampering, Repudiation, Information
+Disclosure, Denial of Service et Elevation of Privilege ; les scénarios d'attaque
+sont analysés en comparant le comportement du système avec et sans Service Mesh.
+Le chapitre se conclut par une synthèse de douze scénarios d'attaque documentés,
+mettant en correspondance chaque menace avec le mécanisme Istio responsable de
+sa neutralisation.
+
+\textbf{Le Chapitre 4} présente la validation expérimentale de l'ensemble des
+analyses théoriques. Il décrit l'architecture du prototype déployé sur Minikube
+avec Istio, détaille l'implémentation des six couches de sécurité  mTLS, JWT,
+RBAC, SPIFFE, NetworkPolicy et TLS Gateway et documente les résultats obtenus
+pour chacun des douze scénarios d'attaque. Les tableaux de bord Kiali et Grafana
+sont exploités pour démontrer l'observabilité en temps réel de la posture de
+sécurité, et une synthèse quantifiée mesure les apports concrets du Service Mesh
+par rapport à un déploiement Kubernetes sans politiques Istio.
+

@@ -1,0 +1,155 @@
+% ═════════════════════════════════════════════════════════════════════════════
+%  config/packages.tex — Tous les packages, couleurs et styles
+% ═════════════════════════════════════════════════════════════════════════════
+
+% ─── Encodage et langue ───────────────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{csquotes}
+
+% ─── Typographie ──────────────────────────────────────────────────────────────
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% ─── Mise en page ─────────────────────────────────────────────────────────────
+\usepackage[
+  top=2.5cm, bottom=2.5cm,
+  left=2cm,  right=2.5cm,
+  headheight=15pt
+]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\setlength{\parindent}{1.2em}
+\setlength{\parskip}{0.4em}
+
+% ─── En-têtes et pieds de page ────────────────────────────────────────────────
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\small\thepage}
+\fancyhead[LO]{\small\nouppercase{\rightmark}}
+\fancyhead[RE]{\small\nouppercase{\leftmark}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ─── Couleurs ─────────────────────────────────────────────────────────────────
+\usepackage[dvipsnames, table]{xcolor}
+\definecolor{primaryblue}{RGB}{20, 20, 20}
+\definecolor{accentblue}{RGB}{20, 20, 20}
+\definecolor{lightgray}{RGB}{245, 245, 247}
+\definecolor{darkgray}{RGB}{60, 60, 60}
+\definecolor{successgreen}{RGB}{20, 20, 20}
+\definecolor{warningorange}{RGB}{220, 120, 0}
+\definecolor{dangerred}{RGB}{180, 30, 30}
+
+% ─── Chapitres et sections ────────────────────────────────────────────────────
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries}
+  {\chaptertitlename\ \thechapter}{16pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-10pt}{30pt}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries}
+  {\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{darkgray}}
+  {\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries\itshape\color{darkgray}}
+  {\thesubsubsection}{1em}{}
+
+% ─── Table des matières ───────────────────────────────────────────────────────
+\usepackage[titles]{tocloft}
+\renewcommand{\cftchapfont}{\bfseries}
+\renewcommand{\cftsecfont}{\color{darkgray}}
+\setlength{\cftbeforechapskip}{6pt}
+
+% ─── Graphiques et figures ────────────────────────────────────────────────────
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\captionsetup{
+  labelfont={bf},
+  textfont=small,
+  skip=6pt
+}
+
+% ─── Tableaux ─────────────────────────────────────────────────────────────────
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
+% ─── Boîtes et encadrés ───────────────────────────────────────────────────────
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+\newtcolorbox{definitionbox}[1]{
+  breakable,
+  colback=lightgray,
+  colframe=darkgray,
+  fonttitle=\bfseries\color{white},
+  title={#1},
+  coltitle=white,
+  attach boxed title to top left={yshift=-2mm, xshift=4mm},
+  boxed title style={colback=darkgray, rounded corners},
+  arc=4pt, boxrule=0.8pt
+}
+
+\newtcolorbox{importantbox}{
+  breakable,
+  colback=gray!8,
+  colframe=darkgray,
+  leftrule=4pt, toprule=0.4pt, bottomrule=0.4pt, rightrule=0.4pt,
+  arc=2pt
+}
+
+\newtcolorbox{warningbox}{
+  breakable,
+  colback=gray!8,
+  colframe=darkgray,
+  leftrule=4pt, toprule=0.4pt, bottomrule=0.4pt, rightrule=0.4pt,
+  arc=2pt
+}
+
+% ─── Listes ───────────────────────────────────────────────────────────────────
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=1.5em, itemsep=2pt, topsep=4pt}
+\setlist[enumerate]{leftmargin=1.5em, itemsep=2pt, topsep=4pt}
+
+% ─── Code source ──────────────────────────────────────────────────────────────
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{lightgray},
+  frame=single, framerule=0.4pt, rulecolor=\color{darkgray},
+  numbers=left, numberstyle=\tiny\color{darkgray},
+  breaklines=true, captionpos=b,
+  keywordstyle=\bfseries,
+  commentstyle=\itshape\color{darkgray},
+  stringstyle=\color{darkgray}
+}
+
+% ─── Liens hypertexte ─────────────────────────────────────────────────────────
+\usepackage[
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=black,
+  pdftitle={DevSecOps avec Service Mesh : Sécurité avancée interservices},
+  pdfauthor={},
+  pdfsubject={Projet de Fin d'Année},
+  pdfkeywords={DevSecOps, Service Mesh, Istio, Kubernetes, mTLS, DAST}
+]{hyperref}
+
+% ─── Bibliographie ────────────────────────────────────────────────────────────
+\usepackage[backend=biber, style=ieee, sorting=nyt]{biblatex}
+% \addbibresource{references.bib}
+
+% ─── Utilitaires ──────────────────────────────────────────────────────────────
+\usepackage{acronym}
+\usepackage{amsmath, amssymb}
