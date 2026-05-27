@@ -509,173 +509,123 @@ deux outils.
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Captures Kiali}
 
-% ── Vue 1 ──────────────────────────────────────────────────────────────────
-\paragraph{Vue 1 --- Topologie complète du mesh (phase baseline).}
+% ── Figure 1 ───────────────────────────────────────────────────────────────
+\paragraph{Topologie complète du mesh en phase baseline.}
 Navigation : Kiali $\rightarrow$ Graph $\rightarrow$ Namespaces :
 \texttt{default}, \texttt{other-ns}, \texttt{payment-system}
 $\rightarrow$ Display : Security, Traffic Animation.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{chapitres/vis1.png}
-  \caption{%
-    Kiali --- Topologie du mesh pendant la phase baseline.
-    Le namespace \texttt{payment-system} (encadré gris) contient
-    \texttt{payment-api} et \texttt{fraud-detection}.
-    Les arêtes vertes indiquent un trafic sain (88,38\,\% de succès) ;
-    la fine arête rouge depuis \texttt{istio-ingressgateway} matérialise
-    les premières requêtes sans JWT rejetées par les AuthorizationPolicies.
-    Les pods de test (\texttt{attacker-in-mesh}, \texttt{flooder-in-mesh},
-    \texttt{sa-untrusted}, \texttt{sa-privileged}) sont visibles dans le mesh,
-    ce qui confirme leur appartenance au namespace surveillé.
-  }
+  \includegraphics[width=\linewidth]{pages/fig4.14.png}
+  \caption{\textbf{Vue topologique du mesh --- phase baseline (88,38\,\% de succès).}}
   \label{fig:kiali-graph-baseline}
 \end{figure}
 
-% ── Vue 2 ──────────────────────────────────────────────────────────────────
-\paragraph{Vue 2 --- Phase d'attaque intensifiée (24\,\% d'erreurs).}
+\noindent
+Le namespace \texttt{payment-system} (encadré gris) regroupe \texttt{payment-api},
+\texttt{fraud-detection} et l'ensemble des pods de test générés par
+\texttt{observe-traffic.sh} (\texttt{attacker-in-mesh}, \texttt{flooder-in-mesh},
+\texttt{sa-untrusted}, \texttt{sa-privileged}).
+Les arêtes vertes traduisent un trafic majoritairement sain ; la fine arête rouge
+depuis \texttt{istio-ingressgateway} correspond aux premières requêtes sans JWT
+rejetées par l'AuthorizationPolicy --- les politiques sont actives dès le démarrage
+du script.
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\linewidth]{chapitres/vis1.png}
-  \caption{%
-    Kiali --- Même topologie pendant une phase d'attaque plus intense.
-    Le taux d'erreur global monte à 24,04\,\% : les arêtes passent de vert
-    à orange puis rouge selon l'intensité des rejets.
-    Le lien \texttt{istio-ingressgateway} $\rightarrow$ \texttt{payment-api}
-    est entièrement rouge, confirmant que les requêtes du \texttt{flooder-outside}
-    (sans JWT valide ou dépassant le rate limit) sont massivement rejetées.
-  }
-  \label{fig:kiali-graph-attack}
-\end{figure}
-
-% ── Vue 3 ──────────────────────────────────────────────────────────────────
-\paragraph{Vue 3 --- Rejet 100\,\% sur \texttt{payment-api} (pic d'erreur).}
-Navigation : Kiali $\rightarrow$ Graph $\rightarrow$ Sélectionner le nœud
-\texttt{payment-api}.
-
-\iffalse
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\linewidth]{CHEMIN/capture_kiali_paymentapi_100error.png}
-  \caption{%
-    Kiali --- Nœud \texttt{payment-api} sélectionné pendant un pic d'attaque :
-    le panneau latéral indique 0,00\,\% de succès et 100,00\,\% d'erreurs
-    sur le trafic entrant.
-    La sparkline est entièrement rouge (4xx/5xx).
-    Ce comportement correspond aux phases T1--T4 du script
-    \texttt{observe-traffic.sh} : requêtes \texttt{POST /charge} sans JWT,
-    avec JWT admin (rôle non autorisé), ou depuis un service account non
-    reconnu --- toutes rejetées par la RequestAuthentication et
-    l'AuthorizationPolicy.
-  }
-  \label{fig:kiali-paymentapi-error}
-\end{figure}
-\fi
-
-% ── Vue 4 ──────────────────────────────────────────────────────────────────
-\paragraph{Vue 4 --- Isolation mTLS STRICT : attaquant sans sidecar.}
+% ── Figure 2 ───────────────────────────────────────────────────────────────
+\paragraph{Isolation mTLS STRICT : appelant sans sidecar bloqué.}
 Navigation : Kiali $\rightarrow$ Graph $\rightarrow$ Sélectionner le nœud
 \texttt{attacker-cross-ns} (namespace \texttt{other-ns}).
 
-\iffalse
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.75\linewidth]{CHEMIN/capture_kiali_nosidecar.png}
-  \caption{%
-    Kiali --- Workload \texttt{attacker-cross-ns} (namespace \texttt{other-ns})
-    marqué \textit{Has Missing Sidecar}.
-    Aucun trafic HTTP, gRPC ou TCP n'est enregistré : le pod tente d'atteindre
-    \texttt{payment-api} mais le proxy Envoy destination rejette la connexion
-    faute de certificat mTLS valide.
-    C'est la preuve visuelle directe de l'enforcement \texttt{PeerAuthentication
-    STRICT} : un appelant sans sidecar est silencieusement isolé du mesh.
-  }
+  \includegraphics[width=0.72\linewidth]{pages/no-sidecar.png}
+  \caption{\textbf{Workload \texttt{attacker-cross-ns} --- sidecar manquant, trafic nul.}}
   \label{fig:kiali-nosidecar}
 \end{figure}
-\fi
 
-% ── Vue 5 ──────────────────────────────────────────────────────────────────
-\paragraph{Vue 5 --- Détail d'arête mTLS avec identités SPIFFE.}
+\noindent
+Kiali signale \textit{Has Missing Sidecar} sur le pod \texttt{attacker-cross-ns}
+(namespace \texttt{other-ns}) : aucun proxy Envoy n'est injecté, donc aucun
+certificat mTLS ne peut être présenté.
+Le panneau Traffic indique zéro requête HTTP, gRPC ou TCP enregistrée --- le proxy
+Envoy côté destination rejette silencieusement la connexion faute d'identité valide.
+C'est la démonstration directe du \texttt{PeerAuthentication STRICT} : un appelant
+extérieur au mesh est isolé sans qu'aucune règle applicative ne soit nécessaire.
+
+% ── Figure 3 ───────────────────────────────────────────────────────────────
+\paragraph{Détail d'arête mTLS avec identités SPIFFE.}
 Navigation : Kiali $\rightarrow$ Graph $\rightarrow$ Cliquer sur l'arête
 \texttt{istio-ingressgateway} $\rightarrow$ \texttt{payment-api}.
 
-\iffalse
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.6\linewidth]{CHEMIN/capture_kiali_edge_mtls.png}
-  \caption{%
-    Kiali --- Détail de l'arête HTTP entre \texttt{istio-ingressgateway}
-    et \texttt{payment-api}.
-    Le cadenas indique \textit{mTLS Enabled} ; les deux identités SPIFFE sont
-    affichées explicitement :
-    \texttt{spiffe://cluster.local/ns/istio-system/sa/istio-i...} (gateway)
-    et \texttt{spiffe://cluster.local/ns/payment-system/sa/p...}
-    (\texttt{payment-api}).
-    Le trafic affiché (88,33\,\% succès / 11,67\,\% erreur) correspond à une
-    phase mixte : requêtes légitimes avec JWT customer acceptées,
-    et requêtes sans JWT rejetées en 403.
-  }
+  \includegraphics[width=0.55\linewidth]{pages/spiffe.png}
+  \caption{\textbf{Arête HTTP gateway $\rightarrow$ \texttt{payment-api} --- mTLS activé, principals SPIFFE visibles.}}
   \label{fig:kiali-edge-mtls}
 \end{figure}
-\fi
+
+\noindent
+Le cadenas \textit{mTLS Enabled} confirme le chiffrement bout-en-bout sur ce lien.
+Les deux identités SPIFFE sont affichées explicitement :
+\texttt{spiffe://cluster.local/ns/istio-system/sa/istio-i\ldots} pour le gateway
+et \texttt{spiffe://cluster.local/ns/payment-system/sa/p\ldots} pour
+\texttt{payment-api}.
+Le ratio 88,33\,\% succès / 11,67\,\% erreur correspond à une phase mixte :
+requêtes légitimes avec JWT \texttt{role=customer} acceptées en 200,
+et requêtes sans JWT ou avec \texttt{role=admin} rejetées en 403 par
+l'AuthorizationPolicy.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Captures Grafana}
 
-% ── Dashboard 1 ────────────────────────────────────────────────────────────
-\paragraph{Dashboard 1 --- Istio Mesh Dashboard : vue infrastructure et KPI globaux.}
+% ── Figure 4 ───────────────────────────────────────────────────────────────
+\paragraph{Istio Service Dashboard --- impact du flood sur \texttt{payment-api}.}
+Navigation : Grafana $\rightarrow$ Istio Service Dashboard $\rightarrow$
+Service : \texttt{payment-api}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{pages/grafana1.png}
+  \caption{\textbf{Grafana Istio Service Dashboard --- pic de latence et sources de trafic distinctes à 11:40.}}
+  \label{fig:grafana-service-dashboard}
+\end{figure}
+
+\noindent
+Le panneau \textit{Incoming Requests By Source And Response Code} distingue
+clairement deux sources : \texttt{attacker-in-mesh} (200 via mTLS, arête verte)
+et \texttt{istio-ingressgateway} (403 via mTLS, arête jaune) --- chaque couleur
+correspond à un code HTTP et donc à une politique Istio distincte.
+Le pic à 11:40 sur le panneau \textit{Incoming Request Duration} (latence P95
+montant à $\sim$2\,s) coïncide avec la phase de flood du script : sans rate
+limiting distribué, la latence augmente avant que l'EnvoyFilter local ne prenne
+effet.
+Le panneau \textit{Incoming Success Rate} montre la chute à 0\,\% pendant la
+fenêtre d'attaque puis le retour à 100\,\% une fois le flood terminé.
+
+% ── Figure 5 ───────────────────────────────────────────────────────────────
+\paragraph{Istio Mesh Dashboard --- KPI globaux et inventaire des ressources.}
 Navigation : Grafana $\rightarrow$ Dashboards $\rightarrow$ Istio $\rightarrow$
 Istio Mesh Dashboard.
 
-\iffalse
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{CHEMIN/capture_grafana_mesh_dashboard.png}
-  \caption{%
-    Grafana --- Istio Mesh Dashboard pendant l'exécution du script
-    \texttt{observe-traffic.sh}.
-    \textbf{Global Request Volume :} 8,00\,ops/s, pic visible lors des phases
-    de flood.
-    \textbf{Global Success Rate :} NaN (aucune réponse 2xx sur la fenêtre
-    affichée --- toutes les requêtes actives sont des rejets 4xx).
-    \textbf{4xx rate :} 1,67\,ops/s, confirmant l'enforcement actif des
-    AuthorizationPolicies et de la RequestAuthentication.
-    Le panneau de ressources confirme l'inventaire de la
-    section~\ref{sec:mesh-config} : 3 VirtualServices, 2 DestinationRules,
-    1 Gateway, 1 PeerAuthentication, 1 RequestAuthentication,
-    2 AuthorizationPolicies.
-  }
+  \includegraphics[width=\linewidth]{pages/grafana.png}
+  \caption{\textbf{Grafana Istio Mesh Dashboard --- 8\,ops/s, 1,67\,ops/s en 4xx, inventaire Istio confirmé.}}
   \label{fig:grafana-mesh-dashboard}
 \end{figure}
-\fi
 
-% ── Dashboard 2 ────────────────────────────────────────────────────────────
-\paragraph{Dashboard 2 --- Istio Service Dashboard (\texttt{payment-api}).}
-Navigation : Grafana $\rightarrow$ Istio Service Dashboard $\rightarrow$ Service:
-\texttt{payment-api}.
-
-\begin{itemize}
-  \item \textbf{Incoming Request Volume by Source :} distingue le trafic interne
-    légitime (pods \texttt{sa-privileged}, \texttt{jwt-customer}) du trafic
-    attaquant (\texttt{flooder-outside}, \texttt{attacker-cross-ns}).
-  \item \textbf{Request Duration P99 :} augmente pendant les phases de flood
-    (T10--T11), visualisant la dégradation avant activation du rate limiting.
-  \item \textbf{Incoming Requests by HTTP Code :} le profil 200/401/403/429
-    change radicalement entre les phases baseline, attaque et rate-limited ---
-    chaque code correspond à une politique Istio distincte.
-\end{itemize}
-
-\paragraph{Dashboard 3 --- Overhead mTLS.}
-Navigation : Grafana $\rightarrow$ Istio Workload Dashboard $\rightarrow$
-Workload: \texttt{payment-api}.
-
-\begin{itemize}
-  \item \textbf{CPU usage sidecar vs application :} l'overhead mesuré est
-    inférieur à 1\,\% du CPU total, démontrant que le chiffrement mTLS
-    TLS\,1.3 n'introduit pas de surcoût significatif dans ce contexte
-    de charge contrôlée.
-\end{itemize}
+\noindent
+Le dashboard confirme l'activité du mesh pendant l'exécution du script :
+\textbf{Global Request Volume} à 8,00\,ops/s avec pic visible lors des phases
+de flood ; \textbf{Global Success Rate} à NaN (aucune réponse 2xx dans la fenêtre
+--- toutes les requêtes actives sont des rejets 4xx) ; \textbf{4xx rate} à
+1,67\,ops/s, reflet direct de l'enforcement des AuthorizationPolicies et de la
+RequestAuthentication.
+Le panneau de ressources fournit également une corroboration chiffrée de la
+section~\ref{sec:mesh-config} : 3 VirtualServices, 2 DestinationRules, 1 Gateway,
+1 PeerAuthentication, 1 RequestAuthentication, 2 AuthorizationPolicies ---
+exactement les objets déployés dans \texttt{mesh-config/}.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Synthèse des Apports DevSecOps}
