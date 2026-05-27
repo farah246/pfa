@@ -9,6 +9,5 @@
 \contentsline {table}{\numberline {4.1}{\ignorespaces Services déployés dans le prototype}}{27}{table.caption.22}%
 \contentsline {table}{\numberline {4.2}{\ignorespaces Les six couches de sécurité du prototype}}{28}{table.caption.23}%
 \contentsline {table}{\numberline {4.3}{\ignorespaces Comparaison avant/après application des politiques Istio}}{29}{table.caption.24}%
-\contentsline {table}{\numberline {4.4}{\ignorespaces Audit trail T7 --- requêtes enregistrées par Envoy}}{37}{table.caption.44}%
-\contentsline {table}{\numberline {4.5}{\ignorespaces Vues d'observabilité Kiali et Grafana}}{40}{table.caption.50}%
-\contentsline {table}{\numberline {4.6}{\ignorespaces Apports DevSecOps mesurés sur le prototype}}{46}{table.caption.61}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Vues d'observabilité Kiali et Grafana}}{39}{table.caption.47}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces Apports DevSecOps mesurés sur le prototype}}{45}{table.caption.58}%
