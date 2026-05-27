@@ -67,22 +67,24 @@
 \contentsline {paragraph}{Commande exécutée.}{33}{paragraph*.36}%
 \contentsline {paragraph}{T6 --- Issuer non reconnu.}{35}{paragraph*.40}%
 \contentsline {subsection}{\numberline {4.4.5}T7 --- Audit Trail et Non-Répudiation (Repudiation)}{35}{subsection.4.4.5}%
-\contentsline {paragraph}{Extraction des logs d'attaque.}{35}{paragraph*.41}%
-\contentsline {paragraph}{Format d'un log Envoy (extrait).}{36}{paragraph*.42}%
-\contentsline {subsection}{\numberline {4.4.6}T8 --- Vérification du Chiffrement mTLS (Information Disclosure)}{36}{subsection.4.4.6}%
-\contentsline {paragraph}{Inspection du certificat mTLS en live.}{36}{paragraph*.43}%
-\contentsline {paragraph}{Résultat (extrait).}{36}{paragraph*.44}%
-\contentsline {subsection}{\numberline {4.4.7}T10 et T11 --- DoS et Rate Limiting}{36}{subsection.4.4.7}%
-\contentsline {paragraph}{T10 --- Flood de 200 requêtes simultanées.}{36}{paragraph*.45}%
-\contentsline {paragraph}{T11 --- Après application de l'EnvoyFilter (50 req/60s).}{37}{paragraph*.46}%
-\contentsline {section}{\numberline {4.5}Observabilité avec Kiali et Grafana}{37}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}Tableau des Vues d'Observabilité}{38}{subsection.4.5.1}%
-\contentsline {subsection}{\numberline {4.5.2}Captures Kiali}{38}{subsection.4.5.2}%
-\contentsline {paragraph}{Topologie complète du mesh en phase baseline.}{38}{paragraph*.48}%
-\contentsline {paragraph}{Isolation mTLS STRICT : appelant sans sidecar bloqué.}{39}{paragraph*.50}%
-\contentsline {paragraph}{Détail d'arête mTLS avec identités SPIFFE.}{40}{paragraph*.52}%
-\contentsline {subsection}{\numberline {4.5.3}Captures Grafana}{42}{subsection.4.5.3}%
-\contentsline {paragraph}{Istio Service Dashboard --- impact du flood sur \texttt {payment-api}.}{42}{paragraph*.54}%
-\contentsline {paragraph}{Istio Mesh Dashboard --- KPI globaux et inventaire des ressources.}{42}{paragraph*.56}%
-\contentsline {section}{\numberline {4.6}Synthèse des Apports DevSecOps}{43}{section.4.6}%
-\contentsline {chapter}{Bibliographie}{45}{table.caption.58}%
+\contentsline {paragraph}{Procédure.}{36}{paragraph*.41}%
+\contentsline {paragraph}{Logs Envoy capturés.}{36}{paragraph*.42}%
+\contentsline {paragraph}{Résultat.}{37}{paragraph*.43}%
+\contentsline {paragraph}{Ce que ce test prouve.}{38}{paragraph*.45}%
+\contentsline {subsection}{\numberline {4.4.6}T8 --- Vérification du Chiffrement mTLS (Information Disclosure)}{38}{subsection.4.4.6}%
+\contentsline {paragraph}{Inspection du certificat mTLS en live.}{38}{paragraph*.46}%
+\contentsline {paragraph}{Résultat (extrait).}{38}{paragraph*.47}%
+\contentsline {subsection}{\numberline {4.4.7}T10 et T11 --- DoS et Rate Limiting}{38}{subsection.4.4.7}%
+\contentsline {paragraph}{T10 --- Flood de 200 requêtes simultanées.}{38}{paragraph*.48}%
+\contentsline {paragraph}{T11 --- Après application de l'EnvoyFilter (50 req/60s).}{39}{paragraph*.49}%
+\contentsline {section}{\numberline {4.5}Observabilité avec Kiali et Grafana}{39}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Tableau des Vues d'Observabilité}{40}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Captures Kiali}{40}{subsection.4.5.2}%
+\contentsline {paragraph}{Topologie complète du mesh en phase baseline.}{40}{paragraph*.51}%
+\contentsline {paragraph}{Isolation mTLS STRICT : appelant sans sidecar bloqué.}{41}{paragraph*.53}%
+\contentsline {paragraph}{Détail d'arête mTLS avec identités SPIFFE.}{42}{paragraph*.55}%
+\contentsline {subsection}{\numberline {4.5.3}Captures Grafana}{44}{subsection.4.5.3}%
+\contentsline {paragraph}{Istio Service Dashboard --- impact du flood sur \texttt {payment-api}.}{44}{paragraph*.57}%
+\contentsline {paragraph}{Istio Mesh Dashboard --- KPI globaux et inventaire des ressources.}{44}{paragraph*.59}%
+\contentsline {section}{\numberline {4.6}Synthèse des Apports DevSecOps}{45}{section.4.6}%
+\contentsline {chapter}{Bibliographie}{47}{table.caption.61}%
