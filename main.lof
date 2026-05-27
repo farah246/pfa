@@ -12,13 +12,11 @@
 \contentsline {figure}{\numberline {4.4}{\ignorespaces Tentative d'accès depuis le pod \texttt {attacker} --- connexion rejetée par mTLS (\texttt {Connection reset by peer})}}{32}{figure.caption.32}%
 \contentsline {figure}{\numberline {4.5}{\ignorespaces Kiali~: flux \texttt {fake-api} $\to $ \texttt {fraud-detection} bloqué à 100\,\% d'erreurs.}}{33}{figure.caption.33}%
 \contentsline {figure}{\numberline {4.6}{\ignorespaces Kiali~: détail du trafic entrant sur \texttt {fraud-detection} --- 100\,\% d'erreurs.}}{33}{figure.caption.34}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Réponse \texttt {HTTP 403 Forbidden} retournée par Envoy (\texttt {RBAC: access denied}).}}{33}{figure.caption.35}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Log Envoy~: requête bloquée avec code 403 par le sidecar de \texttt {fraud-detection}.}}{34}{figure.caption.36}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Test T5 --- envoi d'un JWT à signature corrompue, rejet HTTP 401 et trafic en erreur visible dans Kiali}}{34}{figure.caption.38}%
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Logs Envoy --- refus \texttt {jwt\_authn\_access\_denied\{Jwt\_verification\_fails\}} pour chaque requête avec signature invalide}}{35}{figure.caption.39}%
-\contentsline {figure}{\numberline {4.11}{\ignorespaces Figure 4.X — Flux JWT : validation par RequestAuthentication et contrôle d'accès par AuthorizationPolicy au niveau de l'Istio Ingress Gateway.}}{35}{figure.caption.40}%
-\contentsline {figure}{\numberline {4.12}{\ignorespaces \textbf {Vue topologique du mesh --- phase baseline (88,38\,\% de succès).}}}{39}{figure.caption.50}%
-\contentsline {figure}{\numberline {4.13}{\ignorespaces \textbf {Workload \texttt {attacker-cross-ns} --- sidecar manquant, trafic nul.}}}{40}{figure.caption.52}%
-\contentsline {figure}{\numberline {4.14}{\ignorespaces \textbf {Arête HTTP gateway $\rightarrow $ \texttt {payment-api} --- mTLS activé, principals SPIFFE visibles.}}}{41}{figure.caption.54}%
-\contentsline {figure}{\numberline {4.15}{\ignorespaces \textbf {Grafana Istio Service Dashboard --- pic de latence et sources de trafic distinctes à 11:40.}}}{42}{figure.caption.56}%
-\contentsline {figure}{\numberline {4.16}{\ignorespaces \textbf {Grafana Istio Mesh Dashboard --- 8\,ops/s, 1,67\,ops/s en 4xx, inventaire Istio confirmé.}}}{43}{figure.caption.58}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Test T5 --- envoi d'un JWT à signature corrompue, rejet HTTP 401 et trafic en erreur visible dans Kiali}}{34}{figure.caption.37}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Logs Envoy --- refus \texttt {jwt\_authn\_access\_denied\{Jwt\_verification\_fails\}} pour chaque requête avec signature invalide}}{34}{figure.caption.38}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Figure 4.X — Flux JWT : validation par RequestAuthentication et contrôle d'accès par AuthorizationPolicy au niveau de l'Istio Ingress Gateway.}}{35}{figure.caption.39}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces \textbf {Vue topologique du mesh --- phase baseline (88,38\,\% de succès).}}}{39}{figure.caption.49}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces \textbf {Workload \texttt {attacker-cross-ns} --- sidecar manquant, trafic nul.}}}{40}{figure.caption.51}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces \textbf {Arête HTTP gateway $\rightarrow $ \texttt {payment-api} --- mTLS activé, principals SPIFFE visibles.}}}{41}{figure.caption.53}%
+\contentsline {figure}{\numberline {4.13}{\ignorespaces \textbf {Grafana Istio Service Dashboard --- pic de latence et sources de trafic distinctes à 11:40.}}}{42}{figure.caption.55}%
+\contentsline {figure}{\numberline {4.14}{\ignorespaces \textbf {Grafana Istio Mesh Dashboard --- 8\,ops/s, 1,67\,ops/s en 4xx, inventaire Istio confirmé.}}}{43}{figure.caption.57}%

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.5.27)  27 MAY 2026 21:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.5.27)  27 MAY 2026 21:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1630,7 +1630,7 @@ Package babel Info: 'french' activates 'french' shorthands.
  [3]
 (main.lof
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 21.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 19.
 )
 \tf@lof=\write7
 \openout7 = `main.lof'.
@@ -1679,7 +1679,7 @@ Overfull \hbox (3.09444pt too wide) in alignment at lines 137--137
  []
 
 [13] [14]
-<chapitres/Archi k8s avec Istio.png, id=542, 1541.76pt x 1027.84pt>
+<chapitres/Archi k8s avec Istio.png, id=538, 1541.76pt x 1027.84pt>
 File: chapitres/Archi k8s avec Istio.png Graphic file (type png)
 <use chapitres/Archi k8s avec Istio.png>
 Package pdftex.def Info: chapitres/Archi k8s avec Istio.png  used on input line
@@ -1706,7 +1706,7 @@ T1/lmtt/m/n/12 cluster.local/ns/payment-system/sa/fraud-detection\T1/lmr/m/n/12
  (-20) . 
  []
 
-<chapitres/flux.png, id=553, 1351.0475pt x 1421.31pt>
+<chapitres/flux.png, id=549, 1351.0475pt x 1421.31pt>
 File: chapitres/flux.png Graphic file (type png)
 <use chapitres/flux.png>
 Package pdftex.def Info: chapitres/flux.png  used on input line 322.
@@ -1718,7 +1718,7 @@ Overfull \hbox (144.54387pt too wide) in paragraph at lines 332--339
 /
  []
 
-<chapitres/Cycle de vie mTLS cert.png, id=558, 1541.76pt x 1027.84pt>
+<chapitres/Cycle de vie mTLS cert.png, id=554, 1541.76pt x 1027.84pt>
 File: chapitres/Cycle de vie mTLS cert.png Graphic file (type png)
 <use chapitres/Cycle de vie mTLS cert.png>
 Package pdftex.def Info: chapitres/Cycle de vie mTLS cert.png  used on input li
@@ -1792,143 +1792,134 @@ Overfull \hbox (6.00475pt too wide) in paragraph at lines 199--199
 Y:$PORT/charge \ 
  []
 
-<pages/T1-2.png, id=615, 540.21825pt x 239.09325pt>
+<pages/T1-2.png, id=611, 540.21825pt x 239.09325pt>
 File: pages/T1-2.png Graphic file (type png)
 <use pages/T1-2.png>
 Package pdftex.def Info: pages/T1-2.png  used on input line 217.
 (pdftex.def)             Requested size: 399.05278pt x 176.62341pt.
-<pages/T1-1.png, id=616, 446.8695pt x 290.2845pt>
+<pages/T1-1.png, id=612, 446.8695pt x 290.2845pt>
 File: pages/T1-1.png Graphic file (type png)
 <use pages/T1-1.png>
 Package pdftex.def Info: pages/T1-1.png  used on input line 225.
 (pdftex.def)             Requested size: 399.05278pt x 259.23383pt.
 [30 <./pages/T1-2.png>]
-<pages/T2-1.png, id=624, 561.297pt x 52.39575pt>
+<pages/T2-1.png, id=620, 561.297pt x 52.39575pt>
 File: pages/T2-1.png Graphic file (type png)
 <use pages/T2-1.png>
 Package pdftex.def Info: pages/T2-1.png  used on input line 245.
 (pdftex.def)             Requested size: 399.05278pt x 37.2508pt.
-<pages/t2-resultat.png, id=625, 555.2745pt x 193.9245pt>
+<pages/t2-resultat.png, id=621, 555.2745pt x 193.9245pt>
 File: pages/t2-resultat.png Graphic file (type png)
 <use pages/t2-resultat.png>
 Package pdftex.def Info: pages/t2-resultat.png  used on input line 257.
 (pdftex.def)             Requested size: 399.05278pt x 139.37103pt.
  [31 <./pages/T1-1.png> <./pages/T2-1.png>]
-<pages/T34-1.png, id=635, 514.92375pt x 275.22826pt>
+<pages/T34-1.png, id=631, 514.92375pt x 275.22826pt>
 File: pages/T34-1.png Graphic file (type png)
 <use pages/T34-1.png>
-Package pdftex.def Info: pages/T34-1.png  used on input line 298.
+Package pdftex.def Info: pages/T34-1.png  used on input line 296.
 (pdftex.def)             Requested size: 399.05278pt x 213.2997pt.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 300.
+(Font)              <10.95> on input line 298.
  [32 <./pages/t2-resultat.png>]
-<pages/T34-2.png, id=642, 519.1395pt x 245.11575pt>
+<pages/T34-2.png, id=638, 519.1395pt x 245.11575pt>
 File: pages/T34-2.png Graphic file (type png)
 <use pages/T34-2.png>
-Package pdftex.def Info: pages/T34-2.png  used on input line 306.
+Package pdftex.def Info: pages/T34-2.png  used on input line 304.
 (pdftex.def)             Requested size: 399.05278pt x 188.41805pt.
-<pages/T34-3.png, id=643, 515.526pt x 233.07076pt>
-File: pages/T34-3.png Graphic file (type png)
-<use pages/T34-3.png>
-Package pdftex.def Info: pages/T34-3.png  used on input line 314.
-(pdftex.def)             Requested size: 399.05278pt x 180.41814pt.
-<pages/T34-4.png, id=644, 512.51476pt x 82.50826pt>
-File: pages/T34-4.png Graphic file (type png)
-<use pages/T34-4.png>
-Package pdftex.def Info: pages/T34-4.png  used on input line 322.
-(pdftex.def)             Requested size: 399.05278pt x 64.24286pt.
- [33 <./pages/T34-1.png> <./pages/T34-2.png> <./pages/T34-3.png>]
-<pages/T5-1.png, id=652, 472.76625pt x 94.55325pt>
-File: pages/T5-1.png Graphic file (type png)
-<use pages/T5-1.png>
-Package pdftex.def Info: pages/T5-1.png  used on input line 339.
-(pdftex.def)             Requested size: 469.47049pt x 93.89655pt.
-<pages/T5-2.png, id=653, 465.53925pt x 199.34476pt>
+
+Overfull \hbox (135.67981pt too wide) in paragraph at lines 320--320
+[]\T1/lmtt/m/n/12 GATEWAY_IP=$(kubectl get svc -n istio-system istio-ingressgat
+eway -o jsonpath='{.spec.clusterIP}') 
+ []
+
+[33 <./pages/T34-1.png> <./pages/T34-2.png>]
+<pages/T5-2.png, id=647, 465.53925pt x 199.34476pt>
 File: pages/T5-2.png Graphic file (type png)
 <use pages/T5-2.png>
-Package pdftex.def Info: pages/T5-2.png  used on input line 343.
+Package pdftex.def Info: pages/T5-2.png  used on input line 334.
 (pdftex.def)             Requested size: 469.47049pt x 201.02937pt.
-<pages/T5-3.png, id=654, 458.31226pt x 96.96225pt>
+<pages/T5-3.png, id=648, 458.31226pt x 96.96225pt>
 File: pages/T5-3.png Graphic file (type png)
 <use pages/T5-3.png>
-Package pdftex.def Info: pages/T5-3.png  used on input line 352.
+Package pdftex.def Info: pages/T5-3.png  used on input line 342.
 (pdftex.def)             Requested size: 399.05278pt x 84.43044pt.
- [34 <./pages/T34-4.png> <./pages/T5-1.png> <./pages/T5-2.png>]
-<chapitres/Flus_JWT_vers_Api_payment.png, id=664, 1541.76pt x 1027.84pt>
+<chapitres/Flus_JWT_vers_Api_payment.png, id=649, 1541.76pt x 1027.84pt>
 File: chapitres/Flus_JWT_vers_Api_payment.png Graphic file (type png)
 <use chapitres/Flus_JWT_vers_Api_payment.png>
 Package pdftex.def Info: chapitres/Flus_JWT_vers_Api_payment.png  used on input
- line 366.
+ line 356.
 (pdftex.def)             Requested size: 469.47049pt x 312.98103pt.
- [35 <./pages/T5-3.png> <./chapitres/Flus_JWT_vers_Api_payment.png (PNG copy)>]
-
-Overfull \hbox (30.70476pt too wide) in paragraph at lines 395--395
+ [34 <./pages/T5-2.png> <./pages/T5-3.png>] [35 <./chapitres/Flus_JWT_vers_Api_
+payment.png (PNG copy)>]
+Overfull \hbox (30.70476pt too wide) in paragraph at lines 385--385
 []\T1/lmtt/m/n/12 [2024-01-15T14:23:41.123Z] "POST /charge HTTP/1.1" 403 - rbac
 _access_denied_match 
  []
 
-[36] [37]
-Underfull \hbox (badness 2285) in paragraph at lines 506--506
+[36]
+Underfull \hbox (badness 2285) in paragraph at lines 496--496
 []|\T1/lmr/m/n/12 (+20) Visualise l'iso-la-tion zero-trust en
  []
 
 
-Underfull \hbox (badness 5260) in paragraph at lines 506--506
+Underfull \hbox (badness 5260) in paragraph at lines 496--496
 []|\T1/lmr/m/n/12 (+20) Audit trail --- preuve de non-
  []
 
-<pages/fig4.14.png, id=685, 560.0925pt x 372.64218pt>
+[37]
+<pages/fig4.14.png, id=676, 560.0925pt x 372.64218pt>
 File: pages/fig4.14.png Graphic file (type png)
 <use pages/fig4.14.png>
-Package pdftex.def Info: pages/fig4.14.png  used on input line 520.
+Package pdftex.def Info: pages/fig4.14.png  used on input line 510.
 (pdftex.def)             Requested size: 469.47049pt x 312.36339pt.
-[38{C:/Users/farah/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.e
-nc}]
-Overfull \hbox (40.49788pt too wide) in paragraph at lines 525--534
+ [38{C:/Users/farah/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.
+enc}]
+Overfull \hbox (40.49788pt too wide) in paragraph at lines 515--524
 \T1/lmr/m/n/12 (-20) l'en-semble des pods de test gé-né-rés par \T1/lmtt/m/n/12
  observe-traffic.sh \T1/lmr/m/n/12 (-20) (\T1/lmtt/m/n/12 attacker-in-mesh\T1/l
 mr/m/n/12 (-20) , \T1/lmtt/m/n/12 flooder-in-mesh\T1/lmr/m/n/12 (-20) ,
  []
 
-<pages/no-sidecar.png, id=692, 399.74344pt x 411.78844pt>
+<pages/no-sidecar.png, id=683, 399.74344pt x 411.78844pt>
 File: pages/no-sidecar.png Graphic file (type png)
 <use pages/no-sidecar.png>
-Package pdftex.def Info: pages/no-sidecar.png  used on input line 542.
+Package pdftex.def Info: pages/no-sidecar.png  used on input line 532.
 (pdftex.def)             Requested size: 338.01932pt x 348.22476pt.
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 543.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 533.
 [39 <./pages/fig4.14.png>]
-<pages/spiffe.png, id=699, 187.45032pt x 344.78813pt>
+<pages/spiffe.png, id=690, 187.45032pt x 344.78813pt>
 File: pages/spiffe.png Graphic file (type png)
 <use pages/spiffe.png>
-Package pdftex.def Info: pages/spiffe.png  used on input line 563.
+Package pdftex.def Info: pages/spiffe.png  used on input line 553.
 (pdftex.def)             Requested size: 258.21019pt x 474.97162pt.
  [40 <./pages/no-sidecar.png>]
-Overfull \hbox (34.14598pt too wide) in paragraph at lines 568--578
+Overfull \hbox (34.14598pt too wide) in paragraph at lines 558--568
 \T1/lmr/m/n/12 (-20) SPIFFE sont af-fi-chées ex-pli-ci-te-ment : \T1/lmtt/m/n/1
 2 spiffe://cluster.local/ns/istio-system/sa/istio-i...
  []
 
 
-Overfull \hbox (16.68217pt too wide) in paragraph at lines 568--578
+Overfull \hbox (16.68217pt too wide) in paragraph at lines 558--568
 \T1/lmr/m/n/12 (-20) pour le ga-te-way et \T1/lmtt/m/n/12 spiffe://cluster.loca
 l/ns/payment-system/sa/p... \T1/lmr/m/n/12 (-20) pour \T1/lmtt/m/n/12 payment-a
 pi\T1/lmr/m/n/12 (-20) .
  []
 
-<pages/grafana1.png, id=707, 1027.58907pt x 283.81032pt>
+<pages/grafana1.png, id=698, 1027.58907pt x 283.81032pt>
 File: pages/grafana1.png Graphic file (type png)
 <use pages/grafana1.png>
-Package pdftex.def Info: pages/grafana1.png  used on input line 589.
+Package pdftex.def Info: pages/grafana1.png  used on input line 579.
 (pdftex.def)             Requested size: 469.47049pt x 129.66222pt.
 [41 <./pages/spiffe.png>]
-<pages/grafana.png, id=713, 1027.58907pt x 466.74374pt>
+<pages/grafana.png, id=704, 1027.58907pt x 466.74374pt>
 File: pages/grafana.png Graphic file (type png)
 <use pages/grafana.png>
-Package pdftex.def Info: pages/grafana.png  used on input line 613.
+Package pdftex.def Info: pages/grafana.png  used on input line 603.
 (pdftex.def)             Requested size: 469.47049pt x 213.23761pt.
  [42 <./pages/grafana1.png>]
-Underfull \hbox (badness 10000) in alignment at lines 686--686
+Underfull \hbox (badness 10000) in alignment at lines 676--676
 [][][][] 
  []
 
@@ -1966,7 +1957,7 @@ LaTeX Warning: There were undefined references.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: C443D1092005BE85523FCD0E26BEA1AF;15352.
+(rerunfilecheck)             Checksum: F90E334C32804BF83D77190C8879E56D;15352.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                main
@@ -1977,11 +1968,11 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 43678 strings out of 467866
- 864805 string characters out of 5418325
- 1766779 words of memory out of 5000000
- 71426 multiletter control sequences out of 15000+600000
- 703612 words of font info for 210 fonts, out of 8000000 for 9000
+ 43651 strings out of 467866
+ 864180 string characters out of 5418325
+ 1766553 words of memory out of 5000000
+ 71396 multiletter control sequences out of 15000+600000
+ 703778 words of font info for 212 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  103i,13n,111p,1199b,2366s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/farah/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pf
@@ -1997,9 +1988,9 @@ b><C:/Users/farah/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb
 ><C:/Users/farah/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt12.pfb
 ><C:/Users/farah/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symb
 ols/msam10.pfb>
-Output written on main.pdf (55 pages, 5700690 bytes).
+Output written on main.pdf (55 pages, 5510784 bytes).
 PDF statistics:
- 872 PDF objects out of 1000 (max. 8388607)
- 197 named destinations out of 1000 (max. 500000)
- 40187 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 863 PDF objects out of 1000 (max. 8388607)
+ 196 named destinations out of 1000 (max. 500000)
+ 40172 words of extra memory for PDF output out of 42996 (max. 10000000)
 
