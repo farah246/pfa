@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.5.27)  27 MAY 2026 19:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.5.27)  27 MAY 2026 19:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1348,9 +1348,9 @@ Package microtype Info: Character `029' is missing
 
 
 LaTeX Font Warning: Font shape `T1/lmr/bx/sc' undefined
-(Font)              using `T1/lmr/bx/n' instead on input line 294.
+(Font)              using `T1/lmr/bx/n' instead on input line 292.
 
-[8] [9] [10]) (chapitres/chapitre2.tex [11]
+[8] [9]) (chapitres/chapitre2.tex [10] [11]
 Chapitre 2.
 [12
 
@@ -1364,26 +1364,35 @@ Overfull \hbox (3.09444pt too wide) in alignment at lines 137--137
 [][][][][] 
  []
 
-[13]
-<chapitres/Archi k8s avec Istio.png, id=542, 1541.76pt x 1027.84pt>
+[13] [14]
+<chapitres/Archi k8s avec Istio.png, id=546, 1541.76pt x 1027.84pt>
 File: chapitres/Archi k8s avec Istio.png Graphic file (type png)
 <use chapitres/Archi k8s avec Istio.png>
 Package pdftex.def Info: chapitres/Archi k8s avec Istio.png  used on input line 188.
 (pdftex.def)             Requested size: 469.47049pt x 312.98103pt.
- [14] [15 <./chapitres/Archi k8s avec Istio.png (PNG copy)>]
+ [15 <./chapitres/Archi k8s avec Istio.png (PNG copy)>]
+Overfull \hbox (14.84674pt too wide) in paragraph at lines 205--211
+\T1/lmtt/m/n/12 payment-api \T1/lmr/m/n/12 (-20) via va-li-da-tion SPIFFE [7]. Il s'exé-cute sous le Ser-vi-ceAc-count \T1/lmtt/m/n/12 fraud-detection
+ []
+
+
+Overfull \hbox (11.86569pt too wide) in paragraph at lines 252--259
+\T1/lmr/m/n/12 (-20) Validates JWT to-kens (RS256) on \T1/lmtt/m/n/12 payment-api \T1/lmr/m/n/12 (-20) [1]. Ex-pec-ted is-suer : \T1/lmtt/m/n/12 https://testing.com\T1/lmr/m/n/12 (-20) ,
+ []
+
+[16{C:/Users/cheri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}]
 Overfull \hbox (77.9095pt too wide) in paragraph at lines 264--270
 \T1/lmtt/m/n/12 role=customer\T1/lmr/m/n/12 (-20) , or from ser-vice ac-count \T1/lmtt/m/n/12 cluster.local/ns/payment-system/sa/fraud-detection\T1/lmr/m/n/12 (-20) . 
  []
 
-[16{C:/Users/cheri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}]
 <chapitres/flux.png, id=557, 1351.0475pt x 1421.31pt>
 File: chapitres/flux.png Graphic file (type png)
 <use chapitres/flux.png>
 Package pdftex.def Info: chapitres/flux.png  used on input line 322.
 (pdftex.def)             Requested size: 469.47049pt x 493.88754pt.
- [17]
-Overfull \hbox (129.77788pt too wide) in paragraph at lines 332--339
-\T1/lmtt/m/n/12 spiffe://cluster.local/ns/payment-system/sa/{service}\T1/lmr/m/n/12 (-20) , sto-ckés dans \T1/lmtt/m/n/12 /var/run/secrets/workload-spiffe/
+[17]
+Overfull \hbox (144.54387pt too wide) in paragraph at lines 332--339
+\T1/lmtt/m/n/12 spiffe://cluster.local/ns/payment-system/sa/{service} \T1/lmr/m/n/12 (-20) [7], sto-ckés dans \T1/lmtt/m/n/12 /var/run/secrets/workload-spiffe/
  []
 
 <chapitres/Cycle de vie mTLS cert.png, id=562, 1541.76pt x 1027.84pt>
@@ -1529,7 +1538,7 @@ Overfull \hbox (30.70476pt too wide) in paragraph at lines 395--395
 []\T1/lmtt/m/n/12 [2024-01-15T14:23:41.123Z] "POST /charge HTTP/1.1" 403 - rbac_access_denied_match 
  []
 
-[36]
+[36] [37]
 Underfull \hbox (badness 2285) in paragraph at lines 506--506
 []|\T1/lmr/m/n/12 (+20) Visualise l'iso-la-tion zero-trust en
  []
@@ -1539,13 +1548,12 @@ Underfull \hbox (badness 5260) in paragraph at lines 506--506
 []|\T1/lmr/m/n/12 (+20) Audit trail --- preuve de non-
  []
 
-[37]
 <chapitres/vis1.png, id=690, 892.83563pt x 389.20406pt>
 File: chapitres/vis1.png Graphic file (type png)
 <use chapitres/vis1.png>
 Package pdftex.def Info: chapitres/vis1.png  used on input line 520.
 (pdftex.def)             Requested size: 469.47049pt x 204.65588pt.
- [38{C:/Users/cheri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}]
+[38{C:/Users/cheri/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}]
 File: chapitres/vis1.png Graphic file (type png)
 <use chapitres/vis1.png>
 Package pdftex.def Info: chapitres/vis1.png  used on input line 540.
@@ -1603,15 +1611,15 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 43656 strings out of 467683
- 865173 string characters out of 5414721
+ 43658 strings out of 467683
+ 865197 string characters out of 5414721
  1772404 words of memory out of 5000000
  71598 multiletter control sequences out of 15000+600000
- 702852 words of font info for 205 fonts, out of 8000000 for 9000
+ 702981 words of font info for 206 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  103i,13n,111p,1234b,2366s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/cheri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/cheri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/cheri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbxi10.pfb><C:/Users/cheri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users/cheri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/cheri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/cheri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:/Users/cheri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/cheri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtk10.pfb><C:/Users/cheri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Users/cheri/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt12.pfb><C:/Users/cheri/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on main.pdf (53 pages, 5294927 bytes).
+Output written on main.pdf (53 pages, 5295609 bytes).
 PDF statistics:
  858 PDF objects out of 1000 (max. 8388607)
  195 named destinations out of 1000 (max. 500000)

@@ -7,7 +7,7 @@
 \label{sec:introduction-ch2}
 Ce chapitre présente le concept de Service Mesh et son architecture fondamentale,
 avant d'analyser les principales solutions disponibles et de justifier le choix
-d'Istio pour ce projet. L'architecture du prototype déployé est ensuite décrite
+d'Istio pour ce projet~[1]. L'architecture du prototype déployé est ensuite décrite
 comme réponse concrète aux limites du DAST identifiées au chapitre précédent.
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -15,17 +15,17 @@ comme réponse concrète aux limites du DAST identifiées au chapitre précéden
 % ─────────────────────────────────────────────────────────────────────────────
 
 Un \textbf{Service Mesh} est une couche d'infrastructure dédiée à la gestion
-des communications service-à-service dans une architecture microservices. Il
+des communications service-à-service dans une architecture microservices~[11]. Il
 fonctionne en déployant un proxy léger (\textit{sidecar}) aux côtés de chaque
 instance de service. Ce proxy intercepte de manière transparente tout le trafic
-entrant et sortant, sans aucune modification du code applicatif.
+entrant et sortant, sans aucune modification du code applicatif~[8].
 
 Un Service Mesh est structuré en deux plans distincts : le \textbf{Data Plane},
-constitué des proxies sidecars (typiquement Envoy), qui traite le trafic en
+constitué des proxies sidecars (typiquement Envoy)~[8], qui traite le trafic en
 temps réel ; et le \textbf{Control Plane}, qui configure et orchestre les proxies
 via une API centralisée. Dans Istio, le Control Plane est incarné par le composant
 \texttt{istiod}, qui gère la distribution des certificats, la configuration des
-politiques et le service discovery.
+politiques et le service discovery~[1].
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Architecture et Composants Fondamentaux}
@@ -33,37 +33,37 @@ politiques et le service discovery.
 
 \subsection{Le Pattern Sidecar}
 
-Le pattern sidecar est le mécanisme clé du Service Mesh. Pour chaque pod
+Le pattern sidecar est le mécanisme clé du Service Mesh~[11]. Pour chaque pod
 Kubernetes, un conteneur Envoy est automatiquement injecté lors du déploiement,
 dès que le namespace est annoté avec l'étiquette
 \texttt{istio-injection: enabled}. Des règles \texttt{iptables} redirigent tout
 le trafic réseau du pod vers ce proxy, qui devient ainsi le point de contrôle
-unique pour toutes les communications.
+unique pour toutes les communications~[8].
 
 Ce mécanisme est fondamentalement transparent pour l'application : le service
 métier continue d'envoyer et de recevoir des requêtes HTTP normales, tandis
-qu'Envoy gère en arrière-plan le chiffrement mTLS, la validation JWT, le contrôle
-d'accès et la collecte de métriques.
+qu'Envoy gère en arrière-plan le chiffrement mTLS~[9], la validation JWT, le contrôle
+d'accès et la collecte de métriques~[1].
 
 \subsection{Composants Istio Déployés}
 
 \begin{itemize}
   \item \textbf{istiod (Pilot + Citadel + Galley) :} Control plane unifié. Gère
-        la distribution des certificats SPIFFE, la propagation des politiques et
-        la configuration des proxies Envoy.
+        la distribution des certificats SPIFFE~[7], la propagation des politiques et
+        la configuration des proxies Envoy~[1].
 
-  \item \textbf{Envoy sidecar :} Proxy haute performance injecté dans chaque pod.
-        Implémente mTLS, routing, load balancing, circuit breaking, rate limiting
-        et collecte des métriques.
+  \item \textbf{Envoy sidecar :} Proxy haute performance injecté dans chaque pod~[11].
+        Implémente mTLS~[9], routing, load balancing, circuit breaking, rate limiting
+        et collecte des métriques~[8].
 
   \item \textbf{istio-ingressgateway :} Point d'entrée externe du mesh. Gère la
-        terminaison TLS pour le trafic Nord-Sud.
+        terminaison TLS pour le trafic Nord-Sud~[1].
 
   \item \textbf{Kiali :} Console d'observabilité. Visualise la topologie du mesh,
-        le statut mTLS, les métriques de trafic et les politiques actives.
+        le statut mTLS, les métriques de trafic et les politiques actives~[10].
 
   \item \textbf{Prometheus + Grafana :} Collecte et visualisation des métriques
-        Envoy (latence, RPS, success rate, overhead TLS).
+        Envoy (latence, RPS, success rate, overhead TLS)~[13].
 \end{itemize}
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -109,13 +109,13 @@ d'accès et la collecte de métriques.
 
     \rowcolor{gray!10}
     SPIFFE
-      & \checkmark{} Complet
+      & \checkmark{} Complet~[7]
       & \checkmark
       & \checkmark
       & $\triangle$ Partiel \\
 
     Observabilité
-      & \checkmark{} Kiali+Grafana
+      & \checkmark{} Kiali+Grafana~[10]
       & \checkmark{} Dashboard
       & $\triangle$
       & $\triangle$ \\
@@ -138,41 +138,41 @@ d'accès et la collecte de métriques.
 \end{table}
 
 Istio a été retenu pour ce projet en raison de la richesse de son modèle de
-politiques de sécurité, notamment la gestion native du JWT, les
+politiques de sécurité~[1], notamment la gestion native du JWT, les
 \texttt{AuthorizationPolicies} basées sur les claims et la validation SPIFFE
-complète. Ces fonctionnalités correspondent précisément aux besoins d'un système
-de paiement sécurisé nécessitant un contrôle d'accès granulaire.
+complète~[7]. Ces fonctionnalités correspondent précisément aux besoins d'un système
+de paiement sécurisé nécessitant un contrôle d'accès granulaire~[5].
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Apports du Service Mesh dans les Pratiques DevSecOps}
 % ─────────────────────────────────────────────────────────────────────────────
 
 Le Service Mesh répond directement aux limitations du DAST identifiées au
-Chapitre~1, en ajoutant une dimension de sécurité runtime automatisée :
+Chapitre~1, en ajoutant une dimension de sécurité runtime automatisée~[1,14] :
 
 \begin{itemize}
   \item \textbf{Visibilité totale sur le trafic East-West :} chaque requête
         inter-service est interceptée, journalisée et métriquée par le proxy
-        Envoy, rendant ce trafic inspectable et auditable.
+        Envoy~[8], rendant ce trafic inspectable et auditable.
 
-  \item \textbf{Sécurisation automatique sans modification applicative :} mTLS,
+  \item \textbf{Sécurisation automatique sans modification applicative :} mTLS~[9],
         authentification et autorisation sont appliqués par l'infrastructure,
-        indépendamment du code des services.
+        indépendamment du code des services~[1].
 
   \item \textbf{Policies as Code :} les politiques de sécurité sont définies en
-        YAML versionnable, intégrables dans le pipeline CI/CD et auditables.
+        YAML versionnable, intégrables dans le pipeline CI/CD et auditables~[14].
 
   \item \textbf{Feedback continu :} Kiali et Grafana fournissent des métriques
-        de sécurité en temps réel, permettant la détection d'anomalies
+        de sécurité en temps réel~[10,13], permettant la détection d'anomalies
         comportementales.
 \end{itemize}
 
 \noindent\textbf{Complémentarité avec le DAST :}
-Le Service Mesh ne se substitue pas aux outils de test de sécurité existants,
+Le Service Mesh ne se substitue pas aux outils de test de sécurité existants~[3],
 mais en élargit considérablement le périmètre d'action. En fournissant un point
-d'interception centralisé sur l'ensemble du trafic interservices, il crée les
+d'interception centralisé sur l'ensemble du trafic interservices~[1], il crée les
 conditions d'une sécurité runtime couvrant les vulnérabilités invisibles depuis
-l'extérieur du cluster.
+l'extérieur du cluster~[5].
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Architecture du Prototype Déployé}
@@ -180,7 +180,7 @@ l'extérieur du cluster.
 
 Pour valider concrètement les apports du Service Mesh, un prototype de système
 de paiement a été conçu et déployé sur Kubernetes (Minikube v1.28.0) avec
-Istio v1.21.0. Ce prototype constitue le terrain d'expérimentation de
+Istio v1.21.0~[1,11]. Ce prototype constitue le terrain d'expérimentation de
 l'ensemble des analyses de sécurité développées aux chapitres suivants.
 
 \begin{figure}[H]
@@ -192,20 +192,20 @@ l'ensemble des analyses de sécurité développées aux chapitres suivants.
 
 \subsection{Les Deux Microservices}
 
-Le système comprend deux microservices métier aux rôles complémentaires :
+Le système comprend deux microservices métier aux rôles complémentaires~[16] :
 
 \begin{itemize}
   \item \textbf{Payment-API (Go, port 8080) :} service principal exposé via
-        l'Ingress Gateway. Il expose les endpoints \texttt{/health},
+        l'Ingress Gateway~[1]. Il expose les endpoints \texttt{/health},
         \texttt{/ready} et \texttt{/charge}, traite les requêtes de paiement et
         délègue l'analyse de risque à \texttt{fraud-detection} via un appel
-        mTLS. Il s'exécute sous le ServiceAccount \texttt{payment-api} avec
+        mTLS~[9]. Il s'exécute sous le ServiceAccount \texttt{payment-api} avec
         100m CPU et 128Mi RAM.
 
   \item \textbf{Fraud-Detection (Python/Flask, port 8080) :} service interne
         d'analyse de risque. Il expose les endpoints \texttt{/health},
         \texttt{/ready} et \texttt{/analyze}, et n'est accessible que depuis
-        \texttt{payment-api} via validation SPIFFE. Il s'exécute sous le
+        \texttt{payment-api} via validation SPIFFE~[7]. Il s'exécute sous le
         ServiceAccount \texttt{fraud-detection} avec les mêmes ressources
         allouées.
 \end{itemize}
@@ -215,7 +215,7 @@ Le système comprend deux microservices métier aux rôles complémentaires :
 The security and traffic architecture relies on eight configuration resources
 deployed in the \texttt{mesh-config/} directory, split between Istio CRDs
 managed by the control plane (\texttt{istiod}) and a native Kubernetes resource
-operating at the CNI level.
+operating at the CNI level~[11].
 
 % ---------- Istio CRDs ----------
 \textbf{Istio CRDs (managed by istiod)}
@@ -225,7 +225,7 @@ operating at the CNI level.
   \item \textbf{VirtualServices (3)} \\
         Routing rules with automatic retry ($3\times$,
         \texttt{perTryTimeout=10s}) and a 30-second global timeout per
-        inter-service call. Two VirtualServices cover internal traffic
+        inter-service call~[1]. Two VirtualServices cover internal traffic
         (\texttt{payment-api}, \texttt{fraud-detection}); a third handles
         inbound traffic from the Gateway.
 
@@ -235,22 +235,22 @@ operating at the CNI level.
         capped at 100 simultaneous connections
         (\texttt{maxRequestsPerConnection=2}), and outlier detection that
         ejects a host after 5 consecutive 5xx errors (30-second interval,
-        30-second base ejection time).
+        30-second base ejection time)~[1,8].
 
   \item \textbf{Gateway (1)} \\
-        External entrypoint exposed on port 80 over HTTP.
+        External entrypoint exposed on port 80 over HTTP~[1].
         \textbf{Limitation: no TLS termination is configured} --- traffic
         between the client and the gateway is unencrypted. Production deployment
-        requires a certificate and migration to HTTPS/443.
+        requires a certificate and migration to HTTPS/443~[9].
 
   \item \textbf{PeerAuthentication (1)} \\
         Enforces mTLS \texttt{STRICT} across all pods in the
-        \texttt{payment-system} namespace. Certificates are issued and rotated
+        \texttt{payment-system} namespace~[9,1]. Certificates are issued and rotated
         automatically by \texttt{istiod}. Any client without a valid sidecar or
         certificate is rejected at the Envoy proxy level.
 
   \item \textbf{RequestAuthentication (1)} \\
-        Validates JWT tokens (RS256) on \texttt{payment-api}. Expected issuer:
+        Validates JWT tokens (RS256) on \texttt{payment-api}~[1]. Expected issuer:
         \texttt{https://testing.com}, audience: \texttt{payment-api}, with
         \texttt{forwardOriginalToken=true} so downstream services receive the
         original token. The verification key is provided via an inline JWKS ---
@@ -258,7 +258,7 @@ operating at the CNI level.
         in production.
 
   \item \textbf{AuthorizationPolicies (2)} \\
-        Fine-grained zero-trust access control:
+        Fine-grained zero-trust access control~[5,17]:
 
         \begin{itemize}
           \item \texttt{payment-api}: \texttt{/health} and \texttt{/ready} are
@@ -272,12 +272,12 @@ operating at the CNI level.
                 \texttt{/health}, and \texttt{/ready} are allowed only from
                 service account
                 \texttt{cluster.local/ns/payment-system/sa/payment-api}. All
-                other access is denied by default.
+                other access is denied by default~[5].
         \end{itemize}
 
   \item \textbf{EnvoyFilter (1)} \\
         Local rate limiting applied directly on
-        \texttt{istio-ingressgateway}, before any routing decision. Token
+        \texttt{istio-ingressgateway}, before any routing decision~[8]. Token
         bucket: 20 tokens per second, refilled every second
         (\texttt{fill\_interval=1s}), enforced on 100\% of requests. This is a
         per-replica local limit --- it does not constitute distributed global
@@ -288,10 +288,10 @@ operating at the CNI level.
 \noindent\textbf{Ressource Kubernetes native}
 
 \begin{itemize}
-  \item \textbf{NetworkPolicies (2)} : mécanisme d’isolation réseau au niveau
+  \item \textbf{NetworkPolicies (2)}~[12] : mécanisme d'isolation réseau au niveau
         du CNI, indépendant du Service Mesh Istio. Cette couche reste effective
-        même en cas d’absence ou de mauvaise configuration des sidecars,
-        assurant une stratégie de défense en profondeur.
+        même en cas d'absence ou de mauvaise configuration des sidecars,
+        assurant une stratégie de défense en profondeur~[5].
 
         Les règles mises en place imposent :
 
@@ -302,7 +302,7 @@ operating at the CNI level.
                 8080.
 
           \item \textbf{Egress} : les sorties réseau sont limitées au namespace
-                \texttt{payment-system} ainsi qu’au service DNS du cluster
+                \texttt{payment-system} ainsi qu'au service DNS du cluster
                 (\texttt{kube-dns}, port UDP 53).
         \end{itemize}
 \end{itemize}
@@ -312,10 +312,10 @@ operating at the CNI level.
 Le flux complet d'une requête de paiement traverse les étapes suivantes : le
 client envoie une requête HTTP \texttt{/charge} à l'Ingress Gateway
 (port 31629), qui vérifie l'autorisation et route vers
-\texttt{payment-api}. Le sidecar Envoy intercepte la requête, applique les
+\texttt{payment-api}~[1]. Le sidecar Envoy intercepte la requête, applique les
 règles du VirtualService, puis initie un handshake mTLS TLS 1.3 vers
-\texttt{fraud-detection}. Les certificats mutuels sont vérifiés via leur
-identité SPIFFE, la réponse est renvoyée chiffrée dans le même tunnel mTLS.
+\texttt{fraud-detection}~[9]. Les certificats mutuels sont vérifiés via leur
+identité SPIFFE~[7], la réponse est renvoyée chiffrée dans le même tunnel mTLS.
 
 \begin{figure}[H]
   \centering
@@ -331,9 +331,9 @@ identité SPIFFE, la réponse est renvoyée chiffrée dans le même tunnel mTLS.
 
 Les certificats X.509 sont émis par l'autorité de certification Istio avec
 l'identité SPIFFE
-\texttt{spiffe://cluster.local/ns/payment-system/sa/\{service\}}, stockés dans
+\texttt{spiffe://cluster.local/ns/payment-system/sa/\{service\}}~[7], stockés dans
 \texttt{/var/run/secrets/workload-spiffe/} et renouvelés automatiquement toutes
-les 24 heures sans redémarrage de pod. Le \textit{Perfect Forward Secrecy}
+les 24 heures sans redémarrage de pod~[9]. Le \textit{Perfect Forward Secrecy}
 (PFS) est activé, garantissant que la compromission d'une clé ne compromet pas
 les sessions passées.
 
@@ -353,9 +353,9 @@ les sessions passées.
 % ─────────────────────────────────────────────────────────────────────────────
 
 Ce chapitre a présenté le Service Mesh comme une réponse architecturale aux
-défis de sécurité posés par les microservices. Nous avons introduit le concept
-et sa structuration en Data Plane et Control Plane, détaillé les composants
+défis de sécurité posés par les microservices~[16]. Nous avons introduit le concept
+et sa structuration en Data Plane et Control Plane~[1,8], détaillé les composants
 déployés dans Istio et justifié son choix face aux solutions concurrentes.
 L'architecture du prototype ; deux microservices sur Kubernetes avec six
-couches de sécurité Istio constitue la base concrète sur laquelle
+couches de sécurité Istio~[11,12] constitue la base concrète sur laquelle
 s'appuient les analyses des chapitres suivants.

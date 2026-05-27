@@ -5,7 +5,7 @@
 \section*{Introduction}
 \label{sec:introduction-ch4}
 Ce chapitre présente la mise en œuvre concrète du prototype de système de
-paiement déployé sur Kubernetes avec Istio, et documente la validation
+paiement déployé sur Kubernetes avec Istio~[11,1], et documente la validation
 expérimentale des analyses théoriques développées aux chapitres précédents.
 Chaque scénario d'attaque STRIDE est reproduit et ses résultats sont analysés,
 avant de synthétiser les apports mesurables du Service Mesh dans une démarche
@@ -17,7 +17,7 @@ DevSecOps.
 
 \subsection{Environnement de Déploiement}
 
-Le prototype est déployé sur Minikube, une distribution Kubernetes locale
+Le prototype est déployé sur Minikube, une distribution Kubernetes locale~[11]
 permettant de reproduire un environnement de production sur une machine de
 développement. La version Istio installée est la 1.x avec injection automatique
 de sidecars activée via l'annotation du namespace \texttt{payment-system}.
@@ -28,7 +28,7 @@ de sidecars activée via l'annotation du namespace \texttt{payment-system}.
   \item \textbf{Namespace applicatif :} \texttt{payment-system}
     (\texttt{istio-injection: enabled})
   \item \textbf{Observabilité :} Kiali, Grafana, Prometheus
-  \item \textbf{Tests :} \texttt{kubectl}, \texttt{curl}, OWASP ZAP,
+  \item \textbf{Tests :} \texttt{kubectl}, \texttt{curl}, OWASP ZAP~[3],
     \texttt{tcpdump}/Wireshark
 \end{itemize}
 
@@ -56,7 +56,7 @@ Le système comprend deux microservices métier et deux pods de test :
     fraud-detection
       & Python/Flask & 8080
       & Service interne. Analyse le risque des transactions. Accessible uniquement
-        depuis le SA \texttt{payment-api}. \\
+        depuis le SA \texttt{payment-api}~[7]. \\
     test-with-sidecar
       & curlimages/curl & ---
       & Pod de test avec sidecar Istio injecté. Simule un service légitime. \\
@@ -399,7 +399,7 @@ kubectl logs -n payment-system deployment/payment-api -c istio-proxy \
 Chaque entrée contient : horodatage ISO 8601, méthode HTTP, URI, code de réponse,
 raison du rejet et durée. Ces logs constituent l'audit trail garantissant la
 non-répudiation : aucune action dans le mesh ne peut être effectuée sans être
-enregistrée par Envoy.
+enregistrée par Envoy~[8] et visualisée dans Kiali~[10].
 
 \subsection{T8 --- Vérification du Chiffrement mTLS (Information Disclosure)}
 

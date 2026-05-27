@@ -8,7 +8,7 @@
 
   Ce chapitre applique la méthodologie STRIDE au prototype de système de paiement
   déployé avec Istio, afin d'identifier et d'analyser les menaces de sécurité
-  spécifiques aux architectures microservices. Pour chacune des six catégories
+  spécifiques aux architectures microservices~[4,1]. Pour chacune des six catégories
   de menaces, les contre-mesures apportées par le Service Mesh sont détaillées
   et mises en correspondance avec les mécanismes Istio déployés.
 
@@ -20,7 +20,7 @@ Le \textbf{threat modeling} (modélisation des menaces) est une démarche struct
 d'identification et d'analyse des risques de sécurité d'un système. Parmi les
 frameworks existants  STRIDE, PASTA, LINDDUN, MITRE ATT\&CK  nous avons
 retenu STRIDE pour sa pertinence dans les architectures orientées services et sa
-correspondance directe avec les mécanismes de protection qu'offre Istio.
+correspondance directe avec les mécanismes de protection qu'offre Istio~[4,1].
 
   STRIDE est un acronyme développé par Microsoft qui catégorise les menaces en
   six familles : \textbf{S}poofing (usurpation d'identité), \textbf{T}ampering
@@ -33,7 +33,7 @@ correspondance directe avec les mécanismes de protection qu'offre Istio.
 \section{Architecture du Système Analysé}
 % ─────────────────────────────────────────────────────────────────────────────
 
-Le système étudié est un prototype de système de paiement déployé sur Kubernetes
+Le système étudié est un prototype de système de paiement déployé sur Kubernetes~[11,12]
 avec deux microservices communicants :
 
 \begin{itemize}
@@ -43,7 +43,7 @@ avec deux microservices communicants :
 
   \item \textbf{fraud-detection} (Python/Flask, port 8080) : service interne de
     détection de fraude. Accessible uniquement depuis \texttt{payment-api} via
-    SPIFFE.
+    SPIFFE~[7].
 \end{itemize}
 
 La surface d'attaque comprend trois périmètres distincts :
@@ -65,14 +65,14 @@ Dans une architecture microservices sans Service Mesh, un service malveillant
 peut se faire passer pour un service légitime sans aucun mécanisme de vérification
 d'identité. Les appels HTTP entre services sont anonymes par nature.
 
-Istio répond à cette menace via deux mécanismes complémentaires :
+Istio répond à cette menace via deux mécanismes complémentaires~[1,7] :
 
 \begin{enumerate}
   \item Le \textbf{mTLS en mode STRICT} impose que chaque service présente un
     certificat valide lors de l'établissement de la connexion. Ces certificats
     sont générés automatiquement par \texttt{istiod} (l'autorité de certification
     Istio) et encodent l'identité SPIFFE du workload sous la forme :\\
-    \texttt{spiffe://cluster.local/ns/\{namespace\}/sa/\{serviceaccount\}}.
+    \texttt{spiffe://cluster.local/ns/\{namespace\}/sa/\{serviceaccount\}}~[1,7].
 
   \item Les \textbf{AuthorizationPolicies} filtrent les requêtes en fonction du
     principal SPIFFE source, garantissant que seul \texttt{payment-api} peut
@@ -98,13 +98,13 @@ modifiée est rejeté avec un code \texttt{401} par le composant
 La repudiation désigne la capacité d'un acteur malveillant à nier avoir effectué
 une action. Dans les systèmes distribués, l'absence de logs centralisés et
 horodatés facilite cette forme d'attaque.
-
-Le proxy Envoy génère automatiquement un \textit{access log} détaillé pour chaque
+  
+  Le proxy Envoy génère automatiquement un \textit{access log} détaillé pour chaque
 requête traitée, incluant : l'horodatage précis, l'adresse IP source, l'URI, le
 code de réponse HTTP, la durée, le principal SPIFFE source et la politique
 d'autorisation appliquée. Ces logs, accessibles via \texttt{kubectl logs} et
 visualisables dans Kiali, constituent un \textbf{audit trail} complet et non
-manipulable par les applications. Aucune action dans le mesh ne peut être
+manipulable par les applications~[8,10]. Aucune action dans le mesh ne peut être
 effectuée sans laisser une trace dans les logs Envoy.
 
 \subsection{Information Disclosure: Divulgation d'Information}
@@ -135,7 +135,7 @@ Istio apporte deux niveaux de protection complémentaires :
 
   \item Les \textbf{EnvoyFilters} permettent de configurer un mécanisme de
     \textit{rate limiting} par token bucket (ex. : 50 requêtes/min), bloquant
-    les requêtes excédentaires avec un code \texttt{429}.
+    les requêtes excédentaires avec un code \texttt{429}~[8].
 \end{itemize}
 
 Ces protections opèrent avant que la requête n'atteigne le code applicatif.
