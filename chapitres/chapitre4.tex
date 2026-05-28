@@ -79,7 +79,7 @@ dans le répertoire \texttt{mesh-config/} :
 
 \begin{table}[H]
   \centering
-  \caption{Les six couches de sécurité du prototype}
+  \caption{Les sept couches de sécurité du prototype}
   \label{tab:couches_securite}
   \renewcommand{\arraystretch}{1.4}
   \begin{tabularx}{\textwidth}{
@@ -110,6 +110,9 @@ dans le répertoire \texttt{mesh-config/} :
     6 & NetworkPolicy
       & Isolation pod-to-pod Kubernetes
       & T2, T3 --- Accès non autorisé \\
+    7 & Rate Limiting (EnvoyFilter)
+      & Token bucket local --- 20\,req/s par replica
+      & T10, T11 --- Flood, DoS \\
     \bottomrule
   \end{tabularx}
 \end{table}
@@ -186,6 +189,7 @@ est entièrement portée par l'infrastructure, sans aucune modification du code
 des services.
 
 % ─────────────────────────────────────────────────────────────────────────────
+\vspace{3.5cm}
 \section{Résultats Détaillés par Scénario}
 % ─────────────────────────────────────────────────────────────────────────────
 
@@ -312,7 +316,7 @@ spiffe://cluster.local/ns/payment-system/sa/payment-api
 Ces deux tests illustrent les deux niveaux de validation JWT opérés par Istio :
 la validation cryptographique de la signature (\texttt{RequestAuthentication}) et
 la validation sémantique des claims (\texttt{AuthorizationPolicy}).
-
+\vspace{4cm}
 \paragraph{T5 --- Signature corrompue.}
 
 \paragraph{Commande exécutée.}
@@ -354,9 +358,13 @@ curl -H "Authorization: Bearer $BAD_JWT" http://$GATEWAY:$PORT/charge
 \begin{figure}[H]
 \centering
  \includegraphics[width=\textwidth]{chapitres/Flus_JWT_vers_Api_payment.png}
-\caption{ Flux JWT : validation par RequestAuthentication et contrôle d'accès par AuthorizationPolicy au niveau de l'Istio Ingress Gateway.}
-\label{fig:cycle-vie-certificats}
+\caption{Flux JWT à l'Istio Ingress Gateway --- validation et contrôle d'accès.}\label{fig:cycle-vie-certificats}
 \end{figure}
+\noindent
+La requête entrante est d'abord soumise à la \texttt{RequestAuthentication} qui
+vérifie la signature RS256, l'issuer et l'expiration du token. En cas de succès,
+l'\texttt{AuthorizationPolicy} évalue les claims (rôle, principal SPIFFE) avant
+d'autoriser ou rejeter l'accès à \texttt{payment-api}.
 
 \paragraph{T6 --- Issuer non reconnu.}
 \begin{verbatim}
@@ -608,12 +616,6 @@ deux outils.
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Captures Kiali}
 
-% ── Figure 1 ───────────────────────────────────────────────────────────────
-\paragraph{Topologie complète du mesh en phase baseline.}
-Navigation : Kiali $\rightarrow$ Graph $\rightarrow$ Namespaces :
-\texttt{default}, \texttt{other-ns}, \texttt{payment-system}
-$\rightarrow$ Display : Security, Traffic Animation.
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{pages/fig4.14.png}
@@ -630,12 +632,6 @@ Les arêtes vertes traduisent un trafic majoritairement sain ; la fine arête ro
 depuis \texttt{istio-ingressgateway} correspond aux premières requêtes sans JWT
 rejetées par l'AuthorizationPolicy --- les politiques sont actives dès le démarrage
 du script.
-
-% ── Figure 2 ───────────────────────────────────────────────────────────────
-\paragraph{Isolation mTLS STRICT : appelant sans sidecar bloqué.}
-Navigation : Kiali $\rightarrow$ Graph $\rightarrow$ Sélectionner le nœud
-\texttt{attacker-cross-ns} (namespace \texttt{other-ns}).
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.72\linewidth]{pages/no-sidecar.png}
@@ -653,9 +649,6 @@ C'est la démonstration directe du \texttt{PeerAuthentication STRICT} : un appel
 extérieur au mesh est isolé sans qu'aucune règle applicative ne soit nécessaire.
 
 % ── Figure 3 ───────────────────────────────────────────────────────────────
-\paragraph{Détail d'arête mTLS avec identités SPIFFE.}
-Navigation : Kiali $\rightarrow$ Graph $\rightarrow$ Cliquer sur l'arête
-\texttt{istio-ingressgateway} $\rightarrow$ \texttt{payment-api}.
 
 \begin{figure}[H]
   \centering
@@ -679,10 +672,6 @@ l'AuthorizationPolicy.
 \subsection{Captures Grafana}
 
 % ── Figure 4 ───────────────────────────────────────────────────────────────
-\paragraph{Istio Service Dashboard --- impact du flood sur \texttt{payment-api}.}
-Navigation : Grafana $\rightarrow$ Istio Service Dashboard $\rightarrow$
-Service : \texttt{payment-api}.
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{pages/grafana1.png}
@@ -788,7 +777,7 @@ apports concrets du Service Mesh dans une démarche DevSecOps :
 % ─────────────────────────────────────────────────────────────────────────────
 
 La validation expérimentale confirme l'ensemble des analyses théoriques développées
-aux chapitres précédents. Les douze scénarios d'attaque couvrant les six catégories
+aux chapitres précédents. Les 11 scénarios d'attaque couvrant les six catégories
 STRIDE ont tous été exécutés et documentés. Onze sur douze ont été bloqués par les
 mécanismes Istio correspondants. Le douzième (T10 --- flood sans rate limiting) a
 motivé l'implémentation de T11, démontrant la capacité d'extension du Service Mesh
@@ -797,6 +786,4 @@ sans modification applicative.
 \textbf{Observation finale :} La posture de sécurité est entièrement déterminée
 par les politiques appliquées au mesh, indépendamment du code des applications.
 Le même binaire Go déployé sans \texttt{mesh-config} est vulnérable ; avec
-\texttt{mesh-config}, il est protégé contre onze catégories d'attaques distinctes.
-Cette séparation des préoccupations est l'essence même de l'apport DevSecOps
-du Service Mesh.
+\texttt{mesh-config}, il est protégé contre 11 catégories d'attaques.

@@ -7,7 +7,7 @@
 \contentsline {table}{\numberline {3.1}{\ignorespaces Scénarios d'attaque STRIDE et contre-mesures Istio}}{24}{table.caption.21}%
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {4.1}{\ignorespaces Services déployés dans le prototype}}{27}{table.caption.22}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces Les six couches de sécurité du prototype}}{28}{table.caption.23}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Les sept couches de sécurité du prototype}}{28}{table.caption.23}%
 \contentsline {table}{\numberline {4.3}{\ignorespaces Comparaison avant/après application des politiques Istio}}{29}{table.caption.24}%
-\contentsline {table}{\numberline {4.4}{\ignorespaces Vues d'observabilité Kiali et Grafana}}{40}{table.caption.49}%
-\contentsline {table}{\numberline {4.5}{\ignorespaces Apports DevSecOps mesurés sur le prototype}}{46}{table.caption.60}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Vues d'observabilité Kiali et Grafana}}{41}{table.caption.49}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces Apports DevSecOps mesurés sur le prototype}}{47}{table.caption.56}%

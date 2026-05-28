@@ -1,9 +1,9 @@
 \babel@toc {french}{}\relax 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Architecture du prototype Service Mesh --- Kubernetes/Minikube avec Istio}}{15}{figure.caption.18}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Diagramme de séquence : flux complet d'une requête /charge en trois phases — (1) validation JWT à l'Ingress Gateway, (2) routage mTLS vers payment-api avec retry automatique (max 3), (3) appel sécurisé à fraud-detection avec vérification de l'identité SPIFFE }}{18}{figure.caption.19}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Cycle de vie des certificats mTLS Istio : de l'injection du sidecar à l'utilisation du certificat, avec rotation automatique toutes les 24h. }}{19}{figure.caption.20}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Architecture du prototype Service Mesh --- Kubernetes/Minikube avec Istio.}}{15}{figure.caption.18}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Diagramme de séquence : flux complet d'une requête \texttt {/charge} en trois phases.}}{18}{figure.caption.19}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Cycle de vie des certificats mTLS Istio.}}{19}{figure.caption.20}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Tableau de bord Kiali --- visualisation du flux de trafic entre l'Ingress Gateway et le service}}{30}{figure.caption.27}%
@@ -14,9 +14,9 @@
 \contentsline {figure}{\numberline {4.6}{\ignorespaces Kiali~: détail du trafic entrant sur \texttt {fraud-detection} --- 100\,\% d'erreurs.}}{33}{figure.caption.34}%
 \contentsline {figure}{\numberline {4.7}{\ignorespaces Test T5 --- envoi d'un JWT à signature corrompue, rejet HTTP 401 et trafic en erreur visible dans Kiali}}{34}{figure.caption.37}%
 \contentsline {figure}{\numberline {4.8}{\ignorespaces Logs Envoy --- refus \texttt {jwt\_authn\_access\_denied\{Jwt\_verification\_fails\}} pour chaque requête avec signature invalide}}{34}{figure.caption.38}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Flux JWT : validation par RequestAuthentication et contrôle d'accès par AuthorizationPolicy au niveau de l'Istio Ingress Gateway.}}{35}{figure.caption.39}%
-\contentsline {figure}{\numberline {4.10}{\ignorespaces \textbf {Vue topologique du mesh --- phase baseline (88,38\,\% de succès).}}}{41}{figure.caption.51}%
-\contentsline {figure}{\numberline {4.11}{\ignorespaces \textbf {Workload \texttt {attacker-cross-ns} --- sidecar manquant, trafic nul.}}}{42}{figure.caption.53}%
-\contentsline {figure}{\numberline {4.12}{\ignorespaces \textbf {Arête HTTP gateway $\rightarrow $ \texttt {payment-api} --- mTLS activé, principals SPIFFE visibles.}}}{43}{figure.caption.55}%
-\contentsline {figure}{\numberline {4.13}{\ignorespaces \textbf {Grafana Istio Service Dashboard --- pic de latence et sources de trafic distinctes à 11:40.}}}{44}{figure.caption.57}%
-\contentsline {figure}{\numberline {4.14}{\ignorespaces \textbf {Grafana Istio Mesh Dashboard --- 8\,ops/s, 1,67\,ops/s en 4xx, inventaire Istio confirmé.}}}{45}{figure.caption.59}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Flux JWT à l'Istio Ingress Gateway --- validation et contrôle d'accès.}}{35}{figure.caption.39}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces \textbf {Vue topologique du mesh --- phase baseline (88,38\,\% de succès).}}}{42}{figure.caption.50}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces \textbf {Workload \texttt {attacker-cross-ns} --- sidecar manquant, trafic nul.}}}{43}{figure.caption.51}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces \textbf {Arête HTTP gateway $\rightarrow $ \texttt {payment-api} --- mTLS activé, principals SPIFFE visibles.}}}{44}{figure.caption.52}%
+\contentsline {figure}{\numberline {4.13}{\ignorespaces \textbf {Grafana Istio Service Dashboard --- pic de latence et sources de trafic distinctes à 11:40.}}}{45}{figure.caption.53}%
+\contentsline {figure}{\numberline {4.14}{\ignorespaces \textbf {Grafana Istio Mesh Dashboard --- 8\,ops/s, 1,67\,ops/s en 4xx, inventaire Istio confirmé.}}}{45}{figure.caption.55}%

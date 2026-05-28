@@ -6,11 +6,11 @@
 \section*{Introduction}
 \label{sec:introduction-ch3}
 
-  Ce chapitre applique la méthodologie STRIDE au prototype de système de paiement
-  déployé avec Istio, afin d'identifier et d'analyser les menaces de sécurité
-  spécifiques aux architectures microservices~[4,1]. Pour chacune des six catégories
-  de menaces, les contre-mesures apportées par le Service Mesh sont détaillées
-  et mises en correspondance avec les mécanismes Istio déployés.
+Ce chapitre applique la méthodologie STRIDE au prototype de système de paiement
+déployé avec Istio, afin d'identifier et d'analyser les menaces de sécurité
+spécifiques aux architectures microservices~[4,1]. Pour chacune des six catégories
+de menaces, les contre-mesures apportées par le Service Mesh sont détaillées et
+mises en correspondance avec les mécanismes Istio déployés.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Méthodologie STRIDE}
@@ -18,25 +18,25 @@
 
 Le \textbf{threat modeling} (modélisation des menaces) est une démarche structurée
 d'identification et d'analyse des risques de sécurité d'un système. Parmi les
-frameworks existants  STRIDE, PASTA, LINDDUN, MITRE ATT\&CK  nous avons
+frameworks existants --- STRIDE, PASTA, LINDDUN, MITRE ATT\&CK --- nous avons
 retenu STRIDE pour sa pertinence dans les architectures orientées services et sa
 correspondance directe avec les mécanismes de protection qu'offre Istio~[4,1].
 
-  STRIDE est un acronyme développé par Microsoft qui catégorise les menaces en
-  six familles : \textbf{S}poofing (usurpation d'identité), \textbf{T}ampering
-  (altération de données), \textbf{R}epudiation (non-traçabilité des actions),
-  \textbf{I}nformation Disclosure (divulgation d'informations), \textbf{D}enial
-  of Service (déni de service) et \textbf{E}levation of Privilege (élévation de
-  privilèges). Chaque catégorie correspond à une propriété de sécurité à protéger.
+STRIDE est un acronyme développé par Microsoft qui catégorise les menaces en six
+familles : \textbf{S}poofing (usurpation d'identité), \textbf{T}ampering
+(altération de données), \textbf{R}epudiation (non-traçabilité des actions),
+\textbf{I}nformation Disclosure (divulgation d'informations), \textbf{D}enial of
+Service (déni de service) et \textbf{E}levation of Privilege (élévation de
+privilèges). Chaque catégorie correspond à une propriété de sécurité à protéger.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Architecture du Système Analysé}
 % ─────────────────────────────────────────────────────────────────────────────
 
-Le système étudié est un prototype de système de paiement déployé sur Kubernetes~[11,12]
-avec deux microservices communicants :
+Le système étudié est un prototype de système de paiement déployé sur
+Kubernetes~[11,12] avec deux microservices communicants :
 
-\begin{itemize}
+\begin{itemize}[topsep=4pt, itemsep=3pt]
   \item \textbf{payment-api} (Go, port 8080) : service principal exposé via
     gateway. Reçoit les requêtes de paiement, valide le JWT et transmet à
     \texttt{fraud-detection}.
@@ -48,18 +48,19 @@ avec deux microservices communicants :
 
 La surface d'attaque comprend trois périmètres distincts :
 
-\begin{enumerate}
+\begin{enumerate}[topsep=4pt, itemsep=3pt]
   \item Le trafic \textbf{externe} : client $\rightarrow$ gateway $\rightarrow$
     payment-api.
   \item Le trafic \textbf{interne} : payment-api $\rightarrow$ fraud-detection.
-  \item Les tentatives d'accès depuis des \textbf{namespaces ou pods non autorisés}.
+  \item Les tentatives d'accès depuis des \textbf{namespaces ou pods non
+    autorisés}.
 \end{enumerate}
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Analyse des Six Catégories STRIDE}
 % ─────────────────────────────────────────────────────────────────────────────
 
-\subsection{Spoofing: Usurpation d'Identité}
+\subsection{Spoofing : Usurpation d'Identité}
 
 Dans une architecture microservices sans Service Mesh, un service malveillant
 peut se faire passer pour un service légitime sans aucun mécanisme de vérification
@@ -67,11 +68,11 @@ d'identité. Les appels HTTP entre services sont anonymes par nature.
 
 Istio répond à cette menace via deux mécanismes complémentaires~[1,7] :
 
-\begin{enumerate}
+\begin{enumerate}[topsep=4pt, itemsep=3pt]
   \item Le \textbf{mTLS en mode STRICT} impose que chaque service présente un
     certificat valide lors de l'établissement de la connexion. Ces certificats
-    sont générés automatiquement par \texttt{istiod} (l'autorité de certification
-    Istio) et encodent l'identité SPIFFE du workload sous la forme :\\
+    sont générés automatiquement par \texttt{istiod} et encodent l'identité
+    SPIFFE du workload sous la forme
     \texttt{spiffe://cluster.local/ns/\{namespace\}/sa/\{serviceaccount\}}~[1,7].
 
   \item Les \textbf{AuthorizationPolicies} filtrent les requêtes en fonction du
@@ -79,27 +80,27 @@ Istio répond à cette menace via deux mécanismes complémentaires~[1,7] :
     joindre \texttt{fraud-detection}.
 \end{enumerate}
 
-\subsection{Tampering: Altération de Données en Transit}
+\subsection{Tampering : Altération de Données en Transit}
 
 Sans chiffrement du trafic inter-services, un attaquant ayant accès au réseau
 du cluster peut intercepter et modifier les données en transit. Dans le contexte
 d'un système de paiement, cela pourrait permettre la modification des montants
 de transactions ou des réponses de l'analyse de fraude.
 
-Le mTLS garantit l'intégrité des données en transit via le protocole TLS 1.3.
-Toute modification des données chiffrées invalide le \textit{Message Authentication
-Code} (MAC) et provoque le rejet de la connexion. Par ailleurs, la validation JWT
-assure l'intégrité des tokens d'authentification : un JWT dont la signature a été
-modifiée est rejeté avec un code \texttt{401} par le composant
+Le mTLS garantit l'intégrité des données en transit via le protocole TLS~1.3.
+Toute modification des données chiffrées invalide le \textit{Message
+Authentication Code} (MAC) et provoque le rejet de la connexion. Par ailleurs,
+la validation JWT assure l'intégrité des tokens d'authentification : un JWT dont
+la signature a été modifiée est rejeté avec un code \texttt{401} par le composant
 \texttt{RequestAuthentication} d'Istio.
 
-\subsection{Repudiation: Non-Traçabilité des Actions}
+\subsection{Repudiation : Non-Traçabilité des Actions}
 
 La repudiation désigne la capacité d'un acteur malveillant à nier avoir effectué
 une action. Dans les systèmes distribués, l'absence de logs centralisés et
 horodatés facilite cette forme d'attaque.
-  
-  Le proxy Envoy génère automatiquement un \textit{access log} détaillé pour chaque
+
+Le proxy Envoy génère automatiquement un \textit{access log} détaillé pour chaque
 requête traitée, incluant : l'horodatage précis, l'adresse IP source, l'URI, le
 code de réponse HTTP, la durée, le principal SPIFFE source et la politique
 d'autorisation appliquée. Ces logs, accessibles via \texttt{kubectl logs} et
@@ -107,20 +108,20 @@ visualisables dans Kiali, constituent un \textbf{audit trail} complet et non
 manipulable par les applications~[8,10]. Aucune action dans le mesh ne peut être
 effectuée sans laisser une trace dans les logs Envoy.
 
-\subsection{Information Disclosure: Divulgation d'Information}
+\subsection{Information Disclosure : Divulgation d'Information}
 
-Sans chiffrement, le trafic inter-services est lisible par n'importe quel processus
-ayant accès au réseau du cluster. Une capture de paquets (\texttt{tcpdump},
-Wireshark) révèle les données métier en clair : montants de transactions,
-identifiants de cartes, résultats d'analyse de fraude.
+Sans chiffrement, le trafic inter-services est lisible par n'importe quel
+processus ayant accès au réseau du cluster. Une capture de paquets
+(\texttt{tcpdump}, Wireshark) révèle les données métier en clair : montants de
+transactions, identifiants de cartes, résultats d'analyse de fraude.
 
 Le mTLS STRICT imposé par la \texttt{PeerAuthentication} chiffre l'intégralité
-du trafic inter-pods via TLS 1.3. Une capture réseau entre \texttt{payment-api}
+du trafic inter-pods via TLS~1.3. Une capture réseau entre \texttt{payment-api}
 et \texttt{fraud-detection} ne révèle que des \textit{TLS Application Data
 Records} illisibles. Le certificat présenté lors du handshake TLS révèle
 l'identité SPIFFE du service, mais aucune donnée applicative.
 
-\subsection{Denial of Service: Déni de Service}
+\subsection{Denial of Service : Déni de Service}
 
 Les microservices exposés directement sur le réseau sont vulnérables aux attaques
 par saturation. Un service inondé de requêtes peut devenir indisponible, et dans
@@ -128,19 +129,19 @@ une architecture en chaîne, cette indisponibilité peut se propager en cascade.
 
 Istio apporte deux niveaux de protection complémentaires :
 
-\begin{itemize}
-  \item Les \textbf{DestinationRules} permettent de définir des \textit{connection
-    pools} (limites de connexions simultanées et de requêtes en attente) au niveau
-    du sidecar Envoy, sans dépendance à un service externe.
+\begin{itemize}[topsep=4pt, itemsep=3pt]
+  \item Les \textbf{DestinationRules} permettent de définir des
+    \textit{connection pools} (limites de connexions simultanées et de requêtes
+    en attente) au niveau du sidecar Envoy, sans dépendance à un service externe.
 
   \item Les \textbf{EnvoyFilters} permettent de configurer un mécanisme de
-    \textit{rate limiting} par token bucket (ex. : 50 requêtes/min), bloquant
+    \textit{rate limiting} par token bucket (ex. : 50~requêtes/min), bloquant
     les requêtes excédentaires avec un code \texttt{429}~[8].
 \end{itemize}
 
 Ces protections opèrent avant que la requête n'atteigne le code applicatif.
 
-\subsection{Elevation of Privilege: Élévation de Privilèges}
+\subsection{Elevation of Privilege : Élévation de Privilèges}
 
 L'élévation de privilèges dans un contexte microservices peut prendre plusieurs
 formes : accès à un endpoint non autorisé, utilisation d'un token JWT avec des
@@ -150,16 +151,18 @@ Les \textbf{AuthorizationPolicies} d'Istio permettent un contrôle d'accès
 granulaire basé sur : les méthodes HTTP, les chemins URI, les namespaces source,
 les ServiceAccounts SPIFFE et les claims JWT.
 
-  \textbf{Distinction authentification / autorisation :} Un token JWT valide mais
-  ne contenant pas les claims requis sera accepté par \texttt{RequestAuthentication}
-  (code \texttt{200} sur la validation de signature) mais rejeté par
-  l'\texttt{AuthorizationPolicy} (code \texttt{403}). Cette séparation entre
-  les deux niveaux de contrôle est fondamentale pour une défense en profondeur.
-  
+\medskip\noindent
+\textbf{Distinction authentification / autorisation :} Un token JWT valide mais
+ne contenant pas les claims requis sera accepté par \texttt{RequestAuthentication}
+(validation de signature réussie) mais rejeté par l'\texttt{AuthorizationPolicy}
+(code \texttt{403}). Cette séparation entre les deux niveaux de contrôle est
+fondamentale pour une défense en profondeur.
+
+% ─────────────────────────────────────────────────────────────────────────────
 \section{Synthèse des Risques et Contre-mesures}
 % ─────────────────────────────────────────────────────────────────────────────
 
-Le tableau suivant synthétise les douze scénarios d'attaque analysés et
+Le tableau suivant synthétise les onze scénarios d'attaque analysés et
 expérimentés, avec les mécanismes Istio responsables du blocage :
 
 \begin{table}[H]
@@ -174,25 +177,25 @@ expérimentés, avec les mécanismes Istio responsables du blocage :
     \rowcolor{gray!15}
     ID & STRIDE & Scénario & Mécanisme Istio & Résultat & Code \\
     \midrule
-    T1  & Elevation  & Accès \texttt{/charge} sans JWT
+    T1  & Elevation   & Accès \texttt{/charge} sans JWT
         & AuthorizationPolicy + RequestAuthentication
         & \textbf{BLOQUÉ} \checkmark & 403 \\
     \rowcolor{gray!10}
-    T2  & Spoofing   & Pod sans sidecar $\rightarrow$ payment-api
+    T2  & Spoofing    & Pod sans sidecar $\rightarrow$ payment-api
         & mTLS STRICT PeerAuthentication
         & \textbf{BLOQUÉ} \checkmark & Reset \\
-    T3  & Elevation  & Cross-namespace $\rightarrow$ fraud-detection
+    T3  & Elevation   & Cross-namespace $\rightarrow$ fraud-detection
         & NetworkPolicy + AuthZ
         & \textbf{BLOQUÉ} \checkmark & Reset \\
     \rowcolor{gray!10}
-    T4  & Spoofing   & Wrong SPIFFE SA $\rightarrow$ fraud-detection
+    T4  & Spoofing    & Wrong SPIFFE SA $\rightarrow$ fraud-detection
         & SPIFFE principal validation
         & \textbf{BLOQUÉ} \checkmark & 403 \\
-    T5  & Tampering  & JWT signature corrompue
+    T5  & Tampering   & JWT signature corrompue
         & RequestAuthentication sig. verify
         & \textbf{BLOQUÉ} \checkmark & 401 \\
     \rowcolor{gray!10}
-    T6  & Tampering  & JWT issuer non reconnu
+    T6  & Tampering   & JWT issuer non reconnu
         & RequestAuthentication issuer check
         & \textbf{BLOQUÉ} \checkmark & 401 \\
     T7  & Repudiation & Traçabilité attaques
@@ -200,33 +203,31 @@ expérimentés, avec les mécanismes Istio responsables du blocage :
         & \textbf{TRACÉ} \checkmark & --- \\
     \rowcolor{gray!10}
     T8  & Info Discl. & Interception trafic inter-pod
-        & mTLS chiffrement TLS 1.3
+        & mTLS chiffrement TLS~1.3
         & \textbf{CHIFFRÉ} \checkmark & --- \\
     T9  & Info Discl. & SA token exfiltration
         & RBAC Kubernetes + SPIFFE
         & \textbf{LIMITÉ} \checkmark & 403 \\
     \rowcolor{gray!10}
-    T10 & DoS        & Flood 200 requêtes/s
+    T10 & DoS         & Flood 200 requêtes/s
         & Connection pool DestinationRule
         & \textbf{DÉGRADÉ} $\triangle$ & 5xx \\
-    T11 & DoS        & Rate limiting EnvoyFilter
-        & EnvoyFilter token bucket 50/min
+    T11 & DoS         & Rate limiting EnvoyFilter
+        & EnvoyFilter token bucket 20/s
         & \textbf{PROTÉGÉ} \checkmark & 429 \\
-    \rowcolor{gray!10}
-    T12 & Elevation  & JWT valide, claims insuffisants
-        & AuthorizationPolicy claims check
-        & \textbf{BLOQUÉ} \checkmark & 403 \\
     \bottomrule
   \end{tabularx}
 \end{table}
+
 % ─────────────────────────────────────────────────────────────────────────────
+\begin{samepage}
 \section*{Conclusion}
 % ─────────────────────────────────────────────────────────────────────────────
 
 L'analyse STRIDE révèle qu'Istio offre une couverture complète des six catégories
 de menaces identifiées. La combinaison \textbf{mTLS + JWT + AuthorizationPolicy
-+ SPIFFE + NetworkPolicy} crée une défense en profondeur où chaque couche compense
-les limitations des autres. Sur les douze scénarios expérimentés, dix sont
-intégralement bloqués, un est tracé et un est partiellement atténué, confirmant
-la robustesse de l'architecture déployée.
-
++ SPIFFE + NetworkPolicy} crée une défense en profondeur où chaque couche
+compense les limitations des autres. Sur les onze scénarios expérimentés, neuf
+sont intégralement bloqués, un est tracé et un est partiellement atténué,
+confirmant la robustesse de l'architecture déployée.
+\end{samepage}

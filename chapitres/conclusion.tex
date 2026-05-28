@@ -1,8 +1,52 @@
-% ═════════════════════════════════════════════════════════════════════════════
-%  chapitres/conclusion.tex — Conclusion Générale
-% ═════════════════════════════════════════════════════════════════════════════
 \chapter*{Conclusion Générale}
 \addcontentsline{toc}{chapter}{Conclusion Générale}
 \markboth{Conclusion Générale}{Conclusion Générale}
 
-% Contenu à venir...
+Ce projet a démontré, à travers une implémentation fonctionnelle et une validation
+expérimentale rigoureuse, comment le Service Mesh Istio répond aux défis de sécurité
+posés par les architectures microservices dans le contexte DevSecOps. La problématique
+initiale portait sur l'incapacité du DAST traditionnel à inspecter et sécuriser le
+trafic \textit{East-West} --- les communications interservices internes au cluster,
+invisibles pour les outils de test conventionnels. Cette lacune a été adressée par
+le déploiement d'une architecture en six couches de sécurité complémentaires : TLS
+Gateway, RequestAuthentication JWT, AuthorizationPolicy RBAC, mTLS STRICT, SPIFFE
+et NetworkPolicy.
+
+Le prototype de système de paiement, composé de deux microservices déployés sur
+Kubernetes/Minikube avec Istio, a servi de terrain d'expérimentation pour douze
+scénarios d'attaque couvrant l'ensemble des six catégories du framework STRIDE.
+Les résultats sont sans ambiguïté : onze scénarios sur douze ont été intégralement
+bloqués par les mécanismes Istio, sans aucune modification du code applicatif.
+Le douzième scénario (T10 --- flood sans rate limiting) a motivé l'implémentation
+d'un EnvoyFilter de rate limiting (T11), illustrant la capacité d'extension
+incrémentale du Service Mesh face à de nouvelles menaces.
+
+L'apport le plus significatif de ce travail réside dans la démonstration que la
+posture de sécurité est entièrement déterminée par les politiques appliquées au
+mesh, indépendamment du code des applications. Le même binaire Go déployé sans
+\texttt{mesh-config} est vulnérable ; avec \texttt{mesh-config}, il est protégé
+contre onze catégories d'attaques distinctes. Cette séparation des préoccupations
+--- sécurité portée par l'infrastructure, transparente pour le développeur ---
+constitue l'essence même de l'apport DevSecOps du Service Mesh. Par ailleurs,
+Kiali et Grafana rendent observable et auditable un trafic jusqu'alors invisible,
+tandis que les logs Envoy garantissent un audit trail complet assurant la
+non-répudiation de toutes les actions dans le mesh.
+
+Ce travail présente néanmoins certaines limites. L'environnement Minikube, bien
+que représentatif sur le plan fonctionnel, ne reproduit pas toutes les contraintes
+d'un cluster de production multi-nœuds. La Gateway externe n'est pas configurée
+en HTTPS dans ce prototype, une lacune à combler avant tout déploiement en
+production. Plusieurs perspectives d'extension sont identifiées : l'intégration
+des politiques Istio dans un pipeline CI/CD via OPA Gatekeeper, le couplage
+d'OWASP ZAP au mesh pour automatiser les scans internes, l'ajout d'un moteur
+de détection d'anomalies comportementales tel que Falco, et l'extension vers une
+architecture Zero Trust multi-cluster.
+
+Au-delà des aspects techniques, ce projet illustre une transformation culturelle
+fondamentale du DevSecOps : la sécurité n'est plus un obstacle ou une étape
+finale du cycle de développement, mais une propriété émergente de l'infrastructure.
+Lorsque les politiques de sécurité sont déclaratives, versionnables et appliquées
+automatiquement par le mesh, elles deviennent aussi naturelles qu'un déploiement
+Kubernetes ordinaire. C'est cette philosophie --- \textit{sécurité by default},
+\textit{sécurité as code}, \textit{sécurité sans friction} --- qui constitue la
+promesse centrale du Service Mesh dans l'écosystème DevSecOps.

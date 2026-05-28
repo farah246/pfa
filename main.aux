@@ -28,13 +28,13 @@
 \@writefile{toc}{\contentsline {section}{\numberline {1.2}Introduction au DevSecOps}{4}{section.1.2}\protected@file@percent }
 \newlabel{sec:devsecops}{{1.2}{4}{Introduction au DevSecOps}{section.1.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.2.1}Du DevOps au DevSecOps : genèse et évolution}{4}{subsection.1.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.2}Les principes fondateurs du DevSecOps}{5}{subsection.1.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.2}Les principes fondateurs du DevSecOps}{4}{subsection.1.2.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {1.3}Les types de tests de sécurité (SAST, DAST, IAST, RASP)}{5}{section.1.3}\protected@file@percent }
 \newlabel{sec:tests}{{1.3}{5}{Les types de tests de sécurité (SAST, DAST, IAST, RASP)}{section.1.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.1}SAST Static Application Security Testing}{5}{subsection.1.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.2}DAST Dynamic Application Security Testing}{6}{subsection.1.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.3}IAST Interactive Application Security Testing}{7}{subsection.1.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.4}RASP Runtime Application Self-Protection}{7}{subsection.1.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.1}SAST --- Static Application Security Testing}{5}{subsection.1.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.2}DAST --- Dynamic Application Security Testing}{6}{subsection.1.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.3}IAST --- Interactive Application Security Testing}{6}{subsection.1.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.4}RASP --- Runtime Application Self-Protection}{7}{subsection.1.3.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.3.5}Tableau comparatif des quatre approches}{8}{subsection.1.3.5}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {1.1}{\ignorespaces Comparaison des approches de tests de sécurité}}{8}{table.caption.12}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
@@ -49,7 +49,7 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.4.2}Stratégies DAST adaptées aux microservices}{9}{subsection.1.4.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.4.3}Limites actuelles et pistes d'amélioration}{10}{subsection.1.4.3}\protected@file@percent }
 \newlabel{sec:conclusion-ch1}{{1.4.3}{10}{}{subsection.1.4.3}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {2}Service Mesh Présentation et Implémentation}{12}{chapter.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {2}Présentation du Service Mesh et Architecture du Prototype}{12}{chapter.2}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \newlabel{sec:introduction-ch2}{{2}{12}{}{chapter.2}{}}
@@ -62,15 +62,15 @@
 \newlabel{tab:comparaison_mesh}{{2.1}{14}{Comparaison des principales solutions Service Mesh}{table.caption.17}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {2.4}Apports du Service Mesh dans les Pratiques DevSecOps}{14}{section.2.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {2.5}Architecture du Prototype Déployé}{15}{section.2.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Architecture du prototype Service Mesh --- Kubernetes/Minikube avec Istio}}{15}{figure.caption.18}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Architecture du prototype Service Mesh --- Kubernetes/Minikube avec Istio.}}{15}{figure.caption.18}\protected@file@percent }
 \newlabel{fig:architecture_prototype}{{2.1}{15}{Architecture du prototype Service Mesh --- Kubernetes/Minikube avec Istio}{figure.caption.18}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.1}Les Deux Microservices}{15}{subsection.2.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.2}Configuration Istio en Six Couches}{16}{subsection.2.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.1}Les Deux Microservices}{16}{subsection.2.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.2}Ressources de Configuration Istio et Kubernetes}{16}{subsection.2.5.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.5.3}Flux de Requête et Gestion des Certificats}{17}{subsection.2.5.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces  Diagramme de séquence : flux complet d'une requête /charge en trois phases — (1) validation JWT à l'Ingress Gateway, (2) routage mTLS vers payment-api avec retry automatique (max 3), (3) appel sécurisé à fraud-detection avec vérification de l'identité SPIFFE }}{18}{figure.caption.19}\protected@file@percent }
-\newlabel{fig:cycle-vie-certificats}{{2.2}{18}{Diagramme de séquence : flux complet d'une requête /charge en trois phases — (1) validation JWT à l'Ingress Gateway, (2) routage mTLS vers payment-api avec retry automatique (max 3), (3) appel sécurisé à fraud-detection avec vérification de l'identité SPIFFE}{figure.caption.19}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces  Cycle de vie des certificats mTLS Istio : de l'injection du sidecar à l'utilisation du certificat, avec rotation automatique toutes les 24h. }}{19}{figure.caption.20}\protected@file@percent }
-\newlabel{fig:cycle-vie-certificats}{{2.3}{19}{Cycle de vie des certificats mTLS Istio : de l'injection du sidecar à l'utilisation du certificat, avec rotation automatique toutes les 24h}{figure.caption.20}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Diagramme de séquence : flux complet d'une requête \texttt  {/charge} en trois phases.}}{18}{figure.caption.19}\protected@file@percent }
+\newlabel{fig:flux_requete}{{2.2}{18}{Diagramme de séquence : flux complet d'une requête \texttt {/charge} en trois phases}{figure.caption.19}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces Cycle de vie des certificats mTLS Istio.}}{19}{figure.caption.20}\protected@file@percent }
+\newlabel{fig:cycle_certificats}{{2.3}{19}{Cycle de vie des certificats mTLS Istio}{figure.caption.20}{}}
 \@writefile{toc}{\contentsline {chapter}{\numberline {3}Threat Modeling et Analyse de Sécurité}{20}{chapter.3}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
@@ -78,12 +78,12 @@
 \@writefile{toc}{\contentsline {section}{\numberline {3.1}Méthodologie STRIDE}{20}{section.3.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {3.2}Architecture du Système Analysé}{20}{section.3.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {3.3}Analyse des Six Catégories STRIDE}{21}{section.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Spoofing: Usurpation d'Identité}{21}{subsection.3.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}Tampering: Altération de Données en Transit}{21}{subsection.3.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.3}Repudiation: Non-Traçabilité des Actions}{22}{subsection.3.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.4}Information Disclosure: Divulgation d'Information}{22}{subsection.3.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.5}Denial of Service: Déni de Service}{22}{subsection.3.3.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.6}Elevation of Privilege: Élévation de Privilèges}{23}{subsection.3.3.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Spoofing : Usurpation d'Identité}{21}{subsection.3.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}Tampering : Altération de Données en Transit}{21}{subsection.3.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.3}Repudiation : Non-Traçabilité des Actions}{22}{subsection.3.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.4}Information Disclosure : Divulgation d'Information}{22}{subsection.3.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.5}Denial of Service : Déni de Service}{22}{subsection.3.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.6}Elevation of Privilege : Élévation de Privilèges}{23}{subsection.3.3.6}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {3.4}Synthèse des Risques et Contre-mesures}{23}{section.3.4}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces Scénarios d'attaque STRIDE et contre-mesures Istio}}{24}{table.caption.21}\protected@file@percent }
 \newlabel{tab:stride_scenarios}{{3.1}{24}{Scénarios d'attaque STRIDE et contre-mesures Istio}{table.caption.21}{}}
@@ -98,12 +98,12 @@
 \newlabel{tab:services_deployes}{{4.1}{27}{Services déployés dans le prototype}{table.caption.22}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4.2}Les Six Couches de Sécurité Implémentées}{27}{section.4.2}\protected@file@percent }
 \newlabel{sec:mesh-config}{{4.2}{27}{Les Six Couches de Sécurité Implémentées}{section.4.2}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Les six couches de sécurité du prototype}}{28}{table.caption.23}\protected@file@percent }
-\newlabel{tab:couches_securite}{{4.2}{28}{Les six couches de sécurité du prototype}{table.caption.23}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Les sept couches de sécurité du prototype}}{28}{table.caption.23}\protected@file@percent }
+\newlabel{tab:couches_securite}{{4.2}{28}{Les sept couches de sécurité du prototype}{table.caption.23}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4.3}Analyse Comparative }{28}{section.4.3}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces Comparaison avant/après application des politiques Istio}}{29}{table.caption.24}\protected@file@percent }
 \newlabel{tab:avant_apres}{{4.3}{29}{Comparaison avant/après application des politiques Istio}{table.caption.24}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.4}Résultats Détaillés par Scénario}{29}{section.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.4}Résultats Détaillés par Scénario}{30}{section.4.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}T1 --- Accès à \texttt  {/charge} sans JWT (Elevation of Privilege)}{30}{subsection.4.4.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Commande exécutée.}{30}{paragraph*.25}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Résultat obtenu.}{30}{paragraph*.26}\protected@file@percent }
@@ -124,52 +124,49 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces Kiali~: détail du trafic entrant sur \texttt  {fraud-detection} --- 100\,\% d'erreurs.}}{33}{figure.caption.34}\protected@file@percent }
 \newlabel{fig:t34_kiali2}{{4.6}{33}{Kiali~: détail du trafic entrant sur \texttt {fraud-detection} --- 100\,\% d'erreurs}{figure.caption.34}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.4.4}T5 et T6 --- JWT Corrompu et Issuer Non Reconnu (Tampering)}{33}{subsection.4.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{T5 --- Signature corrompue.}{33}{paragraph*.35}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Commande exécutée.}{33}{paragraph*.36}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{T5 --- Signature corrompue.}{34}{paragraph*.35}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Commande exécutée.}{34}{paragraph*.36}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces Test T5 --- envoi d'un JWT à signature corrompue, rejet HTTP 401 et trafic en erreur visible dans Kiali}}{34}{figure.caption.37}\protected@file@percent }
 \newlabel{fig:t5_12}{{4.7}{34}{Test T5 --- envoi d'un JWT à signature corrompue, rejet HTTP 401 et trafic en erreur visible dans Kiali}{figure.caption.37}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces Logs Envoy --- refus \texttt  {jwt\_authn\_access\_denied\{Jwt\_verification\_fails\}} pour chaque requête avec signature invalide}}{34}{figure.caption.38}\protected@file@percent }
 \newlabel{fig:t5_log}{{4.8}{34}{Logs Envoy --- refus \texttt {jwt\_authn\_access\_denied\{Jwt\_verification\_fails\}} pour chaque requête avec signature invalide}{figure.caption.38}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces  Flux JWT : validation par RequestAuthentication et contrôle d'accès par AuthorizationPolicy au niveau de l'Istio Ingress Gateway.}}{35}{figure.caption.39}\protected@file@percent }
-\newlabel{fig:cycle-vie-certificats}{{4.9}{35}{Flux JWT : validation par RequestAuthentication et contrôle d'accès par AuthorizationPolicy au niveau de l'Istio Ingress Gateway}{figure.caption.39}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces Flux JWT à l'Istio Ingress Gateway --- validation et contrôle d'accès.}}{35}{figure.caption.39}\protected@file@percent }
+\newlabel{fig:cycle-vie-certificats}{{4.9}{35}{Flux JWT à l'Istio Ingress Gateway --- validation et contrôle d'accès}{figure.caption.39}{}}
 \@writefile{toc}{\contentsline {paragraph}{T6 --- Issuer non reconnu.}{35}{paragraph*.40}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.4.5}T7 --- Audit Trail et Non-Répudiation (Repudiation)}{35}{subsection.4.4.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Commandes exécutées.}{35}{paragraph*.41}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Commandes exécutées.}{36}{paragraph*.41}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Résultat obtenu.}{36}{paragraph*.42}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.4.6}T8 --- Vérification du Chiffrement mTLS (Information Disclosure)}{37}{subsection.4.4.6}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Inspection du certificat mTLS en live.}{37}{paragraph*.43}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Résultat (extrait).}{37}{paragraph*.44}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.7}T9 --- Abus de Jeton ServiceAccount (Information Disclosure / Elevation of Privilege)}{37}{subsection.4.4.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.7}T9 --- Abus de Jeton ServiceAccount (Information Disclosure / Elevation of Privilege)}{38}{subsection.4.4.7}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Commandes exécutées.}{38}{paragraph*.45}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Résultat obtenu.}{38}{paragraph*.46}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.4.8}T10 et T11 --- DoS et Rate Limiting}{39}{subsection.4.4.8}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{T10 --- Flood de 200 requêtes simultanées.}{39}{paragraph*.47}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{T11 --- Après application de l'EnvoyFilter (50 req/60s).}{39}{paragraph*.48}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {4.5}Observabilité avec Kiali et Grafana}{40}{section.4.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.1}Tableau des Vues d'Observabilité}{40}{subsection.4.5.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.4}{\ignorespaces Vues d'observabilité Kiali et Grafana}}{40}{table.caption.49}\protected@file@percent }
-\newlabel{tab:observabilite}{{4.4}{40}{Vues d'observabilité Kiali et Grafana}{table.caption.49}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.2}Captures Kiali}{41}{subsection.4.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Topologie complète du mesh en phase baseline.}{41}{paragraph*.50}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.10}{\ignorespaces \textbf  {Vue topologique du mesh --- phase baseline (88,38\,\% de succès).}}}{41}{figure.caption.51}\protected@file@percent }
-\newlabel{fig:kiali-graph-baseline}{{4.10}{41}{\textbf {Vue topologique du mesh --- phase baseline (88,38\,\% de succès).}}{figure.caption.51}{}}
-\@writefile{toc}{\contentsline {paragraph}{Isolation mTLS STRICT : appelant sans sidecar bloqué.}{41}{paragraph*.52}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.11}{\ignorespaces \textbf  {Workload \texttt  {attacker-cross-ns} --- sidecar manquant, trafic nul.}}}{42}{figure.caption.53}\protected@file@percent }
-\newlabel{fig:kiali-nosidecar}{{4.11}{42}{\textbf {Workload \texttt {attacker-cross-ns} --- sidecar manquant, trafic nul.}}{figure.caption.53}{}}
-\@writefile{toc}{\contentsline {paragraph}{Détail d'arête mTLS avec identités SPIFFE.}{42}{paragraph*.54}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.12}{\ignorespaces \textbf  {Arête HTTP gateway $\rightarrow $ \texttt  {payment-api} --- mTLS activé, principals SPIFFE visibles.}}}{43}{figure.caption.55}\protected@file@percent }
-\newlabel{fig:kiali-edge-mtls}{{4.12}{43}{\textbf {Arête HTTP gateway $\rightarrow $ \texttt {payment-api} --- mTLS activé, principals SPIFFE visibles.}}{figure.caption.55}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.3}Captures Grafana}{44}{subsection.4.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Istio Service Dashboard --- impact du flood sur \texttt  {payment-api}.}{44}{paragraph*.56}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.13}{\ignorespaces \textbf  {Grafana Istio Service Dashboard --- pic de latence et sources de trafic distinctes à 11:40.}}}{44}{figure.caption.57}\protected@file@percent }
-\newlabel{fig:grafana-service-dashboard}{{4.13}{44}{\textbf {Grafana Istio Service Dashboard --- pic de latence et sources de trafic distinctes à 11:40.}}{figure.caption.57}{}}
-\@writefile{toc}{\contentsline {paragraph}{Istio Mesh Dashboard --- KPI globaux et inventaire des ressources.}{44}{paragraph*.58}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.14}{\ignorespaces \textbf  {Grafana Istio Mesh Dashboard --- 8\,ops/s, 1,67\,ops/s en 4xx, inventaire Istio confirmé.}}}{45}{figure.caption.59}\protected@file@percent }
-\newlabel{fig:grafana-mesh-dashboard}{{4.14}{45}{\textbf {Grafana Istio Mesh Dashboard --- 8\,ops/s, 1,67\,ops/s en 4xx, inventaire Istio confirmé.}}{figure.caption.59}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.6}Synthèse des Apports DevSecOps}{45}{section.4.6}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.5}{\ignorespaces Apports DevSecOps mesurés sur le prototype}}{46}{table.caption.60}\protected@file@percent }
-\newlabel{tab:apports_devsecops}{{4.5}{46}{Apports DevSecOps mesurés sur le prototype}{table.caption.60}{}}
-\@writefile{toc}{\contentsline {chapter}{Bibliographie}{47}{table.caption.60}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.1}Tableau des Vues d'Observabilité}{41}{subsection.4.5.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.4}{\ignorespaces Vues d'observabilité Kiali et Grafana}}{41}{table.caption.49}\protected@file@percent }
+\newlabel{tab:observabilite}{{4.4}{41}{Vues d'observabilité Kiali et Grafana}{table.caption.49}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.2}Captures Kiali}{42}{subsection.4.5.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.10}{\ignorespaces \textbf  {Vue topologique du mesh --- phase baseline (88,38\,\% de succès).}}}{42}{figure.caption.50}\protected@file@percent }
+\newlabel{fig:kiali-graph-baseline}{{4.10}{42}{\textbf {Vue topologique du mesh --- phase baseline (88,38\,\% de succès).}}{figure.caption.50}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.11}{\ignorespaces \textbf  {Workload \texttt  {attacker-cross-ns} --- sidecar manquant, trafic nul.}}}{43}{figure.caption.51}\protected@file@percent }
+\newlabel{fig:kiali-nosidecar}{{4.11}{43}{\textbf {Workload \texttt {attacker-cross-ns} --- sidecar manquant, trafic nul.}}{figure.caption.51}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.12}{\ignorespaces \textbf  {Arête HTTP gateway $\rightarrow $ \texttt  {payment-api} --- mTLS activé, principals SPIFFE visibles.}}}{44}{figure.caption.52}\protected@file@percent }
+\newlabel{fig:kiali-edge-mtls}{{4.12}{44}{\textbf {Arête HTTP gateway $\rightarrow $ \texttt {payment-api} --- mTLS activé, principals SPIFFE visibles.}}{figure.caption.52}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.3}Captures Grafana}{45}{subsection.4.5.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.13}{\ignorespaces \textbf  {Grafana Istio Service Dashboard --- pic de latence et sources de trafic distinctes à 11:40.}}}{45}{figure.caption.53}\protected@file@percent }
+\newlabel{fig:grafana-service-dashboard}{{4.13}{45}{\textbf {Grafana Istio Service Dashboard --- pic de latence et sources de trafic distinctes à 11:40.}}{figure.caption.53}{}}
+\@writefile{toc}{\contentsline {paragraph}{Istio Mesh Dashboard --- KPI globaux et inventaire des ressources.}{45}{paragraph*.54}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.14}{\ignorespaces \textbf  {Grafana Istio Mesh Dashboard --- 8\,ops/s, 1,67\,ops/s en 4xx, inventaire Istio confirmé.}}}{45}{figure.caption.55}\protected@file@percent }
+\newlabel{fig:grafana-mesh-dashboard}{{4.14}{45}{\textbf {Grafana Istio Mesh Dashboard --- 8\,ops/s, 1,67\,ops/s en 4xx, inventaire Istio confirmé.}}{figure.caption.55}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.6}Synthèse des Apports DevSecOps}{46}{section.4.6}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.5}{\ignorespaces Apports DevSecOps mesurés sur le prototype}}{47}{table.caption.56}\protected@file@percent }
+\newlabel{tab:apports_devsecops}{{4.5}{47}{Apports DevSecOps mesurés sur le prototype}{table.caption.56}{}}
+\@writefile{toc}{\contentsline {chapter}{Conclusion Générale}{48}{chapter*.57}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Bibliographie}{49}{chapter*.57}\protected@file@percent }
 \bibcite{istio-security}{1}
 \bibcite{owasp-top10}{2}
 \bibcite{owasp-zap}{3}
@@ -188,5 +185,4 @@
 \bibcite{microservices-patterns}{16}
 \bibcite{zero-trust-rose}{17}
 \abx@aux@read@bbl@mdfivesum{D41D8CD98F00B204E9800998ECF8427E}
-\abx@aux@read@bblrerun
-\gdef \@abspage@last{57}
+\gdef \@abspage@last{59}
